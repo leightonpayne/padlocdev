@@ -1,0 +1,13 @@
+Package: padlocdev
+Title: PADLOC development tools
+Version: 0.99.0
+Authors@R: 
+    person("Leighton", "Payne",
+      email = "leighton.payne@postgrad.otago.ac.nz", 
+      role = c("aut", "cre"),
+      comment = c(ORCID = ""))
+Description: PADLOC development tools
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
