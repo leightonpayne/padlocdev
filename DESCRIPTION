@@ -2,14 +2,21 @@ Package: padlocdev
 Title: PADLOC development tools
 Version: 0.99.0
 Authors@R: 
-    person("Leighton", "Payne",
-      email = "leighton.payne@postgrad.otago.ac.nz", 
-      role = c("aut", "cre"),
-      comment = c(ORCID = ""))
-Description: PADLOC development tools
+    person("Leighton", "Payne", , "leighton.payne@postgrad.otago.ac.nz", role = c("aut", "cre"))
+Description: PADLOC development tools.
 License: MIT + file LICENSE
+URL: https://github.com/leightonpayne/padlocdev
+BugReports: https://github.com/leightonpayne/padlocdev/issues
+Imports: 
+    dplyr,
+    magrittr,
+    readr,
+    stringr,
+    tidyr,
+    yaml
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
-URL: https://github.com/leightonpayne/padlocdev
-BugReports: https://github.com/leightonpayne/padlocdev/issues
