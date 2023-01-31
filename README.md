@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/leightonpayne/padlocdev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/leightonpayne/padlocdev/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/leightonpayne/padlocdev/branch/master/graph/badge.svg?token=06BRH9RWNI)](https://codecov.io/gh/leightonpayne/padlocdev)
 <!-- badges: end -->
 
 ## Installation
