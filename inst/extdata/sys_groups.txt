@@ -1,0 +1,6 @@
+yaml.name	group
+sys_A_I	group_1
+sys_A_II	group_1
+sys_B	group_2
+sys_C	group_3
+sys_D	group_3

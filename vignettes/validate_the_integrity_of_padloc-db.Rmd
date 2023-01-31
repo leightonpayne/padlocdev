@@ -1,0 +1,36 @@
+---
+title: "Validate the integrity of padloc-db"
+author: "Leighton Payne"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validate the integrity of padloc-db}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+### Reading padloc-db files
+
+```{r, message = FALSE}
+# hmm_meta <- read_hmm_meta("")
+# sys_meta <- read_sys_meta("")
+# sys_groups <- read_sys_groups("")
+```
+
+Convenience wrappers are provided for reading all `sys/` and `hmm/` files into 
+a list.
+
+```{r, message = FALSE}
+# convenience wrapper
+```

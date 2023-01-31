@@ -107,6 +107,27 @@ read_hmm_meta <- function(file) {
 
 }
 
+#' @title Read a padloc-db sys_groups.txt file.
+#' @param file Path to sys_groups.txt
+#' @return A [tibble::tibble()].
+#' @export
+#' @examples
+#' sys_groups <- read_sys_groups(padlocdev_example("sys_groups.txt"))
+#' sys_groups
+read_sys_groups <- function(file) {
+  cols <- readr::cols(
+    yaml.name = readr::col_character(),
+    group     = readr::col_character()
+  )
+  out <- readr::read_tsv(
+    file,
+    skip = 1,
+    col_names = names(cols$cols),
+    col_types = cols
+  )
+  out
+}
+
 #' @title Read an HMMER3 formatted profile HMM
 #' @param file Path to a profile HMM generated with HMMER3
 #' @return A [base::list()].
