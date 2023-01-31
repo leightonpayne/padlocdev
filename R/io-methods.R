@@ -92,7 +92,8 @@ read_hmm_meta <- function(file) {
     error <- paste0(
       "Some rows of hmm_meta.txt are missing values in required columns. ",
       "Required values include: ", paste0(required_values, collapse = ", "),
-      ".")
+      "."
+    )
     stop(error)
   }
 
@@ -104,7 +105,6 @@ read_hmm_meta <- function(file) {
   x <- tidyr::separate_rows(x, dplyr::all_of(multi_assigments), sep = "\\s*\\|\\s*")
 
   x
-
 }
 
 #' @title Read a padloc-db sys_groups.txt file.
@@ -135,7 +135,6 @@ read_sys_groups <- function(file) {
 #' @examples
 #' read_hmm(padlocdev_example("protein.hmm"))
 read_hmm <- function(file) {
-
   errors <- ""
 
   data <- readLines(file)
@@ -156,7 +155,7 @@ read_hmm <- function(file) {
 
   # Separate into header and model
   split <- grep("^HMM ", data)
-  header <- data[1:(split-1)]
+  header <- data[1:(split - 1)]
   model <- data[split:length(data)]
 
   # Handle header data
@@ -198,7 +197,8 @@ read_hmm <- function(file) {
       "Not all mandatory header sections are present.\nMandatory header sections include: ",
       paste0(mandatory_headers, collapse = ", "), ".\n",
       "Check the HMMER User's Guide for more information:\n",
-      "http://eddylab.org/software/hmmer/Userguide.pdf")
+      "http://eddylab.org/software/hmmer/Userguide.pdf"
+    )
     stop(errors)
   }
 
@@ -342,7 +342,6 @@ read_hmm <- function(file) {
   )
 
   return(out)
-
 }
 
 # TODO: Write a function that prints an HMM to a file
@@ -388,7 +387,6 @@ read_hmm <- function(file) {
 # }
 
 read_hmm_header <- function(hmm) {
-
   # Only head the first 23 lines as possible header lines (if there's more
   # header lines than this then the HMM is broken anyway)
   header <- readr::read_lines(hmm, n_max = 23)
@@ -433,7 +431,6 @@ read_hmm_header <- function(hmm) {
   }
 
   header_values
-
 }
 
 #' Read the filename, NAME and ACC identifiers from a profile HMM into a list.
@@ -443,10 +440,10 @@ read_hmm_header <- function(hmm) {
 #' @examples
 #' read_hmm_name_acc(padlocdev_example("protein.hmm"))
 read_hmm_name_acc <- function(file) {
-  filename = stringr::str_remove(basename(file), "\\.hmm")
+  filename <- stringr::str_remove(basename(file), "\\.hmm")
   header <- paste0(readr::read_lines(file, n_max = 23), collapse = "\n")
-  NAME = stringr::str_extract(header, "(?<=NAME  ).*")
-  ACC = stringr::str_extract(header, "(?<=ACC   ).*")
+  NAME <- stringr::str_extract(header, "(?<=NAME  ).*")
+  ACC <- stringr::str_extract(header, "(?<=ACC   ).*")
   list(
     filename = filename,
     name = NAME,

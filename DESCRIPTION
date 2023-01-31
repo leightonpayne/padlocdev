@@ -2,7 +2,7 @@ Package: padlocdev
 Title: PADLOC development tools
 Version: 0.99.0
 Authors@R: 
-    person("Leighton", "Payne", , "leighton.payne@postgrad.otago.ac.nz", role = c("aut", "cre"))
+    person("Leighton", "Payne", , "leighton.payne@postgrad.otago.ac.nz", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2305-6827"))
 Description: PADLOC development tools.
 License: MIT + file LICENSE
 URL: https://github.com/leightonpayne/padlocdev

@@ -2,6 +2,7 @@
 #' @description padlocdev comes bundled with a number of sample files in its
 #' `inst/extdata` directory. This function make them easy to access.
 #' @param file Name of file. If `NULL`, the example files will be listed.
+#' @return A [base::character()].
 #' @export
 #' @examples
 #' padlocdev_example()

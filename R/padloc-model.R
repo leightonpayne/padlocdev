@@ -12,7 +12,6 @@ padloc_model <- function(maximum_separation, minimum_core, minimum_total, core_g
 }
 
 valid_padloc_model <- function(object) {
-
   errors <- ""
 
   quorum_param <- c("maximum_separation", "minimum_core", "minimum_total")
@@ -49,7 +48,4 @@ valid_padloc_model <- function(object) {
   } else {
     return(TRUE)
   }
-
 }
-
-
