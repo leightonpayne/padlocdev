@@ -1,11 +1,11 @@
 hmm.accession	hmm.name	hmm.description	protein.name	secondary.name	author	hmm.nseq	hmm.length	e.val.threshold	hmm.coverage.threshold	target.coverage.threshold	system	literature.ref	database.ref	comment
-PROT00001	Protein_00001	This protein does something	AaaA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00002	Protein_00002	This protein has this domain	AaaB		Payne LJ			1.00E-05	0.3	0.3	NA	NA	NA	NA
-PROT00003	Protein_00003	This protein has no known domains	AaaC		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00004	Protein_00004	This protein does something	BbbA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00005	Protein_00005	This protein has this domain	BbbA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00006	Protein_00006	This protein has no known domains	BbbA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00007	Protein_00007	This protein does something	CccA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00008	Protein_00008	This protein has this domain	CccB		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00009	Protein_00009	This protein has no known domains	DddA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
-PROT00010	Protein_00010	This protein does something	EeeA		Payne LJ			0.00001	0.7	0.7	NA	NA	NA	NA
+PROT00001	Protein_00001	This protein does something	SyaA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00002	Protein_00002	This protein has this domain	SyaB	Sya_accessory	Payne LJ			1.00E-05	0.3	0.3	NA	NA	NA	NA
+PROT00003	Protein_00003	This protein has no known domains	SyaC	Sya_accessory	Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00004	Protein_00004	This protein does something	SybA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00005	Protein_00005	This protein has this domain	SybA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00006	Protein_00006	This protein has no known domains	SybA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00007	Protein_00007	This protein does something	SycA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00008	Protein_00008	This protein has this domain	SycB		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00009	Protein_00009	This protein has no known domains	SydA		Payne LJ			0.00001	0.3	0.3	NA	NA	NA	NA
+PROT00010	Protein_00010	This protein does something	SyeA		Payne LJ			0.00001	0.7	0.7	NA	NA	NA	NA

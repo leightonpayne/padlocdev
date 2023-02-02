@@ -28,9 +28,37 @@ library(padlocdev)
 # sys_groups <- read_sys_groups("")
 ```
 
-Convenience wrappers are provided for reading all `sys/` and `hmm/` files into 
-a list.
+Convenience wrappers are provided for reading all `sys/*.yaml` and `hmm/*.hmm` 
+files into a list. For example, reading all of the HMMs in a directory:
 
 ```{r, message = FALSE}
-# convenience wrapper
+# Reading the entirity of a padloc model into R 
+# path <- padlocdev_example("hmm")
+# hmm <- multi_read_hmm(path)
 ```
+
+Reading a complete profile HMM into R 
+
+```{r, message = FALSE}
+# Read header data for all HMMs in 
+path <- padlocdev_example("hmm")
+path
+hmm <- multi_read_hmm_header(path)
+hmm[1]
+
+# Read all padloc models
+path <- padlocdev_example("sys")
+path
+
+sys <- multi_read_padloc_model(path)
+sys[1]
+
+```
+
+### Check that sys models are valid
+
+```{r, message = FALSE}
+# do stuff
+```
+
+

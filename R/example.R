@@ -8,9 +8,19 @@
 #' padlocdev_example()
 #' padlocdev_example("protein.hmm")
 padlocdev_example <- function(file = NULL) {
+  package_path <- fs::path_package("padlocdev")
+  extdata_path <- fs::path_join(c(package_path, "extdata"))
   if (is.null(file)) {
-    dir(system.file("extdata", package = "padlocdev"))
+    full_paths <- fs::dir_ls(extdata_path, recurse = TRUE)
+    relative_paths <- stringr::str_remove(full_paths, paste0(extdata_path, "/"))
+    relative_paths
   } else {
-    system.file("extdata", file, package = "padlocdev", mustWork = TRUE)
+    file_path <- fs::path_join(c(package_path, "extdata", file))
+    file_exists <- fs::file_exists(file_path)
+    if (file_exists) {
+      file_path
+    } else {
+      cli::cli_abort("Can't find package file.", call = NULL)
+    }
   }
 }

@@ -1,6 +1,8 @@
 system	type	yaml.name	search	comment
-System Family A	Type I	sys_A_I	T	This is the first type of system from a family of two types
-System Family A	Type II	sys_A_II	T	This is the second type of system from a family of two types
-System Family B	NA	sys_B	T	This system has an unknown mechanism
-System Family C	NA	sys_C	T	This system has a well known mechanism
-System Family D	NA	sys_D	T	This system should probably belong to the same family as C
+System Family A	Type I	SystemA_I	T	This is the first type of system from a family of three types
+System Family A	Type II	SystemA_II	T	This is the second type of system from a family of three types
+System Family A	Type III	SystemA_III	T	This is the third type of system from a family of three types
+System Family B	NA	SystemB	T	This system has an unknown mechanism
+System Family C	NA	SystemC	T	This system has a well known mechanism
+System Family D	NA	SystemD	T	This system should probably belong to the same family as C
+System Family E	NA	SystemE	T	This system should also probably belong to the same family as C

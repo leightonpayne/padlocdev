@@ -1,0 +1,10 @@
+maximum_separation: 3
+minimum_core: 3
+minimum_total: 3
+
+core_genes:
+  - SyaA
+optional_genes:
+  - Sya_accessory
+prohibited_genes:
+  - NA

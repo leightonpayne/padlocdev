@@ -1,6 +1,9 @@
 # Assorted methods for reading/writing files
 # ------------------------------------------------------------------------------
 
+# Read/write padloc models
+# ------------------------------------------------------------------------------
+
 #' @title Read in a padloc model (.yaml) file
 #' @param file Path to padloc model in yaml format (*.yaml).
 #' @return A [base::list()].
@@ -20,7 +23,24 @@ read_padloc_model <- function(file) {
   out
 }
 
+#' Read the filename, NAME and ACC identifiers from a profile HMM into a list.
+#' @param directory Path to a directory containing profile HMMs (*.hmm)
+#' @return A [base::list()].
+#' @export
+#' @examples
+#' multi_read_hmm_header(padlocdev_example("hmm"))
+multi_read_padloc_model <- function(directory) {
+  files <- list.files(directory, full.names = TRUE, pattern = "*.yaml")
+  padloc_models <- lapply(X = files, FUN = read_padloc_model)
+  model_names <- stringr::str_remove(basename(files), ".yaml")
+  names(padloc_models) <- model_names
+  model_names
+}
+
 # TODO: Write a function that writes a padloc model to a file
+
+# Read/write metadata files
+# ------------------------------------------------------------------------------
 
 #' @title Read a padloc-db sys_meta.txt file.
 #' @param file Path to sys_meta.txt.
@@ -127,6 +147,9 @@ read_sys_groups <- function(file) {
   )
   out
 }
+
+# Read/write profile HMMs
+# ------------------------------------------------------------------------------
 
 #' @title Read an HMMER3 formatted profile HMM
 #' @param file Path to a profile HMM generated with HMMER3
@@ -344,6 +367,21 @@ read_hmm <- function(file) {
   return(out)
 }
 
+#' Read all HMMs in a directory into a list
+#' @param directory Path to a directory containing profile HMMs (*.hmm)
+#' @return A [base::list()] of HMMs.
+#' @export
+#' @examples
+#' hmms <- multi_read_hmm(padlocdev_example("hmm"))
+#' hmms[1]
+multi_read_hmm <- function(directory) {
+  files <- list.files(directory, full.names = TRUE, pattern = "*.hmm")
+  hmm_headers <- lapply(X = files, FUN = read_hmm)
+  hmm_names <- stringr::str_remove(basename(files), ".hmm")
+  names(hmm_headers) <- hmm_names
+  hmm_headers
+}
+
 # TODO: Write a function that prints an HMM to a file
 
 # write_hmm <- function(hmm) {
@@ -386,10 +424,16 @@ read_hmm <- function(file) {
 # )
 # }
 
-read_hmm_header <- function(hmm) {
+#' Read the header section from a profile HMM into a list.
+#' @param file Path to profile HMM (*.hmm)
+#' @return A [base::list()].
+#' @export
+#' @examples
+#' read_hmm_header(padlocdev_example("protein.hmm"))
+read_hmm_header <- function(file) {
   # Only head the first 23 lines as possible header lines (if there's more
   # header lines than this then the HMM is broken anyway)
-  header <- readr::read_lines(hmm, n_max = 23)
+  header <- readr::read_lines(file, n_max = 23)
 
   # Handle header data
   all_headers <- c(
@@ -433,20 +477,36 @@ read_hmm_header <- function(hmm) {
   header_values
 }
 
-#' Read the filename, NAME and ACC identifiers from a profile HMM into a list.
-#' @param file Path to profile HMM (*.hmm)
+#' Read the headers from a profile HMM into a list.
+#' @param directory Path to a directory containing profile HMMs (*.hmm)
 #' @return A [base::list()].
 #' @export
 #' @examples
-#' read_hmm_name_acc(padlocdev_example("protein.hmm"))
-read_hmm_name_acc <- function(file) {
-  filename <- stringr::str_remove(basename(file), "\\.hmm")
-  header <- paste0(readr::read_lines(file, n_max = 23), collapse = "\n")
-  NAME <- stringr::str_extract(header, "(?<=NAME  ).*")
-  ACC <- stringr::str_extract(header, "(?<=ACC   ).*")
-  list(
-    filename = filename,
-    name = NAME,
-    acc = ACC
-  )
+#' hmms <- multi_read_hmm_header(padlocdev_example("hmm"))
+#' hmms[1]
+multi_read_hmm_header <- function(directory) {
+  files <- list.files(directory, full.names = TRUE, pattern = "*.hmm")
+  hmm_headers <- lapply(X = files, FUN = read_hmm_header)
+  hmm_names <- stringr::str_remove(basename(files), ".hmm")
+  names(hmm_headers) <- hmm_names
+  hmm_headers
 }
+
+
+# #' Read the filename, NAME and ACC identifiers from a profile HMM into a list.
+# #' @param file Path to profile HMM (*.hmm)
+# #' @return A [base::list()].
+# #' @export
+# #' @examples
+# #' read_hmm_name_acc(padlocdev_example("protein.hmm"))
+# read_hmm_name_acc <- function(file) {
+#   filename <- stringr::str_remove(basename(file), "\\.hmm")
+#   header <- paste0(readr::read_lines(file, n_max = 23), collapse = "\n")
+#   NAME <- stringr::str_extract(header, "(?<=NAME  ).*")
+#   ACC <- stringr::str_extract(header, "(?<=ACC   ).*")
+#   list(
+#     filename = filename,
+#     name = NAME,
+#     acc = ACC
+#   )
+# }
