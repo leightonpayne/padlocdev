@@ -4,21 +4,6 @@ sys_groups <- read_sys_groups("/Volumes/SSD-01/02_working/padloc_update_230119/s
 
 
 
-
-# TODO: Check all hmms are listed in hmm_meta.txt and vice versa
-
-# TODO: Check all systems are listed in sys_meta.txt and vice versa
-
-# TODO: Check all systems have been assigned a group
-
-# TODO: Check all models are valid
-
-# TODO: Separate padloc-db based on system groups
-
-# TODO: Assess amount of overlap between system groups
-
-
-
 filter_models(padloc_models, sys_groups, "new")
 
 gene_types <- c("core_genes", "optional_genes", "prohibited_genes")

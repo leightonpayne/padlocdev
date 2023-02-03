@@ -6,10 +6,11 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/leightonpayne/padlocdev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/leightonpayne/padlocdev/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/leightonpayne/padlocdev/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/leightonpayne/padlocdev/actions/workflows/pkgdown.yaml)
+[![test-coverage](https://github.com/leightonpayne/padlocdev/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/leightonpayne/padlocdev/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/leightonpayne/padlocdev/branch/master/graph/badge.svg?token=06BRH9RWNI)](https://codecov.io/gh/leightonpayne/padlocdev)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Documentation](https://github.com/leightonpayne/padlocdev/actions/workflows/pkgdown.yaml/badge.svg)](https://leightonpayne.github.io/padlocdev/)
 <!-- badges: end -->
 
 ## Installation

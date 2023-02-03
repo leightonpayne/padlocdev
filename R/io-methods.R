@@ -491,22 +491,3 @@ multi_read_hmm_header <- function(directory) {
   names(hmm_headers) <- hmm_names
   hmm_headers
 }
-
-
-# #' Read the filename, NAME and ACC identifiers from a profile HMM into a list.
-# #' @param file Path to profile HMM (*.hmm)
-# #' @return A [base::list()].
-# #' @export
-# #' @examples
-# #' read_hmm_name_acc(padlocdev_example("protein.hmm"))
-# read_hmm_name_acc <- function(file) {
-#   filename <- stringr::str_remove(basename(file), "\\.hmm")
-#   header <- paste0(readr::read_lines(file, n_max = 23), collapse = "\n")
-#   NAME <- stringr::str_extract(header, "(?<=NAME  ).*")
-#   ACC <- stringr::str_extract(header, "(?<=ACC   ).*")
-#   list(
-#     filename = filename,
-#     name = NAME,
-#     acc = ACC
-#   )
-# }

@@ -1,3 +1,38 @@
+#' @title Compare two dataframes / tibbles
+#' @description This is a helper function for comparing two dataframes / tibbles
+#' @param a first dataframe
+#' @param b second dataframe
+#' @param join_by column in common
+#' @return A [base::list()] of three [base::data.frame()]s or
+#' [tibble::tibble()]s, one with entries in 'a' but not 'b' and vice-versa,
+#' and one with entries in both 'a' and 'b'
+a_vs_b <- function(a, b, join_by) {
+
+  a_name = deparse(substitute(a))
+  b_name = deparse(substitute(b))
+
+  a_subset <- dplyr::select(a, join_by)
+  b_subset <- dplyr::select(b, join_by)
+
+  a_exists <- dplyr::mutate(a_subset, !!as.name(a_name) := TRUE)
+  b_exists <- dplyr::mutate(b_subset, !!as.name(b_name) := TRUE)
+
+  out <- list(
+    a_wo_b <- dplyr::anti_join(a_exists, b_exists, by = join_by),
+    b_wo_a <- dplyr::anti_join(b_exists, a_exists, by = join_by),
+    complete <- dplyr::inner_join(a_exists, b_exists, by = join_by)
+  )
+
+  names(out) <- c(
+    paste0(a_name, " without ", b_name),
+    paste0(b_name, " without ", a_name),
+    paste0(a_name, " with ", b_name)
+  )
+
+  out
+
+}
+
 #' @title Expand gene groups
 #' @description Expand secondary gene assignments in a specific category of
 #' genes into their underlying genes.
@@ -63,8 +98,64 @@ expand_gene_groups_all <- function(models, hmm_meta) {
   models_expanded
 }
 
-# tmp <- expand_gene_groups_all(models, hmm_meta)
+#' @title Compare HMM files against those listed in hmm_meta.txt
+#' @description Compare HMM files against those listed in hmm_meta.txt.
+#' @param hmm_list A [base::list()] of HMMs (i.e. as read in by
+#' [multi_read_hmm()] or [multi_read_hmm_header()]).
+#' @param hmm_meta A padloc-db HMM metadata file (i.e. as read in by
+#' [read_hmm_meta()]).
+#' @return a [base::list()] of three [tibble::tibble()]s.
+#' @export
+compare_hmm_files_hmm_meta <- function(hmm_list, hmm_meta) {
+  hmm_files <- tibble::tibble(
+    # The 'NAME' field is important here, as it is what eventually ends up
+    # identifying the HMM in the HMMER output, which gets tied back to the
+    # metadata in hmm_meta.txt
+    hmm.name = sapply(hmm_list, function(x) x[["header"]][["NAME"]])
+  )
+  out <- a_vs_b(hmm_files, hmm_meta, join_by = "hmm.name")
+  out
+}
 
+#' @title Compare system model files against those listed in sys_meta.txt
+#' @description Compare system model files against those listed in hmm_meta.txt.
+#' @param sys_list A [base::list()] of system models (i.e. as read in by
+#' [multi_read_padloc_model()].
+#' @param sys_meta A padloc-db system metadata file (i.e. as read in by
+#' [read_sys_meta()]).
+#' @return a [base::list()] of three [tibble::tibble()]s.
+#' @export
+compare_sys_files_sys_meta <- function(sys_list, sys_meta) {
+  sys_files <- tibble::tibble(yaml.name = names(sys_list))
+  out <- a_vs_b(sys_files, sys_meta, join_by = "yaml.name")
+  out
+}
+
+#' @title Compare system model files against those listed in sys_meta.txt
+#' @description Compare system model files against those listed in hmm_meta.txt.
+#' @param sys_meta A padloc-db system metadata file (i.e. as read in by
+#' [read_sys_meta()]).
+#' @param sys_groups A padloc-db system groups metadata file (i.e. as read in
+#' by [read_sys_groups()]).
+#' @return a [base::list()] of three [tibble::tibble()]s.
+#' @export
+compare_sys_meta_sys_groups <- function(sys_meta, sys_groups) {
+  out <- a_vs_b(sys_meta, sys_groups, join_by = "yaml.name")
+  out
+}
+
+
+valid_padloc_model_all <- function() {
+  lapply(
+    X =
+  )
+  valid_padloc_model_expanded()
+}
+
+
+# TODO: Separate padloc-db based on system groups
+
+# TODO: Finish this function
 # Filter a list of padloc models for those in a specific group (as defined in `sys_groups.txt`)
 filter_models <- function(padloc_models, sys_groups, group_name) {
   relevant_systems <- dplyr::filter(sys_groups, "group" %in% group_name)
@@ -73,3 +164,5 @@ filter_models <- function(padloc_models, sys_groups, group_name) {
   filtered_models <- padloc_models[which_models]
   filtered_models
 }
+
+# TODO: Assess amount of overlap between system groups

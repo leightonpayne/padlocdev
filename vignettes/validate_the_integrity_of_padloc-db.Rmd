@@ -173,7 +173,7 @@ models[["SystemA_III"]][["optional_genes"]]
 ### Checking that system models are valid
 
 ```{r, message = FALSE}
-#asd
+# Do this
 ```
 
-
+### 
