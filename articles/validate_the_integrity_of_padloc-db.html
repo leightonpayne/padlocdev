@@ -72,7 +72,7 @@
                         <h4 data-toc-skip class="author">Leighton
 Payne</h4>
             
-            <h4 data-toc-skip class="date">2023-02-02</h4>
+            <h4 data-toc-skip class="date">2023-02-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leightonpayne/padlocdev/blob/HEAD/vignettes/validate_the_integrity_of_padloc-db.Rmd" class="external-link"><code>vignettes/validate_the_integrity_of_padloc-db.Rmd</code></a></small>
       <div class="d-none name"><code>validate_the_integrity_of_padloc-db.Rmd</code></div>
@@ -83,111 +83,219 @@ Payne</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leightonpayne/padlocdev" class="external-link">padlocdev</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="reading-padloc-db-files">Reading padloc-db files<a class="anchor" aria-label="anchor" href="#reading-padloc-db-files"></a>
+<h3 id="example-files">Example files<a class="anchor" aria-label="anchor" href="#example-files"></a>
 </h3>
+<p>This package includes example files for demonstrating functions.
+These files can be listed and accessed with the function
+<code><a href="../reference/padlocdev_example.html">padlocdev_example()</a></code>. In the following code, you’ll see this
+function used to access these example files.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># hmm_meta &lt;- read_hmm_meta("")</span></span>
-<span><span class="co"># sys_meta &lt;- read_sys_meta("")</span></span>
-<span><span class="co"># sys_groups &lt;- read_sys_groups("")</span></span></code></pre></div>
-<p>Convenience wrappers are provided for reading all
-<code>sys/*.yaml</code> and <code>hmm/*.hmm</code> files into a list.
-For example, reading all of the HMMs in a directory:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Reading the entirity of a padloc model into R </span></span>
-<span><span class="co"># path &lt;- padlocdev_example("hmm")</span></span>
-<span><span class="co"># hmm &lt;- multi_read_hmm(path)</span></span></code></pre></div>
-<p>Reading a complete profile HMM into R</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Read header data for all HMMs in </span></span>
-<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm"</span><span class="op">)</span></span>
-<span><span class="va">path</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/home/runner/work/_temp/Library/padlocdev/extdata/hmm</span></span></span>
-<span><span class="va">hmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm_header.html">multi_read_hmm_header</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span><span class="va">hmm</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="co">#&gt; $PROT00001</span></span>
-<span><span class="co">#&gt; $PROT00001$`HMMER3/f`</span></span>
-<span><span class="co">#&gt; [1] "[3.3 | Nov 2019]"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$NAME</span></span>
-<span><span class="co">#&gt; [1] "Protein_00001"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$LENG</span></span>
-<span><span class="co">#&gt; [1] "5"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$ALPH</span></span>
-<span><span class="co">#&gt; [1] "amino"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$ACC</span></span>
-<span><span class="co">#&gt; [1] "PROT00001"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$DESC</span></span>
-<span><span class="co">#&gt; [1] "This protein does something"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$MAXL</span></span>
-<span><span class="co">#&gt; integer(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$RF</span></span>
-<span><span class="co">#&gt; [1] "no"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$MM</span></span>
-<span><span class="co">#&gt; [1] "no"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$CONS</span></span>
-<span><span class="co">#&gt; [1] "yes"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$CS</span></span>
-<span><span class="co">#&gt; [1] "no"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$MAP</span></span>
-<span><span class="co">#&gt; [1] "yes"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$DATE</span></span>
-<span><span class="co">#&gt; [1] "Thu Jan  7 16:11:08 2021"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$COM</span></span>
-<span><span class="co">#&gt; integer(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$NSEQ</span></span>
-<span><span class="co">#&gt; [1] "10"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$EFFN</span></span>
-<span><span class="co">#&gt; [1] "0.825195"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$CKSUM</span></span>
-<span><span class="co">#&gt; [1] "653067045"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$GA</span></span>
-<span><span class="co">#&gt; integer(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$TC</span></span>
-<span><span class="co">#&gt; integer(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$NC</span></span>
-<span><span class="co">#&gt; integer(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$`STATS LOCAL MSV`</span></span>
-<span><span class="co">#&gt; [1] "-11.9551  0.69676"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$`STATS LOCAL VITERBI`</span></span>
-<span><span class="co">#&gt; [1] "-13.0895  0.69676"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $PROT00001$`STATS LOCAL FORWARD`</span></span>
-<span><span class="co">#&gt; [1] "-6.4760  0.69676"</span></span>
+<code class="sourceCode R"><span><span class="co"># List example files (these are located in the package directory `padlocdev/inst/exdata/`).</span></span>
+<span><span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "example_model.yaml"   "hmm"                  "hmm/PROT00001.hmm"   </span></span>
+<span><span class="co">#&gt;  [4] "hmm/PROT00002.hmm"    "hmm/PROT00003.hmm"    "hmm/PROT00004.hmm"   </span></span>
+<span><span class="co">#&gt;  [7] "hmm/PROT00005.hmm"    "hmm/PROT00006.hmm"    "hmm/PROT00007.hmm"   </span></span>
+<span><span class="co">#&gt; [10] "hmm/PROT00008.hmm"    "hmm/PROT00009.hmm"    "hmm/PROT00010.hmm"   </span></span>
+<span><span class="co">#&gt; [13] "hmm_meta.txt"         "protein.hmm"          "sys"                 </span></span>
+<span><span class="co">#&gt; [16] "sys/SystemA_I.yaml"   "sys/SystemA_II.yaml"  "sys/SystemA_III.yaml"</span></span>
+<span><span class="co">#&gt; [19] "sys/SystemB.yaml"     "sys/SystemC.yaml"     "sys/SystemD.yaml"    </span></span>
+<span><span class="co">#&gt; [22] "sys/SystemE.yaml"     "sys_groups.txt"       "sys_meta.txt"</span></span>
 <span></span>
-<span><span class="co"># Read all padloc models</span></span>
-<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys"</span><span class="op">)</span></span>
-<span><span class="va">path</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/home/runner/work/_temp/Library/padlocdev/extdata/sys</span></span></span>
-<span></span>
-<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span><span class="va">sys</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] "SystemA_I"</span></span></code></pre></div>
+<span><span class="co"># Generate the full path to a specific example file.</span></span>
+<span><span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm/PROT00001.hmm"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; /home/runner/work/_temp/Library/padlocdev/extdata/hmm/PROT00001.hmm</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="check-that-sys-models-are-valid">Check that sys models are valid<a class="anchor" aria-label="anchor" href="#check-that-sys-models-are-valid"></a>
+<h3 id="reading-padloc-db-files">Reading padloc-db files<a class="anchor" aria-label="anchor" href="#reading-padloc-db-files"></a>
 </h3>
+<p>You can read single profile HMMs, padloc models, the HMM metadata
+table, system metadata table, and system group information with the
+following functions.</p>
+<div class="section level4">
+<h4 id="metadata-tables">Metadata tables<a class="anchor" aria-label="anchor" href="#metadata-tables"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm_meta.txt"</span><span class="op">)</span></span>
+<span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PROT00… Protei… This p… SyaA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PROT00… Protei… This p… SyaB    Sya_ac… Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PROT00… Protei… This p… SyaC    Sya_ac… Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PROT00… Protei… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> PROT00… Protei… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> PROT00… Protei… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys_meta.txt"</span><span class="op">)</span></span>
+<span><span class="va">sys_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_meta.html">read_sys_meta</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sys_meta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   system          type     yaml.name   search notes                             </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> System Family A Type I   SystemA_I   TRUE   This is the first type of system …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> System Family A Type II  SystemA_II  TRUE   This is the second type of system…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> System Family A Type III SystemA_III TRUE   This is the third type of system …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> System Family B <span style="color: #BB0000;">NA</span>       SystemB     TRUE   This system has an unknown mechan…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> System Family C <span style="color: #BB0000;">NA</span>       SystemC     TRUE   This system has a well known mech…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> System Family D <span style="color: #BB0000;">NA</span>       SystemD     TRUE   This system should probably belon…</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># do stuff</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys_groups.txt"</span><span class="op">)</span></span>
+<span><span class="va">sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_groups.html">read_sys_groups</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sys_groups</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">#&gt;   yaml.name   group  </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SystemA_I   group_1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SystemA_II  group_1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> SystemA_III group_1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> SystemB     group_2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> SystemC     group_3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SystemD     group_3</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="profile-hmms">Profile HMMs<a class="anchor" aria-label="anchor" href="#profile-hmms"></a>
+</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm/PROT00001.hmm"</span><span class="op">)</span></span>
+<span><span class="va">hmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hmm.html">read_hmm</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<p>You can access the profile HMM information the same as with any list
+object.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># profile HMMs comprise two elements, header information and model data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hmm</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "header" "model"</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hmm</span><span class="op">[[</span><span class="st">"header"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "HMMER3/f"            "NAME"                "LENG"               </span></span>
+<span><span class="co">#&gt;  [4] "ALPH"                "ACC"                 "DESC"               </span></span>
+<span><span class="co">#&gt;  [7] "MAXL"                "RF"                  "MM"                 </span></span>
+<span><span class="co">#&gt; [10] "CONS"                "CS"                  "MAP"                </span></span>
+<span><span class="co">#&gt; [13] "DATE"                "COM"                 "NSEQ"               </span></span>
+<span><span class="co">#&gt; [16] "EFFN"                "CKSUM"               "GA"                 </span></span>
+<span><span class="co">#&gt; [19] "TC"                  "NC"                  "STATS LOCAL MSV"    </span></span>
+<span><span class="co">#&gt; [22] "STATS LOCAL VITERBI" "STATS LOCAL FORWARD"</span></span>
+<span></span>
+<span><span class="co"># Access a sublist of multiple elements</span></span>
+<span><span class="va">hmm</span><span class="op">[[</span><span class="st">"header"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NAME"</span>, <span class="st">"ACC"</span>, <span class="st">"DESC"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $NAME</span></span>
+<span><span class="co">#&gt; [1] "Protein_00001"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $ACC</span></span>
+<span><span class="co">#&gt; [1] "PROT00001"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $DESC</span></span>
+<span><span class="co">#&gt; [1] "This protein does something"</span></span>
+<span></span>
+<span><span class="co"># Access the value of a single element </span></span>
+<span><span class="va">hmm</span><span class="op">[[</span><span class="st">"header"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"NAME"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "Protein_00001"</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hmm</span><span class="op">[[</span><span class="st">"model"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "compo"             "match_emissions"   "insert_emissions" </span></span>
+<span><span class="co">#&gt; [4] "state_transitions"</span></span>
+<span></span>
+<span><span class="va">hmm</span><span class="op">[[</span><span class="st">"model"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"match_emissions"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 26</span></span></span>
+<span><span class="co">#&gt;    node A      C     D     E     F     G     H     I     K     L     M     N    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 2.527… 4.55… 2.43… 2.48… 3.81… 2.97… 3.66… 3.12… 2.52… 2.84… 3.20… 2.97…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 2.314… 4.52… 2.99… 2.31… 3.80… 3.33… 3.65… 3.17… 2.50… 2.84… 3.21… 2.98…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 2.570… 4.41… 3.22… 2.48… 3.54… 3.47… 3.72… 2.83… 2.61… 2.31… 2.77… 3.14…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 2.267… 4.62… 3.05… 2.35… 3.84… 3.42… 3.65… 3.22… 2.45… 2.87… 2.78… 2.76…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 2.443… 4.97… 2.60… 2.31… 4.28… 3.05… 3.58… 3.73… 2.35… 3.27… 4.05… 2.64…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 13 more variables: P &lt;chr&gt;, Q &lt;chr&gt;, R &lt;chr&gt;, S &lt;chr&gt;, T &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   V &lt;chr&gt;, W &lt;chr&gt;, Y &lt;chr&gt;, MAP &lt;chr&gt;, CONS &lt;chr&gt;, RF &lt;chr&gt;, MM &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   CS &lt;chr&gt;</span></span></span></code></pre></div>
+<p>To read just the header information, use
+<code><a href="../reference/read_hmm_header.html">read_hmm_header()</a></code> instead.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_header</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hmm_header.html">read_hmm_header</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hmm</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "header" "model"</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="system-models">System models<a class="anchor" aria-label="anchor" href="#system-models"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys/SystemA_I.yaml"</span><span class="op">)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<p>As above, you can access the the elements of a padloc model the same
+as any list object.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "maximum_separation" "minimum_core"       "minimum_total"     </span></span>
+<span><span class="co">#&gt; [4] "core_genes"         "optional_genes"     "prohibited_genes"</span></span>
+<span></span>
+<span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "SyaA" "SyaB"</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="reading-multiple-files">Reading multiple files<a class="anchor" aria-label="anchor" href="#reading-multiple-files"></a>
+</h4>
+<p>Convenience wrappers are provided for reading all
+<code>sys/*.yaml</code> and <code>hmm/*.hmm</code> files in a directory
+into a list.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reading all profile HMMs in a directory.</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm"</span><span class="op">)</span></span>
+<span><span class="va">hmms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm.html">multi_read_hmm</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "PROT00001" "PROT00002" "PROT00003" "PROT00004" "PROT00005" "PROT00006"</span></span>
+<span><span class="co">#&gt;  [7] "PROT00007" "PROT00008" "PROT00009" "PROT00010"</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For larger databases, it's more efficient to just read the header information</span></span>
+<span><span class="co"># of each HMM as we're not interested in the actual model (e.g. 0.51 vs 0.33 </span></span>
+<span><span class="co"># seconds on this small database).</span></span>
+<span><span class="va">hmms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm_header.html">multi_read_hmm_header</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reading all padloc models in a directory.</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys"</span><span class="op">)</span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="expanding-secondary-gene-assignments">Expanding secondary gene assignments<a class="anchor" aria-label="anchor" href="#expanding-secondary-gene-assignments"></a>
+</h3>
+<p>Before testing model validity, secondary gene assignments need to be
+expanded. This can be done for a single gene category for a single
+system model as follows.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm_meta.txt"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys/SystemA_III.yaml"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "Sya_accessory"</span></span>
+<span></span>
+<span><span class="va">model</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/expand_gene_groups.html">expand_gene_groups</a></span><span class="op">(</span><span class="va">model</span>, gene_type <span class="op">=</span> <span class="st">"optional_genes"</span>, <span class="va">hmm_meta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "SyaB" "SyaC"</span></span></code></pre></div>
+<p>A convenience wrapper is provided to expand all gene assignments for
+a list of models.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm_meta.txt"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "Sya_accessory"</span></span>
+<span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "SyaB" "SyaC"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="checking-that-system-models-are-valid">Checking that system models are valid<a class="anchor" aria-label="anchor" href="#checking-that-system-models-are-valid"></a>
+</h3>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#asd</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
