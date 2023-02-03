@@ -2,3 +2,12 @@ url: https://leightonpayne.github.io/padlocdev/
 template:
   bootstrap: 5
 
+reference:
+- title: Function reference
+- subtitle: File I/O
+  desc: >
+    Functions for reading/writing files
+  contents:
+  - read_padloc_model
+  - read_hmm
+  - read_hmm_header

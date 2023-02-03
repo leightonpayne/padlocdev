@@ -24,28 +24,29 @@ valid_padloc_model <- function(object) {
   # Check that gene parameters are character
   vapply(gene_param, function(x) is.character(object[[x]]), logical(1))
 
-  # THESE CHECKS ARE TURNED OFF UNTIL GENE GROUP ASSIGNMENTS ARE RESOLVED
-  # if (object$minimum_core > length(object$core_genes)) {
-  #   errors <- paste0(
-  #     errors,
-  #     "\nminimum_core must be <= the length of core_genes ",
-  #     "(minimum_core = ", object$minimum_core, ", ",
-  #     "but length(core_genes) = ", length(object$core_genes), ")"
-  #   )
-  # }
-  #
-  # if (object$minimum_total > length(object$core_genes) + length(object$optional_genes)) {
-  #   errors <- paste0(
-  #     errors,
-  #     "\nminimum_total must be <= the length of core_genes + optional_genes ",
-  #     "(minimum_total = ", object$minimum_total, ", ",
-  #     "but length(core_genes) + length(optional_genes) = ", length(object$core_genes) + length(object$optional_genes), ")"
-  #   )
-  # }
-
   if (errors != "") {
     return(errors)
   } else {
     return(TRUE)
+  }
+}
+
+valid_padloc_model_expanded <- function(object) {
+  errors <- ""
+  if (object$minimum_core > length(object$core_genes)) {
+    errors <- paste0(
+      errors,
+      "\nminimum_core must be <= the length of core_genes ",
+      "(minimum_core = ", object$minimum_core, ", ",
+      "but length(core_genes) = ", length(object$core_genes), ")"
+    )
+  }
+  if (object$minimum_total > length(object$core_genes) + length(object$optional_genes)) {
+    errors <- paste0(
+      errors,
+      "\nminimum_total must be <= the length of core_genes + optional_genes ",
+      "(minimum_total = ", object$minimum_total, ", ",
+      "but length(core_genes) + length(optional_genes) = ", length(object$core_genes) + length(object$optional_genes), ")"
+    )
   }
 }

@@ -34,7 +34,7 @@ multi_read_padloc_model <- function(directory) {
   padloc_models <- lapply(X = files, FUN = read_padloc_model)
   model_names <- stringr::str_remove(basename(files), ".yaml")
   names(padloc_models) <- model_names
-  model_names
+  padloc_models
 }
 
 # TODO: Write a function that writes a padloc model to a file

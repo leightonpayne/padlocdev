@@ -20,38 +20,64 @@ knitr::opts_chunk$set(
 library(padlocdev)
 ```
 
-### Reading padloc-db files
+### Example files
+
+This package includes example files for demonstrating functions. These files
+can be listed and accessed with the function `padlocdev_example()`. In the
+following code, you'll see this function used to access these example files.
 
 ```{r, message = FALSE}
-# hmm_meta <- read_hmm_meta("")
-# sys_meta <- read_sys_meta("")
-# sys_groups <- read_sys_groups("")
+# List example files (these are located in the package directory `padlocdev/inst/exdata/`).
+padlocdev_example()
+# Generate the full path to a specific example file.
+padlocdev_example("hmm/PROT00001.hmm")
+```
+
+### Reading padloc-db files
+
+Single profile HMMs and PADLOC system models can be read 
+
+```{r, message = FALSE}
+path <- padlocdev_example("hmm_meta.txt")
+hmm_meta <- read_hmm_meta(path)
+
+path <- padlocdev_example("sys_meta.txt")
+sys_meta <- read_sys_meta(path)
+
+path <- padlocdev_example("sys_groups.txt")
+sys_groups <- read_sys_groups(path)
 ```
 
 Convenience wrappers are provided for reading all `sys/*.yaml` and `hmm/*.hmm` 
 files into a list. For example, reading all of the HMMs in a directory:
 
 ```{r, message = FALSE}
-# Reading the entirity of a padloc model into R 
-# path <- padlocdev_example("hmm")
-# hmm <- multi_read_hmm(path)
+# Reading all profile HMMs in a directory.
+path <- padlocdev_example("hmm")
+hmms <- multi_read_hmm(path)
+
+# For larger databases, it's more efficient to just read the header information
+# of each HMM as we're not interested in the actual model (e.g. 0.51 vs 0.33 
+# seconds on this small database).
+hmms <- multi_read_hmm_header(path)
+
 ```
 
-Reading a complete profile HMM into R 
+```{r, message = FALSE}
+# Reading all padloc models in a directory.
+path <- padlocdev_example("sys")
+models <- multi_read_padloc_model(path)
+```
+
+### Expanding secondary gene assignments
+
+Before testing model validity, secondary gene assignments need to be expanded.
+A convenience wrapper is provided to expand all gene assignments for a list of
+models.
 
 ```{r, message = FALSE}
-# Read header data for all HMMs in 
-path <- padlocdev_example("hmm")
-path
-hmm <- multi_read_hmm_header(path)
-hmm[1]
 
-# Read all padloc models
-path <- padlocdev_example("sys")
-path
 
-sys <- multi_read_padloc_model(path)
-sys[1]
 
 ```
 

@@ -17,9 +17,7 @@
 hmm_files_vs_hmm_meta <- function(hmm_list, hmm_meta) {
 
   hmm_details <- tibble::tibble(
-    file.name = sapply(hmm_list, function(x) x[["filename"]]),
-    hmm.name = sapply(hmm_list, function(x) x[["name"]]),
-    hmm.acc = sapply(hmm_list, function(x) x[["acc"]]),
+    hmm.name = sapply(hmm_list, function(x) x[["header"]][["NAME"]]),
     hmm.files = TRUE
   )
 
@@ -32,15 +30,20 @@ hmm_files_vs_hmm_meta <- function(hmm_list, hmm_meta) {
   hmm_wo_meta <- dplyr::filter(check, is.na("hmm.meta"))
   # Instances where an HMM is referenced in hmm_meta.txt, but does not exist
   meta_wo_hmm <- dplyr::filter(check, is.na("hmm.files"))
+  # Instances where referencing is complete
+  hmm_w_meta <- dplyr::filter(check, "hmm.meta" == TRUE & "hmm.files" == TRUE)
 
   list(
     "HMMs without metadata" = hmm_wo_meta,
-    "Metadata without HMMs" = meta_wo_hmm
+    "Metadata without HMMs" = meta_wo_hmm,
+    "HMMs with metadata" = hmm_w_meta
     )
 
 }
 
 # TODO: Check all systems are listed in sys_meta.txt and vice versa
+
+
 
 # TODO: Check all systems have been assigned a group
 
