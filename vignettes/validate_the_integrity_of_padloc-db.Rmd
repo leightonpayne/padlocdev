@@ -29,38 +29,106 @@ following code, you'll see this function used to access these example files.
 ```{r, message = FALSE}
 # List example files (these are located in the package directory `padlocdev/inst/exdata/`).
 padlocdev_example()
+
 # Generate the full path to a specific example file.
 padlocdev_example("hmm/PROT00001.hmm")
 ```
 
 ### Reading padloc-db files
 
-Single profile HMMs and PADLOC system models can be read 
+You can read single profile HMMs, padloc models, the HMM metadata table, 
+system metadata table, and system group information with the following 
+functions.
+
+#### Metadata tables
 
 ```{r, message = FALSE}
 path <- padlocdev_example("hmm_meta.txt")
 hmm_meta <- read_hmm_meta(path)
-
-path <- padlocdev_example("sys_meta.txt")
-sys_meta <- read_sys_meta(path)
-
-path <- padlocdev_example("sys_groups.txt")
-sys_groups <- read_sys_groups(path)
+head(hmm_meta)
 ```
 
+```{r, message = FALSE}
+path <- padlocdev_example("sys_meta.txt")
+sys_meta <- read_sys_meta(path)
+head(sys_meta)
+```
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys_groups.txt")
+sys_groups <- read_sys_groups(path)
+head(sys_groups)
+```
+
+#### Profile HMMs
+
+```{r, message = FALSE}
+path <- padlocdev_example("hmm/PROT00001.hmm")
+hmm <- read_hmm(path)
+```
+
+You can access the profile HMM information the same as with any list object.
+
+```{r, message = FALSE}
+# profile HMMs comprise two elements, header information and model data
+names(hmm)
+```
+
+```{r, message = FALSE}
+names(hmm[["header"]])
+
+# Access a sublist of multiple elements
+hmm[["header"]][c("NAME", "ACC", "DESC")]
+
+# Access the value of a single element 
+hmm[["header"]][["NAME"]]
+```
+
+```{r, message = FALSE}
+names(hmm[["model"]])
+
+hmm[["model"]][["match_emissions"]]
+```
+To read just the header information, use `read_hmm_header()` instead.
+
+```{r, message = FALSE}
+hmm_header <- read_hmm_header(path)
+names(hmm)
+```
+
+#### System models
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys/SystemA_I.yaml")
+model <- read_padloc_model(path)
+```
+
+As above, you can access the the elements of a padloc model the same as any 
+list object.
+
+```{r, message = FALSE}
+names(model)
+
+model[["core_genes"]]
+```
+
+#### Reading multiple files
+
 Convenience wrappers are provided for reading all `sys/*.yaml` and `hmm/*.hmm` 
-files into a list. For example, reading all of the HMMs in a directory:
+files in a directory into a list.
 
 ```{r, message = FALSE}
 # Reading all profile HMMs in a directory.
 path <- padlocdev_example("hmm")
 hmms <- multi_read_hmm(path)
+names(hmms)
+```
 
+```{r, message = FALSE}
 # For larger databases, it's more efficient to just read the header information
 # of each HMM as we're not interested in the actual model (e.g. 0.51 vs 0.33 
 # seconds on this small database).
 hmms <- multi_read_hmm_header(path)
-
 ```
 
 ```{r, message = FALSE}
@@ -72,19 +140,40 @@ models <- multi_read_padloc_model(path)
 ### Expanding secondary gene assignments
 
 Before testing model validity, secondary gene assignments need to be expanded.
+This can be done for a single gene category for a single system model as
+follows.
+
+```{r, message = FALSE}
+hmm_meta <- padlocdev_example("hmm_meta.txt") |> read_hmm_meta()
+model <- padlocdev_example("sys/SystemA_III.yaml") |> read_padloc_model()
+
+model[["optional_genes"]]
+
+model[["optional_genes"]] <- 
+  expand_gene_groups(model, gene_type = "optional_genes", hmm_meta)
+
+model[["optional_genes"]]
+```
+
 A convenience wrapper is provided to expand all gene assignments for a list of
 models.
 
 ```{r, message = FALSE}
+hmm_meta <- padlocdev_example("hmm_meta.txt") |> read_hmm_meta()
+models <- padlocdev_example("sys") |> multi_read_padloc_model()
 
+models[["SystemA_III"]][["optional_genes"]]
 
+models <- expand_gene_groups_all(models, hmm_meta)
+
+models[["SystemA_III"]][["optional_genes"]]
 
 ```
 
-### Check that sys models are valid
+### Checking that system models are valid
 
 ```{r, message = FALSE}
-# do stuff
+#asd
 ```
 
 
