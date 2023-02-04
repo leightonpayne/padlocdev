@@ -1,5 +1,5 @@
 maximum_separation: 3
-minimum_core: 3
+minimum_core: 1
 minimum_total: 3
 
 core_genes:

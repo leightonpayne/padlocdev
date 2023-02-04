@@ -7,11 +7,11 @@ padloc_model <- function(maximum_separation, minimum_core, minimum_total, core_g
     optional_genes = optional_genes,
     prohibited_genes = prohibited_genes
   )
-  valid_padloc_model(object)
+  valid_padloc_model_basic(object)
   object
 }
 
-valid_padloc_model <- function(object) {
+valid_padloc_model_basic <- function(object) {
   errors <- ""
 
   quorum_param <- c("maximum_separation", "minimum_core", "minimum_total")
@@ -31,22 +31,46 @@ valid_padloc_model <- function(object) {
   }
 }
 
+# valid_padloc_model_expanded <- function(object) {
+#   if (object$minimum_core > length(object$core_genes)) {
+#     cli::cli_abort(c(
+#       "!" = "minimum_core must be <= the length of core_genes",
+#       "i" = "minimum_core is {object$minimum_core}",
+#       "x" = "Number of core_genes is {length(object$core_genes)}"
+#     ))
+#   }
+#   if (object$minimum_total > length(object$core_genes) + length(object$optional_genes)) {
+#     cli::cli_abort(c(
+#       "!" = "minimum_total must be <= the number of core_genes + optional_genes",
+#       "i" = "minimum_total is {object$minimum_total}",
+#       "x" = "Number of core_genes + optional_genes is {length(object$core_genes) + length(object$optional_genes)}"
+#     ))
+#   }
+# }
+
 valid_padloc_model_expanded <- function(object) {
-  errors <- ""
+  error_message <- c()
   if (object$minimum_core > length(object$core_genes)) {
-    errors <- paste0(
-      errors,
-      "\nminimum_core must be <= the length of core_genes ",
-      "(minimum_core = ", object$minimum_core, ", ",
-      "but length(core_genes) = ", length(object$core_genes), ")"
-    )
+    error_message <- c(
+      error_message,
+      "!" = "minimum_core must be <= the length of core_genes",
+      "i" = "minimum_core is {object$minimum_core}",
+      "x" = "Number of core_genes is {length(object$core_genes)}"
+      )
   }
   if (object$minimum_total > length(object$core_genes) + length(object$optional_genes)) {
-    errors <- paste0(
-      errors,
-      "\nminimum_total must be <= the length of core_genes + optional_genes ",
-      "(minimum_total = ", object$minimum_total, ", ",
-      "but length(core_genes) + length(optional_genes) = ", length(object$core_genes) + length(object$optional_genes), ")"
+    error_message <- c(
+      error_message,
+      "!" = "minimum_total must be <= the number of core_genes + optional_genes",
+      "i" = "minimum_total is {object$minimum_total}",
+      "x" = "Number of core_genes + optional_genes is {length(object$core_genes) + length(object$optional_genes)}"
     )
   }
+  if (length(error_message) > 0) {
+    cli::cli_abort(error_message)
+  } else {
+    return(TRUE)
+  }
 }
+
+

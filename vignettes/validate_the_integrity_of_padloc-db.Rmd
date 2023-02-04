@@ -114,8 +114,8 @@ model[["core_genes"]]
 
 #### Reading multiple files
 
-Convenience wrappers are provided for reading all `sys/*.yaml` and `hmm/*.hmm` 
-files in a directory into a list.
+Wrappers are provided for reading all `sys/*.yaml` and `hmm/*.hmm` files in a 
+directory into a list.
 
 ```{r, message = FALSE}
 # Reading all profile HMMs in a directory.
@@ -155,8 +155,8 @@ model[["optional_genes"]] <-
 model[["optional_genes"]]
 ```
 
-A convenience wrapper is provided to expand all gene assignments for a list of
-models.
+A wrapper is provided to expand the gene assignments for all gene categories 
+of all system models in a list.
 
 ```{r, message = FALSE}
 hmm_meta <- padlocdev_example("hmm_meta.txt") |> read_hmm_meta()
@@ -164,16 +164,22 @@ models <- padlocdev_example("sys") |> multi_read_padloc_model()
 
 models[["SystemA_III"]][["optional_genes"]]
 
-models <- expand_gene_groups_all(models, hmm_meta)
+models_expanded <- expand_gene_groups_all(models, hmm_meta)
 
-models[["SystemA_III"]][["optional_genes"]]
+models_expanded[["SystemA_III"]][["optional_genes"]]
 
 ```
 
 ### Checking that system models are valid
 
 ```{r, message = FALSE}
-# Do this
+# valid_padloc_model_expanded()
+```
+
+A wrapper is provided to test the validity of all system models in a list.
+
+```{r, message = FALSE}
+
 ```
 
 ### 
