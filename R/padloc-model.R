@@ -178,15 +178,3 @@ valid_padloc_model_expanded <- function(padloc_model) {
   }
 
 }
-
-
-# msg <- c(
-#   cli::format_error(c("!" = "Expected this.", "x" = "Got this instead.")),
-#   cli::format_error(c("!" = "Also expected this.", "x" = "But got this other thing instead."))
-# )
-#
-# msg2 <- unlist(strsplit(msg, "\n"))
-# msg2
-#
-# cli::cli_abort(c("Something happened", msg2))
-
