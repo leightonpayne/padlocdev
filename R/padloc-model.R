@@ -44,6 +44,7 @@ padloc_model <- function(maximum_separation, minimum_core, minimum_total, core_g
 #' @description Basic validity checker for a padloc model.
 #' @param padloc_model A padloc model.
 #' @return `TRUE` if the model is valid, else an `error` object.
+#' @export
 valid_padloc_model_basic <- function(padloc_model) {
 
   errors <- c()
@@ -120,6 +121,7 @@ valid_padloc_model_basic <- function(padloc_model) {
 #' @description Validity checker for a padloc model with expanded genes.
 #' @param padloc_model A padloc model.
 #' @return `TRUE` if the model is valid, else an `error` object.
+#' @export
 valid_padloc_model_expanded <- function(padloc_model) {
 
   errors <- c()
@@ -127,18 +129,20 @@ valid_padloc_model_expanded <- function(padloc_model) {
   gene_parameters <- c("core_genes", "optional_genes", "prohibited_genes")
 
   # Check that minimum_core is valid
-  if (padloc_model$minimum_core > length(padloc_model$core_genes)) {
+  core_genes_length <- length(subset(padloc_model$core_genes, padloc_model$core_genes != "NA"))
+  if (padloc_model$minimum_core > core_genes_length) {
     errors <- c(errors, cli::format_message(c(
       "i" = "{.var minimum_core} must be <= the number of {.var core_genes}",
       "x" = "{.var minimum_core} is {.val {padloc_model$minimum_core}}, but number of {.var core_genes} is {.val {length(padloc_model$core_genes)}}"
     )))
   }
 
+  optional_genes_length <- length(subset(padloc_model$optional_genes, padloc_model$optional_genes != "NA"))
   # Check that minimum_total is valid
-  if (padloc_model$minimum_total > length(padloc_model$core_genes) + length(padloc_model$optional_genes)) {
+  if (padloc_model$minimum_total > core_genes_length + optional_genes_length) {
     errors <- c(errors, cli::format_message(c(
       "i" = "{.var minimum_total} must be <= the combined number of {.var core_genes} and {.var optional_genes}.",
-      "x" = "{.var minimum_total} is {.val {padloc_model$minimum_total}}, but {.var core_genes} + {.var optional_genes} is {.val {length(padloc_model$core_genes) + length(padloc_model$optional_genes)}}"
+      "x" = "{.var minimum_total} is {.val {padloc_model$minimum_total}}, but {.var core_genes} + {.var optional_genes} is {.val {core_genes_length + optional_genes_length}}"
     )))
   }
 

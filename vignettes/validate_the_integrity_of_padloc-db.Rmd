@@ -12,7 +12,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  error = TRUE
 )
 ```
 
@@ -124,10 +125,11 @@ hmms <- multi_read_hmm(path)
 names(hmms)
 ```
 
+For larger databases, it's more efficient to just read the header information
+of each HMM as we're not interested in the actual model (e.g. `0.51` vs `0.33` 
+seconds on this small database).
+
 ```{r, message = FALSE}
-# For larger databases, it's more efficient to just read the header information
-# of each HMM as we're not interested in the actual model (e.g. 0.51 vs 0.33 
-# seconds on this small database).
 hmms <- multi_read_hmm_header(path)
 ```
 
@@ -172,14 +174,63 @@ models_expanded[["SystemA_III"]][["optional_genes"]]
 
 ### Checking that system models are valid
 
+`valid_padloc_model_basic()` and `valid_padloc_model_expanded()` are used for
+assessing model validity. Each function provides useful error information for
+fixing a model if it appears to be invalid.
+
+`valid_padloc_model_basic()` is run automatically upon building or reading a 
+padloc model, it does basic type checking but no assessment of gene overlap or 
+counts, as at this stage some genes may actually be gene groups. 
+
 ```{r, message = FALSE}
-# valid_padloc_model_expanded()
+valid_padloc_model_basic(models[["SystemA_III"]])
 ```
 
-A wrapper is provided to test the validity of all system models in a list.
+While `valid_padloc_model_basic()` returns `TRUE` for `SystemA_III` before 
+expansion of gene groups, the model for `SystemA_III` should technically be
+invalid, as the `minimum_total` is `3`, but only two types of genes are listed
+in total i.e. `SysaA` and `Sya_accessory` (in reality, we know already that 
+`Sya_accessory` actually represents two genes, `SyaB` and `SyaC`).
+
+`valid_padloc_model_expanded()` should be run after expanding the gene groups
+of a model to verify that each category of genes contains valid values.
+
+For example's sake, `valid_padloc_model_expanded()` fails (as expected) on the 
+unexpanded version of `SystemA_III`.
 
 ```{r, message = FALSE}
-
+valid_padloc_model_expanded(models[["SystemA_III"]])
 ```
 
-### 
+But it passes (as expected) on the expanded version.
+
+```{r, message = FALSE}
+valid_padloc_model_expanded(models_expanded[["SystemA_III"]])
+```
+
+A wrapper is provided to test the validity of all system models in a list and 
+return the output as a [purrr::safely()] style [base::list()] with components 
+`result` and `error`.
+
+```{r, message = FALSE}
+validity_report <- report_padloc_model_validity(models)
+```
+
+If the model is valid, `result` is `TRUE` and `error` is `NULL`. 
+
+```{r, message = FALSE}
+validity_report[["SystemA_I"]]
+```
+
+If the model is invalid, `result` is `FALSE` and `error` is an `error`
+object that describes the reason the model is invalid.
+
+```{r, message = FALSE}
+validity_report[["SystemA_III"]]
+```
+
+To return just the error messages, for inspection, use `why_invalid()`.
+
+```{r, message = FALSE}
+why_invalid(validity_report)
+```

@@ -1,6 +1,6 @@
 maximum_separation: 0
 minimum_core: 1
-minimum_total: 3
+minimum_total: 1
 
 core_genes:
   - SyeA

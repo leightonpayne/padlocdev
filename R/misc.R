@@ -202,6 +202,16 @@ why_invalid <- function(validity_report) {
   Filter(Negate(is.null), x[["error"]])
 }
 
+# # Convert validity report to tibble.
+# validity_report_as_tibble <- function(validity_report) {
+#   out <- tibble::tibble(
+#     name = names(validity_report),
+#     result = purrr::map_lgl(validity_report, "result"),
+#     error = purrr::map(validity_report, "error")
+#   )
+#   out
+# }
+
 # TODO: Write functions to separate padloc-db based on system groups
 
 # TODO: Write an example.
