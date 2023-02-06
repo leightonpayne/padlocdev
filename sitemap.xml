@@ -55,6 +55,9 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/multi_read_padloc_model.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/padloc_model.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/padlocdev_example.html</loc>
   </url>
   <url>
@@ -80,6 +83,12 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/report_padloc_model_validity.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/valid_padloc_model_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/valid_padloc_model_expanded.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/why_invalid.html</loc>
