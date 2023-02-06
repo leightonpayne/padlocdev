@@ -4,7 +4,9 @@
 # Read/write padloc models
 # ------------------------------------------------------------------------------
 
-#' @title Read in a padloc model (.yaml) file
+# TODO: Write a test.
+#' @title Read in a padloc model (`*.yaml`) file
+#' @description Read in a padloc model (`*.yaml`) file.
 #' @param file Path to padloc model in yaml format (*.yaml).
 #' @return A [base::list()].
 #' @export

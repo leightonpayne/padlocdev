@@ -19,7 +19,7 @@ test_that("minimum_core is valid", {
     minimum_total = 3,
     core_genes = c("GenA", "GenB"),
     optional_genes = c("GenC"),
-    prohibited_genes = NA
+    prohibited_genes = "NA"
   )
   expect_error(valid_padloc_model_expanded(broken_model))
 })
@@ -32,7 +32,7 @@ test_that("minimum_total is valid", {
     minimum_total = 4,
     core_genes = c("GenA", "GenB"),
     optional_genes = c("GenC"),
-    prohibited_genes = NA
+    prohibited_genes = "NA"
   )
   expect_error(valid_padloc_model_expanded(broken_model))
 })

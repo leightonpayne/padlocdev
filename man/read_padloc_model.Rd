@@ -2,7 +2,7 @@
 % Please edit documentation in R/io-methods.R
 \name{read_padloc_model}
 \alias{read_padloc_model}
-\title{Read in a padloc model (.yaml) file}
+\title{Read in a padloc model (\verb{*.yaml}) file}
 \usage{
 read_padloc_model(file)
 }
@@ -13,7 +13,7 @@ read_padloc_model(file)
 A \code{\link[base:list]{base::list()}}.
 }
 \description{
-Read in a padloc model (.yaml) file
+Read in a padloc model (\verb{*.yaml}) file.
 }
 \examples{
 padloc_model <- read_padloc_model(padlocdev_example("example_model.yaml"))
