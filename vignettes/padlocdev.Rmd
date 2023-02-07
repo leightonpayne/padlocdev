@@ -1,0 +1,58 @@
+---
+title: "Introduction to padlocdev"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to padlocdev}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+The goal of padlocdev is to simplify the validation of padloc-db data, 
+ensuring that the system models, HMMs, and metadata will work together as 
+expected when running padloc.
+
+### Vignettes
+
+Explore the available vignettes for more information on the capabilities of 
+padlocdev and typical workflows for processing padloc-db data.
+
+`vignette("reading-data")` - Learn how to read padloc-db data.
+
+`vignette("validating-data")` - Learn how to validate padloc-db data.
+
+`vignette("preparing-data")` - Learn how to prepare padloc-db data for use.
+
+### Example files
+
+This package includes example files for demonstrating functions. These files
+can be listed and accessed with the function `padlocdev_example()`. In the
+following code, you'll see this function used to access these example files.
+
+If `file = ...` is not specified, `padlocdev_example()` lists all example files 
+(these are located in the package directory `padlocdev/inst/exdata/`).
+
+```{r, message = FALSE}
+padlocdev_example()
+```
+
+Otherwise, the full path to the file is generated.
+
+```{r, message = FALSE}
+padlocdev_example(file = "hmm/PROT00001.hmm")
+```
+
+The generated path should be OS agnostic (i.e. it works the same on Linux, 
+macOS and Windows).
+

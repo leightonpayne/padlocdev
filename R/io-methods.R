@@ -119,14 +119,8 @@ read_hmm_meta <- function(file) {
     stop(error)
   }
 
-  # Columns that are allowed to have multiple values assigned
-  multi_assigments <- c("protein.name", "secondary.name")
-  # Remove spaces from multi-assignments (e.g. [AbcD | EfgH] -> [AbcD|EfgH])
-  # x <- mutate_at(x, fix_names, function(x) str_remove_all(x, " "))
-  # Split multi-assignments (splits at '|', including any surrounding space)
-  x <- tidyr::separate_rows(x, dplyr::all_of(multi_assigments), sep = "\\s*\\|\\s*")
-
   x
+
 }
 
 #' @title Read a padloc-db sys_groups.txt file.

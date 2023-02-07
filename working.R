@@ -2,21 +2,15 @@ hmm_meta <- read_hmm_meta("/Volumes/SSD-01/02_working/padloc_update_230119/hmm_m
 sys_meta <- read_sys_meta("/Volumes/SSD-01/02_working/padloc_update_230119/sys_meta.txt")
 sys_groups <- read_sys_groups("/Volumes/SSD-01/02_working/padloc_update_230119/sys_groups.txt")
 
+hmm_meta <- read_hmm_meta("/Volumes/SSD-01/02_working/padloc_update_230119/hmm_meta.txt")
+sys_meta <- read_sys_meta("/Volumes/SSD-01/02_working/padloc_update_230119/sys_meta.txt")
+sys_groups <- read_sys_groups("/Volumes/SSD-01/02_working/padloc_update_230119/sys_groups.txt")
+
 
 
 filter_models(padloc_models, sys_groups, "new")
 
 gene_types <- c("core_genes", "optional_genes", "prohibited_genes")
-
-# Expand all gene groups in padloc models
-# TODO: Not sure how to vectorise this? But it works fine as is
-for (i in 1:length(padloc_models)) {
-  for (gene_type in gene_types) {
-    padloc_models[[i]][[gene_type]] <- expand_gene_groups(padloc_models[[i]], gene_type, hmm_meta)
-  }
-}
-
-
 
 filter <- which(names(padloc_models) %in% c("Lit", "gabija"))
 padloc_models_filtered <- padloc_models[filter]

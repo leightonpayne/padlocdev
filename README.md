@@ -27,4 +27,9 @@ devtools::install_github("leightonpayne/padlocdev")
 
 Refer to the [documentation
 website](https://leightonpayne.github.io/padlocdev/) for usage
-information.
+information. Particularly the [Get started]() section for a brief
+introduction, the
+[Articles](https://leightonpayne.github.io/padlocdev/articles) section
+for helpful vignettes, and the
+[Reference](https://leightonpayne.github.io/padlocdev/reference) section
+for detailed function documentation.

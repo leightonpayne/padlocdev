@@ -111,11 +111,16 @@ expand_gene_groups_all <- function(models, hmm_meta) {
 #' @return a [base::list()] of three [tibble::tibble()]s.
 #' @export
 compare_hmm_files_hmm_meta <- function(hmm_list, hmm_meta) {
+  # The 'NAME' field is important here, as it is what eventually ends up
+  # identifying the HMM in the HMMER output, which gets tied back to the
+  # metadata in hmm_meta.txt
+  if (typeof(unlist(hmm_list)) == "list") {
+    hmm_names <- sapply(hmm_list, function(x) x[["header"]][["NAME"]])
+  } else {
+    hmm_names <- sapply(hmm_list, function(x) x[["NAME"]])
+  }
   hmm_files <- tibble::tibble(
-    # The 'NAME' field is important here, as it is what eventually ends up
-    # identifying the HMM in the HMMER output, which gets tied back to the
-    # metadata in hmm_meta.txt
-    hmm.name = sapply(hmm_list, function(x) x[["header"]][["NAME"]])
+    hmm.name = hmm_names
   )
   out <- a_vs_b(hmm_files, hmm_meta, join_by = "hmm.name")
   out
@@ -151,6 +156,15 @@ compare_sys_meta_sys_groups <- function(sys_meta, sys_groups) {
   out <- a_vs_b(sys_meta, sys_groups, join_by = "yaml.name")
   out
 }
+
+compare_sys_files_hmm_meta <- function(sys_list, hmm_meta) {
+  sys_genes <- pull_genes(sys_list)
+  sys_genes <- tibble::tibble(protein.name = sys_genes)
+  out <- a_vs_b(hmm_meta, sys_genes, join_by = "protein.name")
+  out
+}
+
+# tmp <- compare_sys_files_hmm_meta(padloc_models_expanded, hmm_meta)
 
 # TODO: Write an example.
 # TODO: Write a test.
@@ -216,6 +230,7 @@ why_invalid <- function(validity_report) {
 
 # TODO: Write an example.
 # TODO: Write a test.
+# TODO: Write documentation.
 filter_models <- function(padloc_models, sys_groups, group_name) {
   relevant_systems <- dplyr::filter(sys_groups, group %in% group_name)
   system_names <- relevant_systems[["yaml.name"]]
@@ -224,6 +239,67 @@ filter_models <- function(padloc_models, sys_groups, group_name) {
   filtered_models
 }
 
+# models_group_1 <- filter_models(models_expanded, sys_groups, "group_1")
 
+# TODO: Write an example.
+# TODO: Write a test.
+#' @title Pull the genes from a list of system models
+#' @description Pull the genes from a list of system models.
+#' @param sys_list A [base::list()] of system models (i.e. as read in by
+#' [multi_read_padloc_model()].
+#' @return a [base::character()] vector.
+#' @export
+pull_genes <- function(sys_list) {
+  a <- purrr::list_transpose(sys_list)
+  b <- a[c("core_genes", "optional_genes", "prohibited_genes")]
+  c <- unlist(b, use.names = FALSE)
+  d <- unique(c)
+  e <- d[d != "NA"]
+  e
+}
+
+#' @title Expand HMM metadata table multi-name assignments
+#' @description Expand HMM metadata table multi-name assignments.
+#' @param hmm_meta An HMM metadata table (as read-in by [read_hmm_meta()]).
+#' @return An HMM metadata table with expanded name assignments.
+#' @export
+#' @examples
+#' path <- padlocdev_example("hmm_meta.txt")
+#' hmm_meta <- read_hmm_meta(path)
+#' hmm_meta_expanded <- expand_hmm_meta(hmm_meta)
+#' hmm_meta_expanded
+expand_hmm_meta <- function(hmm_meta) {
+  # Columns that are allowed to have multiple values assigned
+  multi_assigments <- c("protein.name", "secondary.name")
+  # Split multi-assignments (splits at '|', including any surrounding space)
+  out <- tidyr::separate_rows(
+    hmm_meta,
+    dplyr::all_of(multi_assigments),
+    sep = "\\s*\\|\\s*"
+  )
+  out
+}
+
+#' @title Collapse HMM metadata table multi-name assignments
+#' @description Collapse HMM metadata table multi-name assignments.
+#' @param hmm_meta An HMM metadata table (as read-in by [read_hmm_meta()]).
+#' @return An HMM metadata table with collasped name assignments.
+#' @export
+#' @examples
+#' path <- padlocdev_example("hmm_meta.txt")
+#' hmm_meta <- read_hmm_meta(path)
+#' hmm_meta_expanded <- expand_hmm_meta(hmm_meta)
+#' hmm_meta_collapsed <- collapse_hmm_meta(hmm_meta_expanded)
+#' hmm_meta_collapsed
+collapse_hmm_meta <- function(x) {
+  y <- dplyr::group_by(x, "hmm.acc")
+  y <- dplyr::mutate(
+    y,
+    secondary.name = paste0(unique(secondary.name), collapse = "|"),
+    protein.name = paste0(unique(protein.name), collapse = "|")
+  )
+  y <- dplyr::ungroup(y)
+  y <- dplyr::distinct(y)
+}
 
 # TODO: Assess amount of overlap between system groups

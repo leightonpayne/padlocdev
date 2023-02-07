@@ -1,0 +1,168 @@
+---
+title: "Reading padloc-db data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{reading-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+### Reading padloc-db files
+
+You can read single profile HMMs, system models, the HMM metadata table, 
+system metadata table, and system group information with the following 
+functions.
+
+#### Metadata tables
+
+Read `hmm_meta.txt` with `read_hmm_meta()`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("hmm_meta.txt")
+hmm_meta <- read_hmm_meta(path)
+head(hmm_meta)
+```
+
+Read `sys_meta.txt` with `read_sys_meta()`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys_meta.txt")
+sys_meta <- read_sys_meta(path)
+head(sys_meta)
+```
+
+Read `sys_groups.txt` with `read_sys_groups()`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys_groups.txt")
+sys_groups <- read_sys_groups(path)
+head(sys_groups)
+```
+
+All metadata tables are stored as `tibble` objects, and can be operated-on the
+same as any other `tibble` (see `?tibble::tbl_df` for more information).
+
+#### Profile HMMs
+
+Read a full profile HMM, including header and model information with 
+`read_hmm()`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("hmm/PROT00001.hmm")
+hmm <- read_hmm(path)
+```
+
+Profile HMMs are stored as `list` objects with two elements, `header` and 
+`model`. 
+
+```{r, message = FALSE}
+names(hmm)
+```
+
+```{r, message = FALSE}
+names(hmm[["header"]])
+```
+
+Accessing elements works the same as with any other list.
+
+```{r, message = FALSE}
+hmm[["header"]][["NAME"]]
+# Or
+hmm$header$NAME
+# Or
+purrr::pluck(hmm, "header", "NAME")
+# Etc.
+```
+
+To avoid reading the model information, which can be quite large depending on
+the size of the profile HMM, use `read_hmm_header()` instead. Currently, there
+is no use for reading in the model information anyway, at least for the purpose
+of data validation.
+
+```{r, message = FALSE}
+hmm_header <- read_hmm_header(path)
+```
+
+The object returned by `read_hmm_header()` is equivalent to subsetting the 
+header element from the object returned by `read_hmm()` (i.e.
+`read_hmm(path)[["header"]]`).
+
+```{r, message = FALSE}
+names(hmm_header)
+```
+
+#### System models
+
+Read system models with `read_padloc_model()`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys/SystemA_I.yaml")
+model <- read_padloc_model(path)
+```
+
+System models are also stored as `list` objects with each element corresponding 
+to a field in the original model file.
+
+```{r, message = FALSE}
+names(model)
+```
+
+```{r, message = FALSE}
+model[["core_genes"]]
+```
+
+#### Reading multiple files
+
+Wrappers are provided for reading all of the system model or profile HMM files 
+in a directory into a list.
+
+Use `multi_read_padloc_model()` to read all system models.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys")
+models <- multi_read_padloc_model(path)
+names(models)
+```
+
+```{r, message = FALSE}
+models[["SystemA_I"]]
+```
+
+Use `multi_read_hmm()` to read all profile HMMs.
+
+```{r, message = FALSE}
+path <- padlocdev_example("hmm")
+hmms <- multi_read_hmm(path)
+names(hmms)
+```
+
+For larger databases, it's more efficient to just read the header information
+of each HMM.
+
+```{r, message = FALSE}
+hmm_headers <- multi_read_hmm_header(path)
+```
+
+Be aware that, as before, the list output from `multi_read_hmm_header()` has 
+one less level than that of `multi_read_hmm()`, since there's no model 
+information.
+
+```{r, message = FALSE}
+names(hmms[["PROT00001"]][["header"]])
+```
+
+```{r, message = FALSE}
+names(hmm_headers[["PROT00001"]])
+```

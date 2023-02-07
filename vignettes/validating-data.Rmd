@@ -1,0 +1,145 @@
+---
+title: "Validating padloc-db data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validating padloc-db data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+### Expanding HMM metadata table
+
+The raw HMM metadata table read-in by `read_hmm_meta()` can have multiple names
+listed in `protein.name` and `secondary.name` (separated by the delimiter `|`). 
+To split these assignments into multiple rows, use `expand_hmm_meta()`.
+
+```{r, message = FALSE}
+hmm_meta <- padlocdev_example("hmm_meta.txt") |> read_hmm_meta()
+hmm_meta_expanded <- expand_hmm_meta(hmm_meta)
+```
+
+The HMM metadata table can be re-collapsed using `collapse_hmm_meta()`.
+
+```{r, message = FALSE}
+hmm_meta_collapsed <- collapse_hmm_meta(hmm_meta_expanded)
+```
+
+### Expanding secondary gene assignments
+
+Raw system model files can contain references to gene groups a.k.a 
+`secondary.name` assignments. Before testing model validity, these gene
+groups need to be expanded.
+
+First, read in the data.
+
+```{r, message = FALSE}
+model <- padlocdev_example("sys/SystemA_III.yaml") |> read_padloc_model()
+```
+
+`SystemA_III` has one '`gene`' in `optional_genes` i.e. `Sya_accessory` which 
+is actually a group of genes.
+
+```{r, message = FALSE}
+model[["optional_genes"]]
+```
+
+Use `expand_gene_groups()` to expand gene groups for a particuar gene category, 
+based on the `secondary.name` assignments in the HMM metadata table.
+
+```{r, message = FALSE}
+genes <- expand_gene_groups(model, "optional_genes", hmm_meta_expanded)
+genes
+```
+
+These can be assigned back onto the model. Other genes that are listed and not 
+part of a gene group also get carried over.
+
+```{r, message = FALSE}
+model[["optional_genes"]] <- genes
+```
+
+A wrapper is provided to expand the gene assignments for all gene categories 
+of all system models in a list.
+
+```{r, message = FALSE}
+models <- padlocdev_example("sys") |> multi_read_padloc_model()
+models_expanded <- expand_gene_groups_all(models, hmm_meta_expanded)
+models_expanded[["SystemA_III"]][["optional_genes"]]
+```
+
+### Checking that system models are valid
+
+`valid_padloc_model_basic()` and `valid_padloc_model_expanded()` are used for
+assessing model validity. Each function provides useful error information for
+fixing a model if it is invalid.
+
+`valid_padloc_model_basic()` is run automatically upon reading a padloc model, 
+it does basic type checking but no assessment of duplicated genes, overlap 
+between gene categories, or validation of gene number requirements, as at 
+this initial stage, some genes may actually be gene groups. 
+
+```{r, message = FALSE}
+valid_padloc_model_basic(models[["SystemA_III"]])
+```
+
+While `valid_padloc_model_basic()` returns `TRUE` for `SystemA_III` before 
+expansion of gene groups, the model for `SystemA_III` should technically be
+invalid, as the `minimum_total` is `3`, but only two types of genes are listed
+in total i.e. `SyaA` and `Sya_accessory` (in reality, we know already that 
+`Sya_accessory` actually represents two genes, `SyaB` and `SyaC`).
+
+`valid_padloc_model_expanded()` should be run after expanding the gene groups
+of a model to perform additional validation checks.
+
+For example's sake, `valid_padloc_model_expanded()` fails (as expected) on the 
+unexpanded version of `SystemA_III`.
+
+```{r, message = FALSE}
+valid_padloc_model_expanded(models[["SystemA_III"]])
+```
+
+But it passes (as expected) on the expanded version.
+
+```{r, message = FALSE}
+valid_padloc_model_expanded(models_expanded[["SystemA_III"]])
+```
+
+The wrapper `report_padloc_model_validity()` is provided to test the validity 
+of all system models in a list and return the output as a `list` of 
+`?purrr::safely()` style sub-`list`s with two components `result` and `error`.
+
+```{r, message = FALSE}
+validity_report <- report_padloc_model_validity(models)
+```
+
+For each model, if it is valid, `result` is `TRUE` and `error` is `NULL`. 
+
+```{r, message = FALSE}
+validity_report[["SystemA_I"]]
+```
+
+If the model is invalid, `result` is `FALSE` and `error` is an 
+`?rlang::rlang_error` object that describes the reason the model is invalid.
+
+```{r, message = FALSE}
+validity_report[["SystemA_III"]]
+```
+
+To return just the error messages for all model in the list, use 
+`why_invalid()`.
+
+```{r, message = FALSE}
+why_invalid(validity_report)
+```

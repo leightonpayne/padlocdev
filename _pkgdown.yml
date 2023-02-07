@@ -1,3 +1,45 @@
 url: https://leightonpayne.github.io/padlocdev/
 template:
   bootstrap: 5
+
+reference:
+
+- title: Read
+  desc: >
+    Read padloc-db files.
+- contents:
+  - read_hmm
+  - multi_read_hmm
+  - read_hmm_header
+  - multi_read_hmm_header
+  - read_padloc_model
+  - multi_read_padloc_model
+  - read_hmm_meta
+  - read_sys_meta
+  - read_sys_groups
+
+- title: Operate
+  desc: >
+    Perform modifications on padloc-db objects.
+- contents:
+  - expand_gene_groups
+  - expand_gene_groups_all
+  - pull_genes
+
+- title: Validate
+  desc: >
+    "Validate padloc-db data and identify inconsistencies."
+- contents:
+  - valid_padloc_model_basic
+  - valid_padloc_model_expanded
+  - report_padloc_model_validity
+  - why_invalid
+  - compare_hmm_files_hmm_meta
+  - compare_sys_files_sys_meta
+  - compare_sys_meta_sys_groups
+
+- title: "Everything Else"
+- contents:
+  - padloc_model
+  - padlocdev_example
+  - a_vs_b

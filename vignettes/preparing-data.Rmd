@@ -1,0 +1,33 @@
+---
+title: "Preparing padloc-db data for use"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Preparing padloc-db data for use}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+### Spliting a database into groups
+
+Once a padloc-db is validated, it is useful to split it into groups for
+batched searches with padloc.
+
+Read `sys_groups.txt`.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys_groups.txt")
+sys_groups <- read_sys_groups(path)
+head(sys_groups)
+```
