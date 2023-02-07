@@ -18,13 +18,18 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/padlocdev.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/validate_the_integrity_of_padloc-db.html">Validate the integrity of padloc-db</a>
+    <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
+    <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
+    <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -47,9 +52,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="read">Read<a class="anchor" aria-label="anchor" href="#read"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Read padloc-db files.</p>
 
       
     </div><div id="" class="section level2">
@@ -59,9 +64,106 @@
 
       <dl><dt>
           
-          <code><a href="a_vs_b.html">a_vs_b()</a></code> 
+          <code><a href="read_hmm.html">read_hmm()</a></code> 
         </dt>
-        <dd>Compare two dataframes / tibbles</dd>
+        <dd>Read an HMMER3 formatted profile HMM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="multi_read_hmm.html">multi_read_hmm()</a></code> 
+        </dt>
+        <dd>Read all HMMs in a directory into a list</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_hmm_header.html">read_hmm_header()</a></code> 
+        </dt>
+        <dd>Read the header section from a profile HMM into a list.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="multi_read_hmm_header.html">multi_read_hmm_header()</a></code> 
+        </dt>
+        <dd>Read the headers from a profile HMM into a list.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_padloc_model.html">read_padloc_model()</a></code> 
+        </dt>
+        <dd>Read in a padloc model (<code>*.yaml</code>) file</dd>
+      </dl><dl><dt>
+          
+          <code><a href="multi_read_padloc_model.html">multi_read_padloc_model()</a></code> 
+        </dt>
+        <dd>Read the filename, NAME and ACC identifiers from a profile HMM into a list.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_hmm_meta.html">read_hmm_meta()</a></code> 
+        </dt>
+        <dd>Read a padloc-db <code>hmm_meta.txt</code> file.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_sys_meta.html">read_sys_meta()</a></code> 
+        </dt>
+        <dd>Read a padloc-db sys_meta.txt file.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_sys_groups.html">read_sys_groups()</a></code> 
+        </dt>
+        <dd>Read a padloc-db sys_groups.txt file.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="operate">Operate<a class="anchor" aria-label="anchor" href="#operate"></a></h2>
+      
+      <p class="section-desc"></p><p>Perform modifications on padloc-db objects.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="expand_gene_groups.html">expand_gene_groups()</a></code> 
+        </dt>
+        <dd>Expand gene groups</dd>
+      </dl><dl><dt>
+          
+          <code><a href="expand_gene_groups_all.html">expand_gene_groups_all()</a></code> 
+        </dt>
+        <dd>Expand all gene groups in a list of padloc models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="pull_genes.html">pull_genes()</a></code> 
+        </dt>
+        <dd>Pull the genes from a list of system models</dd>
+      </dl></div><div class="section level2">
+      <h2 id="validate">Validate<a class="anchor" aria-label="anchor" href="#validate"></a></h2>
+      
+      <p class="section-desc"></p><p>“Validate padloc-db data and identify inconsistencies.”</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> 
+        </dt>
+        <dd>Basic validity checker for a padloc model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> 
+        </dt>
+        <dd>Validity checker for a padloc model with expanded genes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="report_padloc_model_validity.html">report_padloc_model_validity()</a></code> 
+        </dt>
+        <dd>Generate a validity report for a list of padloc models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="why_invalid.html">why_invalid()</a></code> 
+        </dt>
+        <dd>Determine why padloc models are invalid</dd>
       </dl><dl><dt>
           
           <code><a href="compare_hmm_files_hmm_meta.html">compare_hmm_files_hmm_meta()</a></code> 
@@ -77,32 +179,18 @@
           <code><a href="compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups()</a></code> 
         </dt>
         <dd>Compare system model files against those listed in sys_meta.txt</dd>
-      </dl><dl><dt>
-          
-          <code><a href="expand_gene_groups.html">expand_gene_groups()</a></code> 
-        </dt>
-        <dd>Expand gene groups</dd>
-      </dl><dl><dt>
-          
-          <code><a href="expand_gene_groups_all.html">expand_gene_groups_all()</a></code> 
-        </dt>
-        <dd>Expand all gene groups in a list of padloc models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="multi_read_hmm.html">multi_read_hmm()</a></code> 
-        </dt>
-        <dd>Read all HMMs in a directory into a list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="multi_read_hmm_header.html">multi_read_hmm_header()</a></code> 
-        </dt>
-        <dd>Read the headers from a profile HMM into a list.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="multi_read_padloc_model.html">multi_read_padloc_model()</a></code> 
-        </dt>
-        <dd>Read the filename, NAME and ACC identifiers from a profile HMM into a list.</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="everything-else">Everything Else<a class="anchor" aria-label="anchor" href="#everything-else"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="padloc_model.html">padloc_model()</a></code> 
         </dt>
@@ -114,56 +202,12 @@
         <dd>Get path to padlocdev example</dd>
       </dl><dl><dt>
           
-          <code><a href="read_hmm.html">read_hmm()</a></code> 
+          <code><a href="a_vs_b.html">a_vs_b()</a></code> 
         </dt>
-        <dd>Read an HMMER3 formatted profile HMM</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_hmm_header.html">read_hmm_header()</a></code> 
-        </dt>
-        <dd>Read the header section from a profile HMM into a list.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_hmm_meta.html">read_hmm_meta()</a></code> 
-        </dt>
-        <dd>Read a padloc-db <code>hmm_meta.txt</code> file.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_padloc_model.html">read_padloc_model()</a></code> 
-        </dt>
-        <dd>Read in a padloc model (<code>*.yaml</code>) file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_sys_groups.html">read_sys_groups()</a></code> 
-        </dt>
-        <dd>Read a padloc-db sys_groups.txt file.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_sys_meta.html">read_sys_meta()</a></code> 
-        </dt>
-        <dd>Read a padloc-db sys_meta.txt file.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="report_padloc_model_validity.html">report_padloc_model_validity()</a></code> 
-        </dt>
-        <dd>Generate a validity report for a list of padloc models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> 
-        </dt>
-        <dd>Basic validity checker for a padloc model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> 
-        </dt>
-        <dd>Validity checker for a padloc model with expanded genes</dd>
-      </dl><dl><dt>
-          
-          <code><a href="why_invalid.html">why_invalid()</a></code> 
-        </dt>
-        <dd>Determine why padloc models are invalid</dd>
+        <dd>Compare two dataframes / tibbles</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

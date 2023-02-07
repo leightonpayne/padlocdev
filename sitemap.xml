@@ -13,7 +13,16 @@
     <loc>https://leightonpayne.github.io/padlocdev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://leightonpayne.github.io/padlocdev/articles/validate_the_integrity_of_padloc-db.html</loc>
+    <loc>https://leightonpayne.github.io/padlocdev/articles/padlocdev.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/articles/preparing-data.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/articles/reading-data.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/articles/validating-data.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/authors.html</loc>
@@ -62,6 +71,9 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/pull_genes.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/read_hmm.html</loc>
