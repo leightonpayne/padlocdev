@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(padlocdev)
 ```
 
@@ -28,11 +28,12 @@ expected when running padloc.
 Explore the available vignettes for more information on the capabilities of 
 padlocdev and typical workflows for processing padloc-db data.
 
-`vignette("reading-data")` - Learn how to read padloc-db data.
-
-`vignette("validating-data")` - Learn how to validate padloc-db data.
-
-`vignette("preparing-data")` - Learn how to prepare padloc-db data for use.
+| Vignette                      | Description |
+|:------------------------------|:----------------------------------------------|
+| `vignette("reading-data")`    | Learn how to read padloc-db data into R       |
+| `vignette("validating-data")` | Learn how to validate padloc-db data          |
+| `vignette("preparing-data")`  | Learn how to prepare padloc-db data for use   |
+| `vignette("workflow")`        | A summarised workflow of padloc-db validation | 
 
 ### Example files
 
@@ -52,7 +53,3 @@ Otherwise, the full path to the file is generated.
 ```{r, message = FALSE}
 padlocdev_example(file = "hmm/PROT00001.hmm")
 ```
-
-The generated path should be OS agnostic (i.e. it works the same on Linux, 
-macOS and Windows).
-

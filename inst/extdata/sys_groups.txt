@@ -1,8 +1,0 @@
-yaml.name	group
-SystemA_I	group_1
-SystemA_II	group_1
-SystemA_III	group_1
-SystemB	group_2
-SystemC	group_3
-SystemD	group_3
-SystemE	group_3

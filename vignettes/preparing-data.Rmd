@@ -24,10 +24,81 @@ library(padlocdev)
 Once a padloc-db is validated, it is useful to split it into groups for
 batched searches with padloc.
 
-Read `sys_groups.txt`.
+Read `sys_groups.txt` using `read_sys_groups()`.
 
 ```{r, message = FALSE}
 path <- padlocdev_example("sys_groups.txt")
 sys_groups <- read_sys_groups(path)
 head(sys_groups)
 ```
+
+Use `filter_models()` to filter a list of padloc models for those belonging
+to a particular group, as defined in the system groups table.
+
+```{r, message = FALSE}
+path <- padlocdev_example("sys")
+models <- multi_read_padloc_model(path)
+models_group_1 <- filter_models(models, sys_groups, "group_1")
+names(models_group_1)
+```
+
+To pull 
+
+```{r, message = FALSE}
+hmm_meta <- padlocdev_example("hmm_meta.txt") |> read_hmm_meta()
+hmm_meta_expanded <- expand_hmm_meta(hmm_meta)
+hmm_meta_group_1 <- filter_hmm_meta(models_group_1, hmm_meta_expanded)
+```
+
+To copy HMMs from a particular system group to a new directory use 
+`system_cp_hmm()`. This, and related `system_cp_*` functions, use the `?fs` 
+package to manipulate system files.
+
+Before trying to copy any HMMs, it's important to verify that the name of the 
+HMM file corresponds with the accession i.e. `ACC` field in the HMM header. 
+This is not important for function of the database, though it is probably good 
+practice, and it is important for this exercise as the accession is what we'll 
+be using to identify HMMs to copy.
+
+Use `verify_hmm_names()` to check that the names match. It returns a `list` of 
+two `tibbles`, `names_match` which lists HMMs with matching file and accession 
+names, and `names_mismatch` which lists HMMs with different file and accession 
+names.
+
+```{r, message = FALSE}
+group_1_names_verify <- verify_hmm_names(models_group_1)
+group_1_names_verify
+```
+
+In this case all names match, so we can continue. Use `filter_hmm_meta()` to 
+extract rows from the HMM metadata table that are actually relevant to 
+
+```{r, message = FALSE}
+system_cp_hmm()
+```
+
+Use the wrapper `divide_database()` to create sub-databases for all groups in
+the system groups table.
+
+```{r, message = FALSE}
+ # divide_database(
+ #   sys_expanded = sys_expanded,
+ #   sys_groups = sys_groups,
+ #   hmm_meta_expanded = hmm_meta_expanded,
+ #   sys_meta = sys_meta
+ #   path = "path/to/database",
+ #   new_path = "/path/to/new/database"
+ # )
+```
+# 
+# ```{r, message = FALSE}
+# 
+# ```
+# 
+# ```{r, message = FALSE}
+# 
+# ```
+# 
+# ```{r, message = FALSE}
+# 
+# ```

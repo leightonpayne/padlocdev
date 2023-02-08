@@ -1,0 +1,10 @@
+maximum_separation: 0
+minimum_core: 2
+minimum_total: 2
+core_genes:
+  - Drt_class_I
+optional_genes:
+  - NA
+prohibited_genes:
+  - Drt_class_II
+  - Drt_class_III

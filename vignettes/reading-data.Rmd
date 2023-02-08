@@ -30,7 +30,7 @@ functions.
 Read `hmm_meta.txt` with `read_hmm_meta()`.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("hmm_meta.txt")
+path <- padlocdev_example("padloc-db/hmm_meta.txt")
 hmm_meta <- read_hmm_meta(path)
 head(hmm_meta)
 ```
@@ -38,7 +38,7 @@ head(hmm_meta)
 Read `sys_meta.txt` with `read_sys_meta()`.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("sys_meta.txt")
+path <- padlocdev_example("padloc-db/sys_meta.txt")
 sys_meta <- read_sys_meta(path)
 head(sys_meta)
 ```
@@ -46,7 +46,7 @@ head(sys_meta)
 Read `sys_groups.txt` with `read_sys_groups()`.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("sys_groups.txt")
+path <- padlocdev_example("padloc-db/sys_groups.txt")
 sys_groups <- read_sys_groups(path)
 head(sys_groups)
 ```
@@ -60,7 +60,7 @@ Read a full profile HMM, including header and model information with
 `read_hmm()`.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("hmm/PROT00001.hmm")
+path <- padlocdev_example("padloc-db/hmm/PDLC00150.hmm")
 hmm <- read_hmm(path)
 ```
 
@@ -79,9 +79,9 @@ Accessing elements works the same as with any other list.
 
 ```{r, message = FALSE}
 hmm[["header"]][["NAME"]]
-# Or
+# Or...
 hmm$header$NAME
-# Or
+# Or...
 purrr::pluck(hmm, "header", "NAME")
 # Etc.
 ```
@@ -95,12 +95,15 @@ of data validation.
 hmm_header <- read_hmm_header(path)
 ```
 
-The object returned by `read_hmm_header()` is equivalent to subsetting the 
-header element from the object returned by `read_hmm()` (i.e.
-`read_hmm(path)[["header"]]`).
+The object returned by `read_hmm_header()` is equivalent to the `list` returned 
+by `read_hmm()`, but only with the `header` element.
 
 ```{r, message = FALSE}
 names(hmm_header)
+```
+
+```{r, message = FALSE}
+names(hmm_header[["header"]])
 ```
 
 #### System models
@@ -108,7 +111,7 @@ names(hmm_header)
 Read system models with `read_padloc_model()`.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("sys/SystemA_I.yaml")
+path <- padlocdev_example("padloc-db/sys/brex_type_I.yaml")
 model <- read_padloc_model(path)
 ```
 
@@ -126,24 +129,25 @@ model[["core_genes"]]
 #### Reading multiple files
 
 Wrappers are provided for reading all of the system model or profile HMM files 
-in a directory into a list.
+in a directory into a `list`. The name of each element in the `list` is 
+derived from the name of the file read-in.
 
 Use `multi_read_padloc_model()` to read all system models.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("sys")
+path <- padlocdev_example("padloc-db/sys")
 models <- multi_read_padloc_model(path)
 names(models)
 ```
 
 ```{r, message = FALSE}
-models[["SystemA_I"]]
+models[["brex_type_I"]]
 ```
 
 Use `multi_read_hmm()` to read all profile HMMs.
 
 ```{r, message = FALSE}
-path <- padlocdev_example("hmm")
+path <- padlocdev_example("padloc-db/hmm")
 hmms <- multi_read_hmm(path)
 names(hmms)
 ```
@@ -153,16 +157,5 @@ of each HMM.
 
 ```{r, message = FALSE}
 hmm_headers <- multi_read_hmm_header(path)
-```
-
-Be aware that, as before, the list output from `multi_read_hmm_header()` has 
-one less level than that of `multi_read_hmm()`, since there's no model 
-information.
-
-```{r, message = FALSE}
-names(hmms[["PROT00001"]][["header"]])
-```
-
-```{r, message = FALSE}
-names(hmm_headers[["PROT00001"]])
+names(hmm_headers)
 ```

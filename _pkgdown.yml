@@ -25,6 +25,8 @@ reference:
   - expand_gene_groups
   - expand_gene_groups_all
   - pull_genes
+  - expand_hmm_meta
+  - collapse_hmm_meta
 
 - title: Validate
   desc: >
@@ -43,3 +45,6 @@ reference:
   - padloc_model
   - padlocdev_example
   - a_vs_b
+  - system_cp_files
+  - system_cp_hmm
+  - system_cp_sys

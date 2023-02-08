@@ -1,0 +1,20 @@
+system	type	yaml.name	search	comment
+BREX	other	brex_other	T	NA
+BREX	type I	brex_type_I	T	NA
+BREX	type II	brex_type_II	T	NA
+BREX 	type III	brex_type_III	T	NA
+BREX 	type IV	brex_type_IV	T	NA
+BREX 	type V	brex_type_V	T	NA
+BREX 	type VI	brex_type_VI	T	NA
+DRT	class I	DRT_class_I	T	NA
+DRT	class II	DRT_class_II	T	NA
+DRT	class III	DRT_class_III	T	NA
+DRT	other	DRT_other	T	NA
+DRT	type I	DRT_type_I	T	NA
+DRT	type II	DRT_type_II	T	NA
+DRT	type III	DRT_type_III	T	NA
+DRT	type IV	DRT_type_IV	T	NA
+DRT	type V	DRT_type_V	T	NA
+Hachiman	other	hachiman_other	T	NA
+Hachiman	type I	hachiman_type_I	T	NA
+Hachiman	type II	hachiman_type_II	T	NA

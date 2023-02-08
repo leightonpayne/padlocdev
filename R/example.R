@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' padlocdev_example()
-#' padlocdev_example("protein.hmm")
+#' padlocdev_example("padloc-db/hmm/PDLC00150.hmm")
 padlocdev_example <- function(file = NULL) {
   package_path <- fs::path_package("padlocdev")
   extdata_path <- fs::path_join(c(package_path, "extdata"))

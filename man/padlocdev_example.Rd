@@ -18,5 +18,5 @@ padlocdev comes bundled with a number of sample files in its
 }
 \examples{
 padlocdev_example()
-padlocdev_example("protein.hmm")
+padlocdev_example("padloc-db/hmm/PDLC00150.hmm")
 }
