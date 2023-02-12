@@ -12,7 +12,7 @@ genes into their underlying genes."><!-- mathjax --><script src="https://cdnjs.c
     
     <a class="navbar-brand me-2" href="../index.html">padlocdev</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@ genes into their underlying genes."><!-- mathjax --><script src="https://cdnjs.c
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
+    <a class="dropdown-item" href="../articles/workflow.html">Summarised workflow</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -51,7 +52,7 @@ genes into their underlying genes."><!-- mathjax --><script src="https://cdnjs.c
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Expand gene groups</h1>
-      <small class="dont-index">Source: <a href="https://github.com/leightonpayne/padlocdev/blob/HEAD/R/misc.R" class="external-link"><code>R/misc.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leightonpayne/padlocdev/blob/HEAD/R/expand-gene-groups.R" class="external-link"><code>R/expand-gene-groups.R</code></a></small>
       <div class="d-none name"><code>expand_gene_groups.Rd</code></div>
     </div>
 
@@ -90,44 +91,44 @@ genes into their underlying genes.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read data -----------------------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys/SystemA_III.yaml"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/sys/DRT_class_I.yaml"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $maximum_separation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $minimum_core</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $minimum_total</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $core_genes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SyaA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Drt_class_I"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $optional_genes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Sya_accessory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $prohibited_genes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NA"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm_meta.txt"</span><span class="op">)</span> <span class="co"># Generate path for example model</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $prohibited_genes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Drt_class_II"  "Drt_class_III"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/hmm_meta.txt"</span><span class="op">)</span> <span class="co"># Generate path for example model</span></span></span>
 <span class="r-in"><span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">hmm_meta</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    hmm.acc   hmm.name     hmm.d…¹ prote…² secon…³ author numbe…⁴ lengt…⁵ e.val…⁶</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> PROT00001 Protein_000… This p… SyaA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> PROT00002 Protein_000… This p… SyaB    Sya_ac… Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> PROT00003 Protein_000… This p… SyaC    Sya_ac… Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> PROT00004 Protein_000… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> PROT00005 Protein_000… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> PROT00006 Protein_000… This p… SybA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PROT00007 Protein_000… This p… SycA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> PROT00008 Protein_000… This p… SycB    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> PROT00009 Protein_000… This p… SydA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> PROT00010 Protein_000… This p… SyeA    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 6 more variables: hmm.coverage.threshold &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 43 × 15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    hmm.acc   hmm.name    hmm.de…¹ prote…² secon…³ author numbe…⁴ lengt…⁵ e.val…⁶</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> PDLC00150 HamA1_00001 DUF1837… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> PDLC00151 HamA1_00002 DUF1837… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> PDLC00174 HamB1_00001 DEAD-bo… HamB1|… <span style="color: #BB0000;">NA</span>      Payne…      56    <span style="text-decoration: underline;">1</span>163 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> PDLC00175 HamB1_00002 DEAD-bo… HamB1|… <span style="color: #BB0000;">NA</span>      Payne…       5    <span style="text-decoration: underline;">1</span>000 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> PDLC00195 HamA2_00001 DUF1837… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> PDLC00196 HamA2_00002 DUF1837… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PDLC00199 HamB2_00001 DEAD-bo… HamB2|… <span style="color: #BB0000;">NA</span>      Payne…      17     841 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> PDLC00200 HamB2_00002 DEAD-bo… HamB2|… <span style="color: #BB0000;">NA</span>      Payne…     134     865 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> PDLC00202 HamC2_00001 DUF3223… HamC2|… <span style="color: #BB0000;">NA</span>      Payne…      31     245 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> PDLC00203 HamC2_00002 DUF3223… HamC2|… <span style="color: #BB0000;">NA</span>      Payne…     100      99 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 33 more rows, 6 more variables: hmm.coverage.threshold &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;, literature.ref &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated variable names</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​hmm.description, ²​protein.name, ³​secondary.name, ⁴​number.seq, ⁵​length.hmm,</span></span>
@@ -135,11 +136,11 @@ genes into their underlying genes.</p>
 <span class="r-in"><span><span class="co"># Expand genes --------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># The category "optional_genes" only contains the gene group "Sya_accessory"</span></span></span>
 <span class="r-in"><span><span class="va">model</span><span class="op">$</span><span class="va">optional_genes</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Sya_accessory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NA"</span>
 <span class="r-in"><span><span class="co"># After expanding, "Sya_accessory" becomes "SyaB" and "SyaC"</span></span></span>
 <span class="r-in"><span><span class="va">model</span><span class="op">$</span><span class="va">optional_genes</span> <span class="op">&lt;-</span> <span class="fu">expand_gene_groups</span><span class="op">(</span><span class="va">model</span>, <span class="st">"optional_genes"</span>, <span class="va">hmm_meta</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span><span class="op">$</span><span class="va">optional_genes</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SyaB" "SyaC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NA"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

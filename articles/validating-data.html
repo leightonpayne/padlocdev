@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">padlocdev</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,7 @@
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
+    <a class="dropdown-item" href="../articles/workflow.html">Summarised workflow</a>
   </div>
 </li>
       </ul>
@@ -82,8 +83,6 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leightonpayne/padlocdev" class="external-link">padlocdev</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="expanding-hmm-metadata-table">Expanding HMM metadata table<a class="anchor" aria-label="anchor" href="#expanding-hmm-metadata-table"></a>
 </h3>
@@ -91,16 +90,56 @@
 can have multiple names listed in <code>protein.name</code> and
 <code>secondary.name</code> (separated by the delimiter <code>|</code>).
 To split these assignments into multiple rows, use
-<code>expand_hmm_meta()</code>.</p>
+<code><a href="../reference/expand_hmm_meta.html">expand_hmm_meta()</a></code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/hmm_meta.txt"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"hmm_meta.txt"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu">expand_hmm_meta</span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in expand_hmm_meta(hmm_meta): could not find function "expand_hmm_meta"</span></span></code></pre></div>
-<p>The HMM metadata table can be re-collapsed using
-<code>collapse_hmm_meta()</code>.</p>
+<code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_… DUF183… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_… DUF183… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmm_meta_collapsed</span> <span class="op">&lt;-</span> <span class="fu">collapse_hmm_meta</span><span class="op">(</span><span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in collapse_hmm_meta(hmm_meta_expanded): could not find function "collapse_hmm_meta"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">hmm_meta_expanded</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1   <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA1_… DUF183… HamA1   <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA1_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> PDLC00… HamA2_… DUF183… HamA2   <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> PDLC00… HamA2_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> PDLC00… HamA2_… DUF183… HamA2   <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> PDLC00… HamA2_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<p>The HMM metadata table can be re-collapsed using
+<code><a href="../reference/collapse_hmm_meta.html">collapse_hmm_meta()</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta_collapsed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/collapse_hmm_meta.html">collapse_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span><span class="va">hmm_meta_collapsed</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1|… NA      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA1|… NA      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_… DUF183… HamA2|… NA      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_… DUF183… HamA2|… NA      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="expanding-secondary-gene-assignments">Expanding secondary gene assignments<a class="anchor" aria-label="anchor" href="#expanding-secondary-gene-assignments"></a>
@@ -109,86 +148,463 @@ To split these assignments into multiple rows, use
 <code>secondary.name</code> assignments. Before testing model validity,
 these gene groups need to be expanded.</p>
 <p>First, read in the data.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys/SystemA_III.yaml"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><code>SystemA_III</code> has one ‘<code>gene</code>’ in
-<code>optional_genes</code> i.e. <code>Sya_accessory</code> which is
-actually a group of genes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] "Sya_accessory"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/sys/DRT_class_II.yaml"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The model for <code>DRT_class_II</code> has one ‘<code>gene</code>’
+in <code>optional_genes</code> i.e.  <code>Drt_class_II</code> which is
+actually a group of genes.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "Drt_class_II"</span></span></code></pre></div>
+<p>Several genes in the HMM metadata table have been assigned
+<code>Drt_class_II</code> as a <code>secondary.name</code> to group them
+together.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">secondary.name</span> <span class="op">==</span> <span class="st">"Drt_class_II"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… Drt2_0… <span style="color: #BB0000;">NA</span>      Drt2    Drt_cl… Payne…      92     425   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC02… Drt3a_… <span style="color: #BB0000;">NA</span>      Drt3a   Drt_cl… Payne…      53     403   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC02… Drt3a_… <span style="color: #BB0000;">NA</span>      Drt3a   Drt_cl… Payne…      68     417   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC02… Drt3b_… <span style="color: #BB0000;">NA</span>      Drt3b   Drt_cl… Payne…     107     651   1<span style="color: #949494;">e</span><span style="color: #BB0000;">- 5</span>     0.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
 <p>Use <code><a href="../reference/expand_gene_groups.html">expand_gene_groups()</a></code> to expand gene groups for a
 particuar gene category, based on the <code>secondary.name</code>
 assignments in the HMM metadata table.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups.html">expand_gene_groups</a></span><span class="op">(</span><span class="va">model</span>, <span class="st">"optional_genes"</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in dplyr::select(hmm_meta, "protein.name", "secondary.name"): object 'hmm_meta_expanded' not found</span></span>
-<span><span class="va">genes</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'genes' not found</span></span></code></pre></div>
-<p>These can be assigned back onto the model. Other genes that are
-listed and not part of a gene group also get carried over.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">genes</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'genes' not found</span></span></code></pre></div>
-<p>A wrapper is provided to expand the gene assignments for all gene
-categories of all system models in a list.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"sys"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in dplyr::select(hmm_meta, "protein.name", "secondary.name"): object 'hmm_meta_expanded' not found</span></span>
-<span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"optional_genes"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'models_expanded' not found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups.html">expand_gene_groups</a></span><span class="op">(</span><span class="va">model</span>, <span class="st">"core_genes"</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span><span class="va">genes</span></span>
+<span><span class="co">#&gt; [1] "Drt2"  "Drt3a" "Drt3b"</span></span></code></pre></div>
+<p>These can be assigned back onto the model. Other genes that are
+listed in the gene category being expanded, and are not part of a gene
+group will also get carried over.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">genes</span></span>
+<span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "Drt2"  "Drt3a" "Drt3b"</span></span></code></pre></div>
+<p>A wrapper is provided to expand the gene assignments for all gene
+categories of all system models in a list, and assign them back onto the
+models.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/sys"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">models</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"optional_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $core_genes</span></span>
+<span><span class="co">#&gt; [1] "Drt_class_II"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $prohibited_genes</span></span>
+<span><span class="co">#&gt; [1] "Drt_class_I"   "Drt_class_III"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"optional_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $core_genes</span></span>
+<span><span class="co">#&gt; [1] "Drt2"  "Drt3a" "Drt3b"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $prohibited_genes</span></span>
+<span><span class="co">#&gt; [1] "Drt1a" "Drt1b" "Drt4"  "Drt5"</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="checking-that-system-models-are-valid">Checking that system models are valid<a class="anchor" aria-label="anchor" href="#checking-that-system-models-are-valid"></a>
+<h3 id="working-through-an-example-of-a-broken-database">Working through an example of a broken database<a class="anchor" aria-label="anchor" href="#working-through-an-example-of-a-broken-database"></a>
 </h3>
-<p><code><a href="../reference/valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> and
-<code><a href="../reference/valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> are used for assessing model
-validity. Each function provides useful error information for fixing a
-model if it is invalid.</p>
-<p><code><a href="../reference/valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> is run automatically upon
-reading a padloc model, it does basic type checking but no assessment of
-duplicated genes, overlap between gene categories, or validation of gene
-number requirements, as at this initial stage, some genes may actually
-be gene groups.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/valid_padloc_model_basic.html">valid_padloc_model_basic</a></span><span class="op">(</span><span class="va">models</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<p>An example of a broken database with various issues has been
+included, to demonstrate database validation functions. First, we’ll
+read in the database files.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">path_hmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db-broken/hmm"</span><span class="op">)</span></span>
+<span><span class="va">path_sys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db-broken/sys"</span><span class="op">)</span></span>
+<span><span class="va">path_hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db-broken/hmm_meta.txt"</span><span class="op">)</span></span>
+<span><span class="va">path_sys_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db-broken/sys_meta.txt"</span><span class="op">)</span></span>
+<span><span class="va">path_sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db-broken/sys_groups.txt"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hmms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm_header.html">multi_read_hmm_header</a></span><span class="op">(</span><span class="va">path_hmm</span><span class="op">)</span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="va">path_sys</span><span class="op">)</span></span>
+<span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="va">path_hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">sys_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_meta.html">read_sys_meta</a></span><span class="op">(</span><span class="va">path_sys_meta</span><span class="op">)</span></span>
+<span><span class="va">sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_groups.html">read_sys_groups</a></span><span class="op">(</span><span class="va">path_sys_groups</span><span class="op">)</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="verify-that-hmm-file-names-match-their-accession">Verify that HMM file names match their accession<a class="anchor" aria-label="anchor" href="#verify-that-hmm-file-names-match-their-accession"></a>
+</h4>
+<p>Before trying to expand anything, lets see if there’s anything
+missing. First, we’ll check that the HMM file names match their
+accessions, as this may affect other stages of validation. To do this,
+use <code>verify_hmm_names()</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_name_verification</span> <span class="op">&lt;-</span> <span class="fu">verify_hmm_names</span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
+<span><span class="va">hmm_name_verification</span></span>
+<span><span class="co">#&gt; $names_match</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 40 × 3</span></span></span>
+<span><span class="co">#&gt;    file_name accession_field match</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> PDLC00150 PDLC00150       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> PDLC00151 PDLC00151       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> PDLC00174 PDLC00174       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> PDLC00175 PDLC00175       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> PDLC00195 PDLC00195       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> PDLC00196 PDLC00196       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> PDLC00199 PDLC00199       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> PDLC00200 PDLC00200       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> PDLC00202 PDLC00202       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> PDLC00203 PDLC00203       TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 30 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $names_mismatch</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
+<span><span class="co">#&gt;   file_name accession_field match</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02505 PDLC00012       FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC03000 PDLC02511       FALSE</span></span></code></pre></div>
+<p>Here, we can see that the HMMs with filenames
+<code>PDLC03000.hmm</code> and <code>PDLC02505.hmm</code> do not have
+matching accession fields. It’s unclear whether the filename or the
+accession fields are incorrect, but we could check whether there are
+mentions of either of these HMMs in the metadata table to
+investigate.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  file_names <span class="op">=</span> <span class="va">hmm_name_verification</span><span class="op">[[</span><span class="st">"names_mismatch"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"file_name"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  accessions <span class="op">=</span> <span class="va">hmm_name_verification</span><span class="op">[[</span><span class="st">"names_mismatch"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"accession_field"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">in_hmm_meta</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">check</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">hmm_meta</span>, <span class="va">hmm.acc</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">in_hmm_meta</span></span>
+<span><span class="co">#&gt; $file_names</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxL_0… BrxL    BrxL    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.5</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $accessions</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 15</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxP_0… BrxP    BrxP    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.5</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<p>Now we can see that the HMM with filename <code>PDLC02505.hmm</code>
+has an entry in the HMM metadata table, so the accession is most likely
+what is incorrect, and should be updated to be <code>PDLC02505</code>.
+In addition, the HMM with accession <code>PDLC02511</code> has an entry
+in the metadata table, so the filename <code>PDLC03000.hmm</code> should
+be updated to be <code>PDLC02511.hmm</code>.</p>
+<p>If any HMMs listed in the mismatch table did not show up in the
+metadata table, we might deduce that both the filename and the accession
+are incorrect, or this HMM hasn’t been added to the metadata table yet
+(the name mismatch should be resolved before adding), or the HMM has
+been included in the <code>hmm</code> directory in error. Either way,
+these cases should also be dealt with.</p>
+</div>
+<div class="section level4">
+<h4 id="compare-the-profile-hmms-with-the-hmm-metadata-table">Compare the profile HMMs with the HMM metadata table<a class="anchor" aria-label="anchor" href="#compare-the-profile-hmms-with-the-hmm-metadata-table"></a>
+</h4>
+<p>Next, we’ll compare the HMMs with the metadata table, to ensure that
+all HMMs have an entry and vice-versa. To do this, use
+<code><a href="../reference/compare_hmm_files_hmm_meta.html">compare_hmm_files_hmm_meta()</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_hmm_files_hmm_meta.html">compare_hmm_files_hmm_meta</a></span><span class="op">(</span><span class="va">hmms</span>, <span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">comparison</span></span>
+<span><span class="co">#&gt; $`hmm_files without hmm_meta`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
+<span><span class="co">#&gt;   file.name NAME              ACC       hmm_files</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC04000 Extra_HMM         PDLC04000 TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC05000 Another_extra_HMM PDLC05000 TRUE     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`hmm_meta without hmm_files`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   hmm.name   hmm_meta</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> BrxA_00001 TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> BrxE_00001 TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> BrxP_00001 TRUE    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`hmm_files with hmm_meta`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 40 × 3</span></span></span>
+<span><span class="co">#&gt;    hmm.name    hmm_files hmm_meta</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> HamA1_00001 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> HamA1_00002 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> HamB1_00001 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> HamB1_00002 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> HamA2_00001 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> HamA2_00002 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HamB2_00001 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> HamB2_00002 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> HamC2_00001 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HamC2_00002 TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 30 more rows</span></span></span></code></pre></div>
+<p>Here, we can see that there are two HMMs that exist, but are not
+mentioned in the HMM metadata table: <code>PDLC04000.hmm</code> and
+<code>PDLC05000.hmm</code>. There are also three HMMs that are mentioned
+in the metadata table but do not exist: <code>BrxA_00001</code>,
+<code>BrxE_00001</code>, and <code>BrxP_00001</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="compare-the-system-models-with-the-system-metadata-table">Compare the system models with the system metadata table<a class="anchor" aria-label="anchor" href="#compare-the-system-models-with-the-system-metadata-table"></a>
+</h4>
+<p>Next, we’ll compare the system models with the system metadata table,
+to ensure that all systems have an entry and vice-versa. To do this, use
+<code><a href="../reference/compare_sys_files_sys_meta.html">compare_sys_files_sys_meta()</a></code>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_sys_meta.html">compare_sys_files_sys_meta</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
+<span><span class="va">comparison</span></span>
+<span><span class="co">#&gt; $`sys_files without sys_meta`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">#&gt;   yaml.name        sys_files</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> brex_other       TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> generic_system_A TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> generic_system_B TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> hachiman_type_I  TRUE     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`sys_meta without sys_files`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   yaml.name        sys_meta</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> brex_type_II     TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> DRT_type_II      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> hachiman_type_II TRUE    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`sys_files with sys_meta`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 14 × 3</span></span></span>
+<span><span class="co">#&gt;    yaml.name      sys_files sys_meta</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> brex_type_I    TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> brex_type_III  TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> brex_type_IV   TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> brex_type_V    TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> brex_type_VI   TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> DRT_class_I    TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> DRT_class_II   TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DRT_class_III  TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> DRT_other      TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> DRT_type_I     TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> DRT_type_III   TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> DRT_type_IV    TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> DRT_type_V     TRUE      TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> hachiman_other TRUE      TRUE</span></span></code></pre></div>
+<p>Here, we can see that four system models do not have entries in the
+system metadata table: <code>brex_other</code>,
+<code>generic_system_A</code>, <code>generic_system_B</code>, and
+<code>hachiman_type_I</code>. Additionaly, there are three entries in
+the metadata table that do not have corresponding system models:
+<code>brex_type_II</code>, <code>DRT_type_II</code>, and
+<code>hachiman_type_II</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="compare-the-system-metadata-table-with-the-system-groups-table">Compare the system metadata table with the system groups table<a class="anchor" aria-label="anchor" href="#compare-the-system-metadata-table-with-the-system-groups-table"></a>
+</h4>
+<p>Next, we’ll compare the system metadata table with the system groups
+table, to ensure that all system models have been assigned to a group.
+To do this, use <code><a href="../reference/compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups()</a></code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups</a></span><span class="op">(</span><span class="va">sys_meta</span>, <span class="va">sys_groups</span><span class="op">)</span></span>
+<span><span class="va">comparison</span></span>
+<span><span class="co">#&gt; $`sys_meta without sys_groups`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
+<span><span class="co">#&gt;   yaml.name      sys_meta</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> DRT_class_I    TRUE    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> hachiman_other TRUE    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`sys_groups without sys_meta`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
+<span><span class="co">#&gt;   yaml.name       sys_groups</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> brex_other      TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> hachiman_type_I TRUE      </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`sys_meta with sys_groups`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 3</span></span></span>
+<span><span class="co">#&gt;    yaml.name        sys_meta sys_groups</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> brex_type_I      TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> brex_type_II     TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> brex_type_III    TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> brex_type_IV     TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> brex_type_V      TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> brex_type_VI     TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> DRT_class_II     TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DRT_class_III    TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> DRT_other        TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> DRT_type_I       TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> DRT_type_II      TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> DRT_type_III     TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> DRT_type_IV      TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> DRT_type_V       TRUE     TRUE      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> hachiman_type_II TRUE     TRUE</span></span></code></pre></div>
+<p>Here, we can see that two systems with entries in the metadata table
+have not been assigned system groups: <code>DRT_class_I</code> and
+<code>hachiman_other</code>. Additionally, two of the systems that were
+previously identified as having missing entries in the metadata table
+have been assigned groups: <code>brex_other</code> and
+<code>hachiman_type_I</code>. The systems <code>generic_system_A</code>
+and <code>generic_system_B</code> do not appear here as they do not have
+entries in the metadata table or the system groups table.</p>
+</div>
+<div class="section level4">
+<h4 id="compare-the-system-models-with-the-hmm-metadata-table">Compare the system models with the HMM metadata table<a class="anchor" aria-label="anchor" href="#compare-the-system-models-with-the-hmm-metadata-table"></a>
+</h4>
+<p>Once the above issues have been resolved, we can expand the hmm
+metadata table and the system models (for the purposes of this example,
+we won’t be correcting the issues here).</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can compare the expanded models with the expanded metadata
+table to ensure that all genes mentioned in the models have entries in
+the metadata table and vice-versa. Use
+<code><a href="../reference/compare_sys_files_hmm_meta.html">compare_sys_files_hmm_meta()</a></code>.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_hmm_meta.html">compare_sys_files_hmm_meta</a></span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span><span class="va">comparison</span></span>
+<span><span class="co">#&gt; $`hmm_meta_expanded without sys_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
+<span><span class="co">#&gt;   protein.name hmm_meta_expanded</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> HamA2        TRUE             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> HamB2        TRUE             </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`sys_genes without hmm_meta_expanded`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 2</span></span></span>
+<span><span class="co">#&gt;   protein.name sys_genes</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> GenA         TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> GenB         TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> GenC         TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> GenD         TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> GenE         TRUE     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`hmm_meta_expanded with sys_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 3</span></span></span>
+<span><span class="co">#&gt;    protein.name hmm_meta_expanded sys_genes</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> HamA1        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> HamA         TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> HamB1        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> HamB         TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> HamC2        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> HamC         TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Drt1a        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Drt1b        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Drt2         TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Drt3a        TRUE              TRUE     </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span></span></code></pre></div>
+<p>Here, we can see that there are two genes in the HMM metadata table
+that are not used in any of the system models: <code>HamA2</code> and
+<code>HamB2</code>. This is perhaps unsuprising, as we <a href="#compare-the-system-models-with-the-system-metadata-table">already
+established</a> that there is no system model present for
+<code>hachiman_type_II</code>, which would use these genes. In addition,
+there are five genes used by system models which are not referenced in
+the HMM metadata table: <code>GenA</code>, <code>GenB</code>,
+<code>GenC</code>, <code>GenD</code>, and <code>GenE</code>. To see
+which systems use those genes, we can use <code><a href="../reference/which_uses.html">which_uses()</a></code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">genes_without_meta</span> <span class="op">&lt;-</span> <span class="va">comparison</span><span class="op">[[</span><span class="st">"sys_genes without hmm_meta_expanded"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"protein.name"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="../reference/which_uses.html">which_uses</a></span><span class="op">(</span><span class="va">genes_without_meta</span>, <span class="va">models_expanded</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $GenA</span></span>
+<span><span class="co">#&gt; [1] "generic_system_A" "generic_system_A"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $GenB</span></span>
+<span><span class="co">#&gt; [1] "generic_system_A" "generic_system_A"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $GenC</span></span>
+<span><span class="co">#&gt; [1] "generic_system_B"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $GenD</span></span>
+<span><span class="co">#&gt; [1] "generic_system_B"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $GenE</span></span>
+<span><span class="co">#&gt; [1] "generic_system_B"</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="checking-that-system-models-are-valid">Checking that system models are valid<a class="anchor" aria-label="anchor" href="#checking-that-system-models-are-valid"></a>
+</h4>
+<p>Now we’ve checked that all information is present in the database
+(and fixed any issues), we can now check each of the system models to
+ensure that they are actually capable of identifying systems with their
+given parameters.</p>
+<p>Use <code><a href="../reference/valid_padloc_model.html">valid_padloc_model()</a></code> for assessing model validity.
+This function provides useful error information for fixing a model if it
+is invalid. It should be after expanding gene groups.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_III"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $maximum_separation</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $minimum_core</span></span>
+<span><span class="co">#&gt; [1] 6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $minimum_total</span></span>
+<span><span class="co">#&gt; [1] 6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $core_genes</span></span>
+<span><span class="co">#&gt; [1] "BrxA"   "BrxC"   "BrxF"   "PglXI"  "BrxHII" "PglZ"  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $prohibited_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/valid_padloc_model.html">valid_padloc_model</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_III"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>While <code><a href="../reference/valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> returns
-<code>TRUE</code> for <code>SystemA_III</code> before expansion of gene
-groups, the model for <code>SystemA_III</code> should technically be
-invalid, as the <code>minimum_total</code> is <code>3</code>, but only
-two types of genes are listed in total i.e. <code>SyaA</code> and
-<code>Sya_accessory</code> (in reality, we know already that
-<code>Sya_accessory</code> actually represents two genes,
-<code>SyaB</code> and <code>SyaC</code>).</p>
-<p><code><a href="../reference/valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> should be run after
-expanding the gene groups of a model to perform additional validation
-checks.</p>
-<p>For example’s sake, <code><a href="../reference/valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> fails
-(as expected) on the unexpanded version of <code>SystemA_III</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/valid_padloc_model_expanded.html">valid_padloc_model_expanded</a></span><span class="op">(</span><span class="va">models</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `valid_padloc_model_expanded()`:</span></span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_I"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $maximum_separation</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $minimum_core</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $minimum_total</span></span>
+<span><span class="co">#&gt; [1] 6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $core_genes</span></span>
+<span><span class="co">#&gt; [1] "BrxA" "BrxB" "BrxC" "PglX" "PglZ" "BrxL"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; [1] "BrxA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $prohibited_genes</span></span>
+<span><span class="co">#&gt; [1] "BrxE"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/valid_padloc_model.html">valid_padloc_model</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_I"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `valid_padloc_model()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
-<span><span class="co">#&gt; `optional_genes`.</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">3</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">2</span></span></span></code></pre></div>
-<p>But it passes (as expected) on the expanded version.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/valid_padloc_model_expanded.html">valid_padloc_model_expanded</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in subset(padloc_model$core_genes, padloc_model$core_genes != "NA"): object 'models_expanded' not found</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span></code></pre></div>
+<p>The model for <code>brex_type_I</code> is invalid, as the required
+number of core genes is greater than the number of core genes specifed.
+Additionaly, the gene <code>BrxA</code> has been specified in both the
+<code>core_genes</code> and <code>optional_genes</code>.</p>
 <p>The wrapper <code><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity()</a></code> is provided
 to test the validity of all system models in a list and return the
-output as a <code>list</code> of <code>?purrr::safely()</code> style
-sub-<code>list</code>s with two components <code>result</code> and
+output as a <code>list</code> of <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">?purrr::safely</a></code>-style
+sub-<code>lists</code> with two components <code>result</code> and
 <code>error</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">validity_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity</a></span><span class="op">(</span><span class="va">models</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validity_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">)</span></span></code></pre></div>
 <p>For each model, if it is valid, <code>result</code> is
 <code>TRUE</code> and <code>error</code> is <code>NULL</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">validity_report</span><span class="op">[[</span><span class="st">"SystemA_I"</span><span class="op">]</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validity_report</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $result</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -197,8 +613,8 @@ sub-<code>list</code>s with two components <code>result</code> and
 <p>If the model is invalid, <code>result</code> is <code>FALSE</code>
 and <code>error</code> is an <code><a href="https://rlang.r-lib.org/reference/rlang_error.html" class="external-link">?rlang::rlang_error</a></code> object
 that describes the reason the model is invalid.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">validity_report</span><span class="op">[[</span><span class="st">"SystemA_III"</span><span class="op">]</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validity_report</span><span class="op">[[</span><span class="st">"brex_type_I"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $result</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -206,20 +622,77 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">&lt;error/rlang_error&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
-<span><span class="co">#&gt; `optional_genes`.</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">3</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">2</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span></code></pre></div>
 <p>To return just the error messages for all model in the list, use
 <code><a href="../reference/why_invalid.html">why_invalid()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/why_invalid.html">why_invalid</a></span><span class="op">(</span><span class="va">validity_report</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $SystemA_III</span></span>
+<span><span class="co">#&gt; $brex_type_I</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">&lt;error/rlang_error&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $DRT_type_I</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">&lt;error/rlang_error&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `maximum_separation` must be a whole number of type <span style="font-style: italic;">integer</span> or <span style="font-style: italic;">double</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Instead, got <span style="font-style: italic;">character</span>: <span style="color: #0000BB;">zero</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be a whole number of type <span style="font-style: italic;">integer</span> or <span style="font-style: italic;">double</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Instead, got <span style="font-style: italic;">character</span>: <span style="color: #0000BB;">two</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be a whole number of type <span style="font-style: italic;">integer</span> or <span style="font-style: italic;">double</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Instead, got <span style="font-style: italic;">character</span>: <span style="color: #0000BB;">two</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">"two"</span>, but number of `core_genes` is <span style="color: #0000BB;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
 <span><span class="co">#&gt; `optional_genes`.</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">3</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">2</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">"two"</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">2</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $DRT_type_III</span></span>
+<span><span class="co">#&gt; &lt;simpleError: the condition has length &gt; 1&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $generic_system_A</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">&lt;error/rlang_error&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">3</span>, but number of `core_genes` is <span style="color: #0000BB;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
+<span><span class="co">#&gt; `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">4</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"GenB"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `prohibited_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"GenA"</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $generic_system_B</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">&lt;error/rlang_error&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` can not contain the special value <span style="color: #0000BB;">"NA"</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Got <span style="color: #0000BB;">"GenC"</span>, <span style="color: #0000BB;">"GenD"</span>, and <span style="color: #0000BB;">"NA"</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `optional_genes` can not contain the special value <span style="color: #0000BB;">"NA"</span> if additional genes</span></span>
+<span><span class="co">#&gt; are specified.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Got <span style="color: #0000BB;">"GenE"</span> and <span style="color: #0000BB;">"NA"</span>.</span></span></code></pre></div>
+<p>Some malformed models may fail for reasons outside of the scope of
+the current validity checks, resulting in cryptic error messages, like
+that seen for <code>DRT_type_III</code>. These models should be
+inspected manually for the cause of the error.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validity_report</span><span class="op">[[</span><span class="st">"DRT_type_III"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $result</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $error</span></span>
+<span><span class="co">#&gt; &lt;simpleError: the condition has length &gt; 1&gt;</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

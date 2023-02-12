@@ -12,7 +12,7 @@ inst/extdata directory. This function make them easy to access."><!-- mathjax --
     
     <a class="navbar-brand me-2" href="../index.html">padlocdev</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@ inst/extdata directory. This function make them easy to access."><!-- mathjax --
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
+    <a class="dropdown-item" href="../articles/workflow.html">Summarised workflow</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -81,16 +82,142 @@ inst/extdata directory. This function make them easy to access."><!-- mathjax --
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">padlocdev_example</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "example_model.yaml"   "hmm"                  "hmm/PROT00001.hmm"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "hmm/PROT00002.hmm"    "hmm/PROT00003.hmm"    "hmm/PROT00004.hmm"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "hmm/PROT00005.hmm"    "hmm/PROT00006.hmm"    "hmm/PROT00007.hmm"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "hmm/PROT00008.hmm"    "hmm/PROT00009.hmm"    "hmm/PROT00010.hmm"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "hmm_meta.txt"         "protein.hmm"          "sys"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "sys/SystemA_I.yaml"   "sys/SystemA_II.yaml"  "sys/SystemA_III.yaml"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "sys/SystemB.yaml"     "sys/SystemC.yaml"     "sys/SystemD.yaml"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "sys/SystemE.yaml"     "sys_groups.txt"       "sys_meta.txt"        </span>
-<span class="r-in"><span><span class="fu">padlocdev_example</span><span class="op">(</span><span class="st">"protein.hmm"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">/home/runner/work/_temp/Library/padlocdev/extdata/protein.hmm</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "padloc-db"                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] "padloc-db/hmm"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "padloc-db/hmm/PDLC00150.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] "padloc-db/hmm/PDLC00151.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "padloc-db/hmm/PDLC00174.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [6] "padloc-db/hmm/PDLC00175.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "padloc-db/hmm/PDLC00195.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [8] "padloc-db/hmm/PDLC00196.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "padloc-db/hmm/PDLC00199.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [10] "padloc-db/hmm/PDLC00200.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "padloc-db/hmm/PDLC00202.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [12] "padloc-db/hmm/PDLC00203.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "padloc-db/hmm/PDLC02171.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [14] "padloc-db/hmm/PDLC02172.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "padloc-db/hmm/PDLC02173.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [16] "padloc-db/hmm/PDLC02174.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "padloc-db/hmm/PDLC02175.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [18] "padloc-db/hmm/PDLC02176.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "padloc-db/hmm/PDLC02177.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [20] "padloc-db/hmm/PDLC02178.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "padloc-db/hmm/PDLC02181.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [22] "padloc-db/hmm/PDLC02182.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "padloc-db/hmm/PDLC02437.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [24] "padloc-db/hmm/PDLC02438.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "padloc-db/hmm/PDLC02459.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [26] "padloc-db/hmm/PDLC02460.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "padloc-db/hmm/PDLC02471.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [28] "padloc-db/hmm/PDLC02472.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "padloc-db/hmm/PDLC02494.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [30] "padloc-db/hmm/PDLC02495.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "padloc-db/hmm/PDLC02496.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [32] "padloc-db/hmm/PDLC02497.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "padloc-db/hmm/PDLC02500.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [34] "padloc-db/hmm/PDLC02501.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "padloc-db/hmm/PDLC02504.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [36] "padloc-db/hmm/PDLC02505.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "padloc-db/hmm/PDLC02506.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] "padloc-db/hmm/PDLC02510.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "padloc-db/hmm/PDLC02511.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [40] "padloc-db/hmm/PDLC02512.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "padloc-db/hmm/PDLC02513.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [42] "padloc-db/hmm/PDLC02515.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "padloc-db/hmm/PDLC02516.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [44] "padloc-db/hmm/PDLC02541.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "padloc-db/hmm/PDLC02542.hmm"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [46] "padloc-db/hmm_meta.txt"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "padloc-db/sys"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [48] "padloc-db/sys/DRT_class_I.yaml"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "padloc-db/sys/DRT_class_II.yaml"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [50] "padloc-db/sys/DRT_class_III.yaml"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "padloc-db/sys/DRT_other.yaml"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [52] "padloc-db/sys/DRT_type_I.yaml"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "padloc-db/sys/DRT_type_II.yaml"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [54] "padloc-db/sys/DRT_type_III.yaml"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "padloc-db/sys/DRT_type_IV.yaml"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [56] "padloc-db/sys/DRT_type_V.yaml"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "padloc-db/sys/brex_other.yaml"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [58] "padloc-db/sys/brex_type_I.yaml"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "padloc-db/sys/brex_type_II.yaml"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [60] "padloc-db/sys/brex_type_III.yaml"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "padloc-db/sys/brex_type_IV.yaml"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [62] "padloc-db/sys/brex_type_V.yaml"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "padloc-db/sys/brex_type_VI.yaml"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [64] "padloc-db/sys/hachiman_other.yaml"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "padloc-db/sys/hachiman_type_I.yaml"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [66] "padloc-db/sys/hachiman_type_II.yaml"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "padloc-db/sys_groups.txt"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [68] "padloc-db/sys_meta.txt"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "padloc-db-broken"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [70] "padloc-db-broken/hmm"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "padloc-db-broken/hmm/PDLC00150.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [72] "padloc-db-broken/hmm/PDLC00151.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "padloc-db-broken/hmm/PDLC00174.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [74] "padloc-db-broken/hmm/PDLC00175.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "padloc-db-broken/hmm/PDLC00195.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [76] "padloc-db-broken/hmm/PDLC00196.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "padloc-db-broken/hmm/PDLC00199.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [78] "padloc-db-broken/hmm/PDLC00200.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "padloc-db-broken/hmm/PDLC00202.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [80] "padloc-db-broken/hmm/PDLC00203.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "padloc-db-broken/hmm/PDLC02171.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [82] "padloc-db-broken/hmm/PDLC02172.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "padloc-db-broken/hmm/PDLC02173.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [84] "padloc-db-broken/hmm/PDLC02174.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "padloc-db-broken/hmm/PDLC02175.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [86] "padloc-db-broken/hmm/PDLC02176.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "padloc-db-broken/hmm/PDLC02177.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [88] "padloc-db-broken/hmm/PDLC02178.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "padloc-db-broken/hmm/PDLC02181.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [90] "padloc-db-broken/hmm/PDLC02182.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "padloc-db-broken/hmm/PDLC02438.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [92] "padloc-db-broken/hmm/PDLC02459.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "padloc-db-broken/hmm/PDLC02460.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [94] "padloc-db-broken/hmm/PDLC02471.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "padloc-db-broken/hmm/PDLC02472.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [96] "padloc-db-broken/hmm/PDLC02494.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "padloc-db-broken/hmm/PDLC02496.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [98] "padloc-db-broken/hmm/PDLC02497.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "padloc-db-broken/hmm/PDLC02500.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [100] "padloc-db-broken/hmm/PDLC02501.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "padloc-db-broken/hmm/PDLC02504.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [102] "padloc-db-broken/hmm/PDLC02505.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "padloc-db-broken/hmm/PDLC02506.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [104] "padloc-db-broken/hmm/PDLC02512.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "padloc-db-broken/hmm/PDLC02513.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [106] "padloc-db-broken/hmm/PDLC02515.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "padloc-db-broken/hmm/PDLC02516.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [108] "padloc-db-broken/hmm/PDLC02541.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "padloc-db-broken/hmm/PDLC02542.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [110] "padloc-db-broken/hmm/PDLC03000.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "padloc-db-broken/hmm/PDLC04000.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [112] "padloc-db-broken/hmm/PDLC05000.hmm"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "padloc-db-broken/hmm_meta.txt"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [114] "padloc-db-broken/sys"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "padloc-db-broken/sys/DRT_class_I.yaml"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [116] "padloc-db-broken/sys/DRT_class_II.yaml"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [117] "padloc-db-broken/sys/DRT_class_III.yaml"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [118] "padloc-db-broken/sys/DRT_other.yaml"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [119] "padloc-db-broken/sys/DRT_type_I.yaml"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [120] "padloc-db-broken/sys/DRT_type_III.yaml"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "padloc-db-broken/sys/DRT_type_IV.yaml"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [122] "padloc-db-broken/sys/DRT_type_V.yaml"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [123] "padloc-db-broken/sys/brex_other.yaml"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [124] "padloc-db-broken/sys/brex_type_I.yaml"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [125] "padloc-db-broken/sys/brex_type_III.yaml"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [126] "padloc-db-broken/sys/brex_type_IV.yaml"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "padloc-db-broken/sys/brex_type_V.yaml"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [128] "padloc-db-broken/sys/brex_type_VI.yaml"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [129] "padloc-db-broken/sys/generic_system_A.yaml"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [130] "padloc-db-broken/sys/generic_system_B.yaml"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [131] "padloc-db-broken/sys/hachiman_other.yaml"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [132] "padloc-db-broken/sys/hachiman_type_I.yaml" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "padloc-db-broken/sys_groups.txt"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [134] "padloc-db-broken/sys_meta.txt"             </span>
+<span class="r-in"><span><span class="fu">padlocdev_example</span><span class="op">(</span><span class="st">"padloc-db/hmm/PDLC00150.hmm"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00; font-weight: bold;">/home/runner/work/_temp/Library/padlocdev/extdata/padloc-db/hmm/PDLC00150.hmm</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

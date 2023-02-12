@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">padlocdev</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,7 @@
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
+    <a class="dropdown-item" href="../articles/workflow.html">Summarised workflow</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -133,6 +134,16 @@
           <code><a href="pull_genes.html">pull_genes()</a></code> 
         </dt>
         <dd>Pull the genes from a list of system models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="expand_hmm_meta.html">expand_hmm_meta()</a></code> 
+        </dt>
+        <dd>Expand HMM metadata table multi-name assignments</dd>
+      </dl><dl><dt>
+          
+          <code><a href="collapse_hmm_meta.html">collapse_hmm_meta()</a></code> 
+        </dt>
+        <dd>Collapse HMM metadata table multi-name assignments</dd>
       </dl></div><div class="section level2">
       <h2 id="validate">Validate<a class="anchor" aria-label="anchor" href="#validate"></a></h2>
       
@@ -146,14 +157,9 @@
 
       <dl><dt>
           
-          <code><a href="valid_padloc_model_basic.html">valid_padloc_model_basic()</a></code> 
+          <code><a href="valid_padloc_model.html">valid_padloc_model()</a></code> 
         </dt>
-        <dd>Basic validity checker for a padloc model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="valid_padloc_model_expanded.html">valid_padloc_model_expanded()</a></code> 
-        </dt>
-        <dd>Validity checker for a padloc model with expanded genes</dd>
+        <dd>Validity checker for a padloc model</dd>
       </dl><dl><dt>
           
           <code><a href="report_padloc_model_validity.html">report_padloc_model_validity()</a></code> 
@@ -179,8 +185,13 @@
           <code><a href="compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups()</a></code> 
         </dt>
         <dd>Compare system model files against those listed in sys_meta.txt</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compare_sys_files_hmm_meta.html">compare_sys_files_hmm_meta()</a></code> 
+        </dt>
+        <dd>Compare system model files against the hmm metadata table.</dd>
       </dl></div><div class="section level2">
-      <h2 id="everything-else">Everything Else<a class="anchor" aria-label="anchor" href="#everything-else"></a></h2>
+      <h2 id="everything-else">Everything else<a class="anchor" aria-label="anchor" href="#everything-else"></a></h2>
       
       
 
@@ -205,6 +216,31 @@
           <code><a href="a_vs_b.html">a_vs_b()</a></code> 
         </dt>
         <dd>Compare two dataframes / tibbles</dd>
+      </dl><dl><dt>
+          
+          <code><a href="system_cp_files.html">system_cp_files()</a></code> 
+        </dt>
+        <dd>Copy a list of files on the system</dd>
+      </dl><dl><dt>
+          
+          <code><a href="system_cp_hmm.html">system_cp_hmm()</a></code> 
+        </dt>
+        <dd>Copy profile HMM files from one directory to another</dd>
+      </dl><dl><dt>
+          
+          <code><a href="system_cp_sys.html">system_cp_sys()</a></code> 
+        </dt>
+        <dd>Copy system description files from one directory to another</dd>
+      </dl><dl><dt>
+          
+          <code><a href="system_mv_deprecated.html">system_mv_deprecated()</a></code> 
+        </dt>
+        <dd>Move system description files to deprecated directory</dd>
+      </dl><dl><dt>
+          
+          <code><a href="which_uses.html">which_uses()</a></code> 
+        </dt>
+        <dd>Find out which system models use particular proteins</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
