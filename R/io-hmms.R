@@ -223,7 +223,7 @@ read_hmm <- function(file) {
 #' hmms[1]
 multi_read_hmm <- function(directory) {
   files <- list.files(directory, full.names = TRUE, pattern = "*.hmm")
-  hmm_headers <- lapply(X = files, FUN = read_hmm)
+  hmm_headers <- lapply(X = cli::cli_progress_along(files), FUN = function(i) read_hmm(files[i]))
   hmm_names <- stringr::str_remove(basename(files), ".hmm")
   names(hmm_headers) <- hmm_names
   hmm_headers
@@ -280,7 +280,7 @@ multi_read_hmm <- function(directory) {
 read_hmm_header <- function(file) {
   # Only head the first 23 lines as possible header lines (if there's more
   # header lines than this then the HMM is broken anyway)
-  header <- readr::read_lines(file, n_max = 23)
+  header <- readr::read_lines(file, n_max = 23, progress = FALSE)
 
   # Handle header data
   all_headers <- c(
@@ -334,7 +334,7 @@ read_hmm_header <- function(file) {
 #' hmms[1]
 multi_read_hmm_header <- function(directory) {
   files <- list.files(directory, full.names = TRUE, pattern = "*.hmm")
-  hmm_headers <- lapply(X = files, FUN = read_hmm_header)
+  hmm_headers <- lapply(X = cli::cli_progress_along(files), FUN = function(i) read_hmm_header(files[i]))
   hmm_names <- stringr::str_remove(basename(files), ".hmm")
   names(hmm_headers) <- hmm_names
   hmm_headers

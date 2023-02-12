@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(padlocdev)
 ```
 
@@ -93,103 +93,19 @@ of all system models in a list, and assign them back onto the models.
 
 ```{r, message = FALSE}
 models <- padlocdev_example("padloc-db/sys") |> multi_read_padloc_model()
-models[["DRT_class_II"]][["core_genes"]]
+models[["DRT_class_II"]][c("core_genes", "optional_genes", "prohibited_genes")]
 ```
 
 ```{r, message = FALSE}
 models_expanded <- expand_gene_groups_all(models, hmm_meta_expanded)
-models_expanded[["DRT_class_II"]][["core_genes"]]
+models_expanded[["DRT_class_II"]][c("core_genes", "optional_genes", "prohibited_genes")]
 ```
 
-### Checking that system models are valid
+### Working through an example of a broken database
 
-`valid_padloc_model_basic()` and `valid_padloc_model_expanded()` are used for
-assessing model validity. Each function provides useful error information for
-fixing a model if it is invalid.
-
-`valid_padloc_model_basic()` is run automatically upon reading a padloc model, 
-it does basic type checking but no assessment of duplicated genes, overlap 
-between gene categories, or validation of gene number requirements, as at 
-this initial stage, some genes may actually be gene groups. 
-
-```{r, message = FALSE}
-valid_padloc_model_basic(models[["DRT_class_II"]])
-```
-
-While `valid_padloc_model_basic()` returns `TRUE` for `DRT_class_II` before 
-expansion of gene groups, the model for `DRT_class_II` should technically be
-invalid, as `minimum_core` and `minimum_total` are ``, but only one type of 
-genes is listed in total i.e. `Drt_class_II` (in reality, we know already that 
-`Drt_class_II` actually represents three genes, `Drt2`, `Drt3a` and `Drt3b`).
-
-`valid_padloc_model_expanded()` should be run after expanding the gene groups
-of a model to perform these types of additional validation checks.
-
-For example's sake, `valid_padloc_model_expanded()` fails (as expected) on the 
-unexpanded version of `DRT_class_II`, for the reasons mentioned above.
-
-```{r, message = FALSE}
-valid_padloc_model_expanded(models[["DRT_class_II"]])
-```
-
-But it passes (as expected) on the expanded version.
-
-```{r, message = FALSE}
-valid_padloc_model_expanded(models_expanded[["DRT_class_II"]])
-```
-
-The wrapper `report_padloc_model_validity()` is provided to test the validity 
-of all system models in a list and return the output as a `list` of 
-`?purrr::safely`-style sub-`lists` with two components `result` and `error`.
-
-```{r, message = FALSE}
-validity_report <- report_padloc_model_validity(models)
-```
-
-For each model, if it is valid, `result` is `TRUE` and `error` is `NULL`. 
-
-```{r, message = FALSE}
-validity_report[["DRT_class_II"]]
-```
-
-If the model is invalid, `result` is `FALSE` and `error` is an 
-`?rlang::rlang_error` object that describes the reason the model is invalid.
-
-```{r, message = FALSE}
-validity_report[["brex_type_I"]]
-```
-
-To return just the error messages for all model in the list, use 
-`why_invalid()`.
-
-```{r, message = FALSE}
-why_invalid(validity_report)
-```
-
-```{r, message = FALSE}
-comparison <- compare_hmm_files_hmm_meta(hmm_headers, hmm_meta)
-comparison
-```
-
-```{r, message = FALSE}
-comparison <- compare_sys_files_sys_meta(models, sys_meta)
-comparison
-```
-
-```{r, message = FALSE}
-comparison <- compare_sys_meta_sys_groups(sys_meta, sys_groups)
-comparison
-```
-
-```{r, message = FALSE}
-comparison <- compare_sys_files_hmm_meta(models_expanded, hmm_meta_expanded)
-comparison
-```
-
-### An example of a broken database
-
-An example of a broken database with various issues has also been included.
-First, we'll read in the database files.
+An example of a broken database with various issues has been included, to
+demonstrate database validation functions. First, we'll read in the database 
+files.
 
 ```{r, message = FALSE}
 path_hmm <- padlocdev_example("padloc-db-broken/hmm")
@@ -204,17 +120,12 @@ hmm_meta <- read_hmm_meta(path_hmm_meta)
 sys_meta <- read_sys_meta(path_sys_meta)
 sys_groups <- read_sys_groups(path_sys_groups)
 ```
-```{r, message = FALSE}
-# read_padloc_model_safely <- purrr::safely(read_padloc_model)
-# models <- purrr::map(list.files(path_sys, pattern = ".yaml", full.names = TRUE), read_padloc_model_safely)
-
-```
 
 #### Verify that HMM file names match their accession
 
 Before trying to expand anything, lets see if there's anything missing. First, 
 we'll check that the HMM file names match their accessions, as this may affect
-other stages of validation.
+other stages of validation. To do this, use `verify_hmm_names()`.
 
 ```{r, message = FALSE}
 hmm_name_verification <- verify_hmm_names(hmms)
@@ -252,7 +163,7 @@ in error. Either way, these cases should also be dealt with.
 #### Compare the profile HMMs with the HMM metadata table
 
 Next, we'll compare the HMMs with the metadata table, to ensure that all HMMs
-have an entry and vice-versa.
+have an entry and vice-versa. To do this, use `compare_hmm_files_hmm_meta()`.
 
 ```{r, message = FALSE}
 comparison <- compare_hmm_files_hmm_meta(hmms, hmm_meta)
@@ -267,7 +178,8 @@ three HMMs that are mentioned in the metadata table but do not exist:
 #### Compare the system models with the system metadata table
 
 Next, we'll compare the system models with the system metadata table, to ensure
-that all systems have an entry and vice-versa.
+that all systems have an entry and vice-versa. To do this, use 
+`compare_sys_files_sys_meta()`.
 
 ```{r, message = FALSE}
 comparison <- compare_sys_files_sys_meta(models, sys_meta)
@@ -283,7 +195,8 @@ and `hachiman_type_II`.
 #### Compare the system metadata table with the system groups table
 
 Next, we'll compare the system metadata table with the system groups table, to
-ensure that all system models have been assigned to a group.
+ensure that all system models have been assigned to a group. To do this, use 
+`compare_sys_meta_sys_groups()`.
 
 ```{r, message = FALSE}
 comparison <- compare_sys_meta_sys_groups(sys_meta, sys_groups)
@@ -311,16 +224,85 @@ models_expanded <- expand_gene_groups_all(models, hmm_meta_expanded)
 
 Now we can compare the expanded models with the expanded metadata table to
 ensure that all genes mentioned in the models have entries in the metadata
-table and vice-versa.
+table and vice-versa. Use `compare_sys_files_hmm_meta()`.
 
 ```{r, message = FALSE}
 comparison <- compare_sys_files_hmm_meta(models_expanded, hmm_meta_expanded)
 comparison
 ```
 
-Now we've confirmed that all , let's check each of the system models to ensure
-that they are actually capable of identifying systems with their given
-parameters.
+Here, we can see that there are two genes in the HMM metadata table that are 
+not used in any of the system models: `HamA2` and `HamB2`. This is perhaps 
+unsuprising, as we [already established](#compare-the-system-models-with-the-system-metadata-table) 
+that there is no system model present for `hachiman_type_II`, which would use 
+these genes. In addition, there are five genes used by system models which are
+not referenced in the HMM metadata table: `GenA`, `GenB`, `GenC`, `GenD`, and
+`GenE`. To see which systems use those genes, we can use `which_uses()`.
 
-...
+```{r, message = FALSE}
+genes_without_meta <- comparison[["sys_genes without hmm_meta_expanded"]][["protein.name"]]
+which_uses(genes_without_meta, models_expanded)
+```
 
+#### Checking that system models are valid
+
+Now we've checked that all information is present in the database (and fixed 
+any issues), we can now check each of the system models to ensure that they are 
+actually capable of identifying systems with their given parameters.
+
+Use `valid_padloc_model()` for assessing model validity. This function provides 
+useful error information for fixing a model if it is invalid. It should be 
+after expanding gene groups.
+
+```{r, message = FALSE}
+models_expanded[["brex_type_III"]]
+
+valid_padloc_model(models_expanded[["brex_type_III"]])
+```
+
+```{r, message = FALSE}
+models_expanded[["brex_type_I"]]
+
+valid_padloc_model(models_expanded[["brex_type_I"]])
+```
+
+The model for `brex_type_I` is invalid, as the required number of core genes
+is greater than the number of core genes specifed. Additionaly, the gene 
+`BrxA` has been specified in both the `core_genes` and `optional_genes`.
+
+The wrapper `report_padloc_model_validity()` is provided to test the validity 
+of all system models in a list and return the output as a `list` of 
+`?purrr::safely`-style sub-`lists` with two components `result` and `error`.
+
+```{r, message = FALSE}
+validity_report <- report_padloc_model_validity(models_expanded)
+```
+
+For each model, if it is valid, `result` is `TRUE` and `error` is `NULL`. 
+
+```{r, message = FALSE}
+validity_report[["DRT_class_II"]]
+```
+
+If the model is invalid, `result` is `FALSE` and `error` is an 
+`?rlang::rlang_error` object that describes the reason the model is invalid.
+
+```{r, message = FALSE}
+validity_report[["brex_type_I"]]
+```
+
+To return just the error messages for all model in the list, use 
+`why_invalid()`.
+
+```{r, message = FALSE}
+why_invalid(validity_report)
+```
+
+Some malformed models may fail for reasons outside of the scope of the current
+validity checks, resulting in cryptic error messages, like that seen for 
+`DRT_type_III`. These models should be inspected manually for the cause of the
+error.
+
+```{r, message = FALSE}
+validity_report[["DRT_type_III"]]
+```

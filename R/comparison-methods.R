@@ -5,11 +5,16 @@
 # is derived from the file name. This function checks whether the file names
 # match the NAME field of the HMM, as this becomes important when splitting the
 # HMMs into groups.
+#' @export
 verify_hmm_names <- function(hmm_list) {
   hmm_list_transposed <- purrr::list_transpose(hmm_list)
   hmm_headers <- hmm_list_transposed[["header"]]
   headers_transposed <- purrr::list_transpose(hmm_headers)
-  hmm_accessions <- headers_transposed[["ACC"]]
+  hmm_accessions <- unlist(headers_transposed[["ACC"]])
+  if (length(hmm_accessions) != length(hmm_list)) {
+    cli::cli_abort(c("Some HMMs do not have accessions.",
+                     "x" = "Make sure all HMMs have an ACC field."))
+  }
   x <- tibble::tibble(
     file_name = names(hmm_list),
     accession_field = hmm_accessions
@@ -159,7 +164,41 @@ compare_sys_meta_sys_groups <- function(sys_meta, sys_groups) {
 compare_sys_files_hmm_meta <- function(models_expanded, hmm_meta_expanded) {
   sys_genes <- pull_genes(models_expanded)
   sys_genes <- tibble::tibble(protein.name = sys_genes)
-  hmm_meta <- dplyr::distinct(hmm_meta_expanded, protein.name)
+  hmm_meta_expanded <- dplyr::distinct(hmm_meta_expanded, protein.name)
   out <- a_vs_b(hmm_meta_expanded, sys_genes, join_by = "protein.name")
   out
 }
+
+# TODO: Write an example.
+# TODO: Write a test.
+#' @title Find out which system models use particular proteins
+#' @description Find out which system models use particular proteins.
+#' @param genes Character aray of gene names.
+#' @param models_expanded List of expanded models.
+#' @return A list of system models.
+#' @export
+which_uses <- function(genes, models_expanded) {
+  # turn inside out
+  a <- purrr::list_transpose(models_expanded, simplify = FALSE)
+  # subset for for gene categories
+  b <- a[c("core_genes", "optional_genes", "prohibited_genes")]
+  # turn back
+  c <- purrr::list_transpose(b, simplify = FALSE)
+  # unlist genes so there's one element per system
+  d <- purrr::map(c, function(x) unlist(x, use.names = FALSE))
+  # for each system, subset genes for those we're interested in (use ^...$ for exact match)
+  e <- sapply(d, function(x) stringr::str_subset(x, paste0("^", genes, "$", collapse = "|")))
+  # filter for systems that have those genes
+  f <- Filter(function(x) length(x) != 0, e)
+  # convert list to tibble
+  g <- tibble::as_tibble(utils::stack(f))
+  # convert factors to character
+  h <- dplyr::mutate(g, ind = as.character(ind))
+  # split back into a list, where gene is element name and system is values
+  i <- split(h$ind, h$values)
+  i
+}
+
+
+
+

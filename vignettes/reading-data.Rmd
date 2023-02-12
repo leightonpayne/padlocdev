@@ -2,7 +2,7 @@
 title: "Reading padloc-db data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{reading-data}
+  %\VignetteIndexEntry{Reading padloc-db data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,15 +15,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(padlocdev)
 ```
 
 ### Reading padloc-db files
 
-You can read single profile HMMs, system models, the HMM metadata table, 
-system metadata table, and system group information with the following 
-functions.
+You can read profile HMMs, system models, the HMM metadata table, system 
+metadata table, and system group information with the following functions.
 
 #### Metadata tables
 
@@ -75,21 +74,35 @@ names(hmm)
 names(hmm[["header"]])
 ```
 
+```{r, message = FALSE}
+names(hmm[["model"]])
+```
+
 Accessing elements works the same as with any other list.
 
 ```{r, message = FALSE}
 hmm[["header"]][["NAME"]]
+
 # Or...
 hmm$header$NAME
+
 # Or...
 purrr::pluck(hmm, "header", "NAME")
-# Etc.
+
+# Etc...
 ```
 
-To avoid reading the model information, which can be quite large depending on
-the size of the profile HMM, use `read_hmm_header()` instead. Currently, there
-is no use for reading in the model information anyway, at least for the purpose
-of data validation.
+The model information for an HMM can be quite large, which can slow down 
+reading.
+
+```{r, message = FALSE}
+object.size(hmm[["header"]]) |> print(units = "Kb")
+object.size(hmm[["model"]]) |> print(units = "Kb")
+```
+
+Currently, there is no use for reading in the model information anyway, at 
+least for the purpose of data validation. To read just the header information 
+use `read_hmm_header()` instead. 
 
 ```{r, message = FALSE}
 hmm_header <- read_hmm_header(path)

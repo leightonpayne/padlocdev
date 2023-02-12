@@ -8,7 +8,7 @@ test_that("Construction of a padloc_model works", {
     optional_genes = c("GenD", "GenE"),
     prohibited_genes = c("GenF")
   )
-  expect_true(valid_padloc_model_basic(generic_model))
+  expect_true(valid_padloc_model(generic_model))
 })
 
 test_that("minimum_core is valid", {
@@ -21,7 +21,7 @@ test_that("minimum_core is valid", {
     optional_genes = c("GenC"),
     prohibited_genes = "NA"
   )
-  expect_error(valid_padloc_model_expanded(broken_model))
+  expect_error(valid_padloc_model(broken_model))
 })
 
 test_that("minimum_total is valid", {
@@ -34,7 +34,7 @@ test_that("minimum_total is valid", {
     optional_genes = c("GenC"),
     prohibited_genes = "NA"
   )
-  expect_error(valid_padloc_model_expanded(broken_model))
+  expect_error(valid_padloc_model(broken_model))
 })
 
 # test_that("NA is not a valid value for core_genes", {

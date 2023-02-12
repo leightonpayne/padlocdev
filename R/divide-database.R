@@ -1,6 +1,7 @@
 # TODO: Write an example.
 # TODO: Write a test.
 # TODO: Write documentation.
+#' @export
 filter_models <- function(sys_list, sys_groups, group_name) {
   relevant_systems <- dplyr::filter(sys_groups, group %in% group_name)
   system_names <- relevant_systems[["yaml.name"]]
@@ -9,6 +10,7 @@ filter_models <- function(sys_list, sys_groups, group_name) {
   filtered_models
 }
 
+#' @export
 filter_hmm_meta <- function(sys_list, hmm_meta) {
   transposed_models <- purrr::list_transpose(sys_list)
   gene_categories <- c("core_genes", "optional_genes", "prohibited_genes")
@@ -23,11 +25,13 @@ filter_hmm_meta <- function(sys_list, hmm_meta) {
 # This is pretty basic, and would probably make more sense to use the system
 # sys groups table over a list of system models, but it's set up this way
 # for consistency w/ filter_hmm_meta i.e. (models, meta)
+#' @export
 filter_sys_meta <- function(sys_list, sys_meta) {
   relevant_systems <- names(sys_list)
   relevant_meta <- dplyr::filter(sys_meta, yaml.name %in% relevant_systems)
 }
 
+#' @export
 divide_database <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_meta, path, new_path) {
   groups <- unique(sys_groups[["group"]])
 

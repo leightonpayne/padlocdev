@@ -51,5 +51,5 @@ padlocdev_example()
 Otherwise, the full path to the file is generated.
 
 ```{r, message = FALSE}
-padlocdev_example(file = "hmm/PROT00001.hmm")
+padlocdev_example(file = "padloc-db/hmm/PDLC00150.hmm")
 ```

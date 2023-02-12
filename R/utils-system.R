@@ -45,3 +45,33 @@ system_cp_hmm <- function(hmm_list, path, new_path) {
 system_cp_sys <- function(sys_list, path, new_path) {
   system_cp_files(sys_list, ".yaml", path, new_path)
 }
+
+#' @title Move system description files to deprecated directory
+#' @description Move system description files to deprecated directory
+#' @param path The path to padloc-db/sys/
+#' @return Nothing.
+#' @export
+system_mv_deprecated <- function(path) {
+  notes_path <- fs::path(path, "deprecated/notes.txt")
+  deprecation_notes <- readr::read_tsv(notes_path)
+  file_names <- paste0(deprecation_notes[["hmm.accession"]], ".hmm")
+  purrr::walk(
+    .x = file_names,
+    .f = function(x) {
+      file_path <- fs::path(path, x)
+      file_new_path <- fs::path(path, "deprecated", x)
+      if (fs::file_exists(file_path)) {
+        fs::file_move(
+          path = file_path,
+          new_path = file_new_path
+        )
+      }
+    }
+  )
+}
+
+
+
+
+
+

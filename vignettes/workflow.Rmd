@@ -1,10 +1,12 @@
 ---
-title: "workflow"
+title: "Summarised workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{workflow}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Summarised workflow}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -16,11 +18,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r debug, include = FALSE}
-path_hmm <- "~/tools/padloc-db/hmm"
-path_sys <- "~/tools/padloc-db/sys"
-path_hmm_meta <- "~/tools/padloc-db/hmm_meta.txt"
-path_sys_meta <- "~/tools/padloc-db/sys_meta.txt"
-path_sys_groups <- "~/tools/padloc-db/sys_groups.txt"
+path_hmm <- "~/tools/padloc_update_230119/hmm"
+path_sys <- "~/tools/padloc_update_230119/sys"
+path_hmm_meta <- "~/tools/padloc_update_230119/hmm_meta.txt"
+path_sys_meta <- "~/tools/padloc_update_230119/sys_meta.txt"
+path_sys_groups <- "~/tools/padloc_update_230119/sys_groups.txt"
 ```
 
 Load `padlocdev`.
@@ -49,6 +51,34 @@ sys_meta <- read_sys_meta(path_sys_meta)
 sys_groups <- read_sys_groups(path_sys_groups)
 ```
 
+Verify that HMM file names match their accession.
+
+```{r message = FALSE}
+name_verification <- verify_hmm_names(hmms)
+name_verification
+```
+
+Compare the profile HMMs with the HMM metadata table.
+
+```{r message = FALSE}
+hmm_files_hmm_meta_comparison <- compare_hmm_files_hmm_meta(hmms, hmm_meta)
+hmm_files_hmm_meta_comparison
+```
+
+Compare the system models with the system metadata table.
+
+```{r message = FALSE}
+sys_files_sys_meta_comparison <- compare_sys_files_sys_meta(models, sys_meta)
+sys_files_sys_meta_comparison
+```
+
+Compare the system metadata table with the system groups table.
+
+```{r message = FALSE}
+sys_meta_sys_comparison <- compare_sys_meta_sys_groups(sys_meta, sys_groups)
+sys_meta_sys_comparison
+```
+
 Expand the HMM metadata table to account for HMMs with multiple name 
 assignments, and expand the system models to account for groups of genes.
 
@@ -57,20 +87,20 @@ hmm_meta_expanded <- expand_hmm_meta(hmm_meta)
 models_expanded <- expand_gene_groups_all(models, hmm_meta_expanded)
 ```
 
+Compare the system models with the HMM metadata table.
+
+```{r}
+sys_files_hmm_meta_comparison <- compare_sys_files_hmm_meta(models_expanded, hmm_meta_expanded)
+sys_files_hmm_meta_comparison
+```
+
 Generate a validity report for the system models. Inspect the validity report 
 to confirm that all models are valid. Update the models where necessary, then 
 re-read and re-validate to confirm.
 
 ```{r validate_models}
-validity_report <- report_padloc_model_validity(models)
+validity_report <- report_padloc_model_validity(models_expanded)
 why_invalid(validity_report)
-```
-
-Verify that the HMM filenames match their accessions. Update the HMMs where 
-necessary, then re-read and re-validate to confirm.
-
-```{r validate_hmms}
-hmm_name_verify <- verify_hmm_names(hmms)
 ```
 
 Once everything is in order, divide the database into sub-groups for testing.
