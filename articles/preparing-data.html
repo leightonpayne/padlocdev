@@ -121,7 +121,7 @@ groups table.</p>
 <span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in tidyr::separate_rows(hmm_meta, dplyr::all_of(multi_assigments), : object 'hmm_meta' not found</span></span>
 <span><span class="va">hmm_meta_group_1</span> <span class="op">&lt;-</span> <span class="fu">filter_hmm_meta</span><span class="op">(</span><span class="va">models_group_1</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in vec_check_list(x): object 'models_group_1' not found</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in obj_check_list(x, ..., arg = arg, call = call): object 'models_group_1' not found</span></span></code></pre></div>
 <p>To copy HMMs from a particular system group to a new directory use
 <code><a href="../reference/system_cp_hmm.html">system_cp_hmm()</a></code>. This, and related <code>system_cp_*</code>
 functions, use the <code>?fs</code> package to manipulate system
@@ -139,7 +139,7 @@ accession names, and <code>names_mismatch</code> which lists HMMs with
 different file and accession names.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_1_names_verify</span> <span class="op">&lt;-</span> <span class="fu">verify_hmm_names</span><span class="op">(</span><span class="va">models_group_1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in vec_check_list(x): object 'models_group_1' not found</span></span>
+<span><span class="co">#&gt; Error in obj_check_list(x, ..., arg = arg, call = call): object 'models_group_1' not found</span></span>
 <span><span class="va">group_1_names_verify</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'group_1_names_verify' not found</span></span></code></pre></div>
 <p>In this case all names match, so we can continue. Use

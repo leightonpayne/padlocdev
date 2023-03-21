@@ -83,66 +83,79 @@
 
     
     
-<p>Load <code>padlocdev</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leightonpayne/padlocdev" class="external-link">padlocdev</a></span><span class="op">)</span></span></code></pre></div>
-<p>Establish the paths to each database component.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">path_hmm</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/hmm/"</span></span>
-<span><span class="va">path_sys</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/sys/"</span></span>
-<span><span class="va">path_hmm_meta</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/hmm_meta.txt"</span></span>
-<span><span class="va">path_sys_meta</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/sys_meta.txt"</span></span>
-<span><span class="va">path_sys_groups</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/sys_groups.txt"</span></span></code></pre></div>
-<p>Read-in the database data.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm_header.html">multi_read_hmm_header</a></span><span class="op">(</span><span class="va">path_hmm</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Load padlocdev.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leightonpayne/padlocdev" class="external-link">padlocdev</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Establish the paths to each database component.</span></span>
+<span><span class="va">path_db</span> <span class="op">&lt;-</span> <span class="st">"/path/to/padloc-db/"</span></span>
+<span><span class="va">path_hmm</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_math.html" class="external-link">path_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">path_db</span>, <span class="st">"hmm"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">path_sys</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_math.html" class="external-link">path_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">path_db</span>, <span class="st">"sys"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">path_hmm_meta</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_math.html" class="external-link">path_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">path_db</span>, <span class="st">"hmm_meta.txt"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">path_sys_meta</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_math.html" class="external-link">path_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">path_db</span>, <span class="st">"sys_meta.txt"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">path_sys_groups</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_math.html" class="external-link">path_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">path_db</span>, <span class="st">"sys_groups.txt"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Read-in the database data.</span></span>
+<span><span class="va">hmms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_hmm_header.html">multi_read_hmm_header</a></span><span class="op">(</span><span class="va">path_hmm</span><span class="op">)</span></span>
 <span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="va">path_sys</span><span class="op">)</span></span>
 <span><span class="va">hmm_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hmm_meta.html">read_hmm_meta</a></span><span class="op">(</span><span class="va">path_hmm_meta</span><span class="op">)</span></span>
 <span><span class="va">sys_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_meta.html">read_sys_meta</a></span><span class="op">(</span><span class="va">path_sys_meta</span><span class="op">)</span></span>
-<span><span class="va">sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_groups.html">read_sys_groups</a></span><span class="op">(</span><span class="va">path_sys_groups</span><span class="op">)</span></span></code></pre></div>
-<p>Verify that HMM file names match their accession.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name_verification</span> <span class="op">&lt;-</span> <span class="fu">verify_hmm_names</span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
-<span><span class="va">name_verification</span></span></code></pre></div>
-<p>Compare the profile HMMs with the HMM metadata table.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmm_files_hmm_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_hmm_files_hmm_meta.html">compare_hmm_files_hmm_meta</a></span><span class="op">(</span><span class="va">hmms</span>, <span class="va">hmm_meta</span><span class="op">)</span></span>
-<span><span class="va">hmm_files_hmm_meta_comparison</span></span></code></pre></div>
-<p>Compare the system models with the system metadata table.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sys_files_sys_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_sys_meta.html">compare_sys_files_sys_meta</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
-<span><span class="va">sys_files_sys_meta_comparison</span></span></code></pre></div>
-<p>Compare the system metadata table with the system groups table.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sys_meta_sys_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups</a></span><span class="op">(</span><span class="va">sys_meta</span>, <span class="va">sys_groups</span><span class="op">)</span></span>
-<span><span class="va">sys_meta_sys_comparison</span></span></code></pre></div>
-<p>Expand the HMM metadata table to account for HMMs with multiple name
-assignments, and expand the system models to account for groups of
-genes.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
-<span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span></code></pre></div>
-<p>Compare the system models with the HMM metadata table.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sys_files_hmm_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_hmm_meta.html">compare_sys_files_hmm_meta</a></span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="va">sys_files_hmm_meta_comparison</span></span></code></pre></div>
-<p>Generate a validity report for the system models. Inspect the
-validity report to confirm that all models are valid. Update the models
-where necessary, then re-read and re-validate to confirm.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">validity_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/why_invalid.html">why_invalid</a></span><span class="op">(</span><span class="va">validity_report</span><span class="op">)</span></span></code></pre></div>
-<p>Once everything is in order, divide the database into sub-groups for
-testing.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">divide_database</span><span class="op">(</span></span>
-<span>  <span class="va">models_expanded</span>, </span>
-<span>  <span class="va">sys_groups</span>, </span>
-<span>  <span class="va">hmm_meta_expanded</span>, </span>
-<span>  <span class="va">sys_meta</span>, </span>
-<span>  <span class="st">"/path/to/origin/database"</span>, </span>
-<span>  <span class="st">"/path/to/sub/databases"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_groups.html">read_sys_groups</a></span><span class="op">(</span><span class="va">path_sys_groups</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Verify that HMM file names match their accession.</span></span>
+<span><span class="va">name_verification</span> <span class="op">&lt;-</span> <span class="fu">verify_hmm_names</span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
+<span><span class="va">name_verification</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Compare the profile HMMs with the HMM metadata table.</span></span>
+<span><span class="va">hmm_files_hmm_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_hmm_files_hmm_meta.html">compare_hmm_files_hmm_meta</a></span><span class="op">(</span><span class="va">hmms</span>, <span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">hmm_files_hmm_meta_comparison</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Compare the system models with the system metadata table.</span></span>
+<span><span class="va">sys_files_sys_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_sys_meta.html">compare_sys_files_sys_meta</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
+<span><span class="va">sys_files_sys_meta_comparison</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Compare the system metadata table with the system groups table.</span></span>
+<span><span class="va">sys_meta_sys_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_meta_sys_groups.html">compare_sys_meta_sys_groups</a></span><span class="op">(</span><span class="va">sys_meta</span>, <span class="va">sys_groups</span><span class="op">)</span></span>
+<span><span class="va">sys_meta_sys_comparison</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Expand the HMM metadata table to account for HMMs with multiple name </span></span>
+<span><span class="co"># assignments, and expand the system models to account for groups of genes.</span></span>
+<span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
+<span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Compare the system models with the HMM metadata table.</span></span>
+<span><span class="va">sys_files_hmm_meta_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_sys_files_hmm_meta.html">compare_sys_files_hmm_meta</a></span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
+<span><span class="va">sys_files_hmm_meta_comparison</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Generate a validity report for the system models. Inspect the validity report </span></span>
+<span><span class="co"># to confirm that all models are valid. Update the models where necessary, then </span></span>
+<span><span class="co"># re-read and re-validate to confirm.</span></span>
+<span><span class="va">validity_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity</a></span><span class="op">(</span><span class="va">models_expanded</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/why_invalid.html">why_invalid</a></span><span class="op">(</span><span class="va">validity_report</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Once everything is in order, divide the database into sub-groups for testing.</span></span>
+<span><span class="va">group_overlap</span> <span class="op">&lt;-</span> <span class="fu">group_overlap</span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">sys_groups</span>, <span class="va">hmm_meta_expanded</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
+<span><span class="va">group_overlap</span></span>
+<span><span class="co"># models_filtered &lt;- filter_models(models_expanded, sys_groups, c("DRT", "new"))</span></span>
+<span><span class="co"># intersect &lt;- pull_intersect(group_overlap, "DRT", "new")</span></span>
+<span><span class="co"># which_use &lt;- which_uses(intersect, models_filtered) %&gt;% unlist() %&gt;% unique()</span></span>
+<span><span class="co"># sys_groups[sys_groups$yaml.name %in% which_use,]</span></span>
+<span></span>
+<span><span class="va">ori_db</span> <span class="op">&lt;-</span> <span class="st">"/path/to/original/unsplit/database"</span></span>
+<span><span class="va">new_db</span> <span class="op">&lt;-</span> <span class="st">"/path/for/split/database/creation"</span></span>
+<span></span>
+<span><span class="fu">divide_database</span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">sys_groups</span>, <span class="va">hmm_meta_expanded</span>, <span class="va">sys_meta</span>, <span class="va">ori_db</span>, <span class="va">new_db</span><span class="op">)</span></span></code></pre></div>
   </main>
 </div>
 
