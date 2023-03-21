@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r debug, include = FALSE}
-path_db <- "~/tools/padloc_update_230119/"
+path_db <- "~/Developer/current/padloc_update_230119/"
 path_hmm <- fs::path_join(c(path_db, "hmm"))
 path_sys <- fs::path_join(c(path_db, "sys"))
 path_hmm_meta <- fs::path_join(c(path_db, "hmm_meta.txt"))
@@ -89,14 +89,12 @@ validity_report <- report_padloc_model_validity(models_expanded)
 why_invalid(validity_report)
 
 # ------------------------------------------------------------------------------
-# Once everything is in order, divide the database into sub-groups for testing.
+# Check how many HMMs are shared between groups.
 group_overlap <- group_overlap(models_expanded, sys_groups, hmm_meta_expanded, sys_meta)
 group_overlap
-# models_filtered <- filter_models(models_expanded, sys_groups, c("DRT", "new"))
-# intersect <- pull_intersect(group_overlap, "DRT", "new")
-# which_use <- which_uses(intersect, models_filtered) %>% unlist() %>% unique()
-# sys_groups[sys_groups$yaml.name %in% which_use,]
 
+# ------------------------------------------------------------------------------
+# Once everything is in order, divide the database into sub-groups for testing.
 ori_db <- "/path/to/original/unsplit/database"
 new_db <- "/path/for/split/database/creation"
 
