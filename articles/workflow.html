@@ -144,14 +144,12 @@
 <span><span class="fu"><a href="../reference/why_invalid.html">why_invalid</a></span><span class="op">(</span><span class="va">validity_report</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># ------------------------------------------------------------------------------</span></span>
-<span><span class="co"># Once everything is in order, divide the database into sub-groups for testing.</span></span>
+<span><span class="co"># Check how many HMMs are shared between groups.</span></span>
 <span><span class="va">group_overlap</span> <span class="op">&lt;-</span> <span class="fu">group_overlap</span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">sys_groups</span>, <span class="va">hmm_meta_expanded</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
 <span><span class="va">group_overlap</span></span>
-<span><span class="co"># models_filtered &lt;- filter_models(models_expanded, sys_groups, c("DRT", "new"))</span></span>
-<span><span class="co"># intersect &lt;- pull_intersect(group_overlap, "DRT", "new")</span></span>
-<span><span class="co"># which_use &lt;- which_uses(intersect, models_filtered) %&gt;% unlist() %&gt;% unique()</span></span>
-<span><span class="co"># sys_groups[sys_groups$yaml.name %in% which_use,]</span></span>
 <span></span>
+<span><span class="co"># ------------------------------------------------------------------------------</span></span>
+<span><span class="co"># Once everything is in order, divide the database into sub-groups for testing.</span></span>
 <span><span class="va">ori_db</span> <span class="op">&lt;-</span> <span class="st">"/path/to/original/unsplit/database"</span></span>
 <span><span class="va">new_db</span> <span class="op">&lt;-</span> <span class="st">"/path/for/split/database/creation"</span></span>
 <span></span>
