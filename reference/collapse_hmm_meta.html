@@ -85,23 +85,23 @@
 <span class="r-in"><span><span class="va">hmm_meta_collapsed</span> <span class="op">&lt;-</span> <span class="fu">collapse_hmm_meta</span><span class="op">(</span><span class="va">hmm_meta_expanded</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">hmm_meta_collapsed</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 43 × 15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    hmm.acc   hmm.name    hmm.de…¹ prote…² secon…³ author numbe…⁴ lengt…⁵ e.val…⁶</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> PDLC00150 HamA1_00001 DUF1837… HamA1|… NA      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> PDLC00151 HamA1_00002 DUF1837… HamA1|… NA      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> PDLC00174 HamB1_00001 DEAD-bo… HamB1|… NA      Payne…      56    <span style="text-decoration: underline;">1</span>163 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> PDLC00175 HamB1_00002 DEAD-bo… HamB1|… NA      Payne…       5    <span style="text-decoration: underline;">1</span>000 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> PDLC00195 HamA2_00001 DUF1837… HamA2|… NA      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> PDLC00196 HamA2_00002 DUF1837… HamA2|… NA      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PDLC00199 HamB2_00001 DEAD-bo… HamB2|… NA      Payne…      17     841 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> PDLC00200 HamB2_00002 DEAD-bo… HamB2|… NA      Payne…     134     865 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> PDLC00202 HamC2_00001 DUF3223… HamC2|… NA      Payne…      31     245 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> PDLC00203 HamC2_00002 DUF3223… HamC2|… NA      Payne…     100      99 0.000<span style="text-decoration: underline;">01</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 33 more rows, 6 more variables: hmm.coverage.threshold &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    hmm.acc   hmm.name    hmm.description   protein.name secondary.name author  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> PDLC00150 HamA1_00001 DUF1837 domain    HamA1|HamA   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> PDLC00151 HamA1_00002 DUF1837 domain    HamA1|HamA   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> PDLC00174 HamB1_00001 DEAD-box helicase HamB1|HamB   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> PDLC00175 HamB1_00002 DEAD-box helicase HamB1|HamB   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> PDLC00195 HamA2_00001 DUF1837 domain    HamA2|HamA   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> PDLC00196 HamA2_00002 DUF1837 domain    HamA2|HamA   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PDLC00199 HamB2_00001 DEAD-box helicase HamB2|HamB   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> PDLC00200 HamB2_00002 DEAD-box helicase HamB2|HamB   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> PDLC00202 HamC2_00001 DUF3223 domain    HamC2|HamC   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> PDLC00203 HamC2_00002 DUF3223 domain    HamC2|HamC   NA             Payne LJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 33 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: number.seq &lt;dbl&gt;, length.hmm &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   e.value.threshold &lt;dbl&gt;, hmm.coverage.threshold &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;, literature.ref &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated variable names</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​hmm.description, ²​protein.name, ³​secondary.name, ⁴​number.seq, ⁵​length.hmm,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​e.value.threshold</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

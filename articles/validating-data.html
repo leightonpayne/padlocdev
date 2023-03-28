@@ -96,50 +96,47 @@ To split these assignments into multiple rows, use
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hmm_meta</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA1|… <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_… DUF183… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_… DUF183… HamA2|… <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_0… DUF1837 domain  HamA1|HamA   <span style="color: #BB0000;">NA</span>             Payne…         49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_0… DUF1837 domain  HamA1|HamA   <span style="color: #BB0000;">NA</span>             Payne…          6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_0… DUF1837 domain  HamA2|HamA   <span style="color: #BB0000;">NA</span>             Payne…          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_0… DUF1837 domain  HamA2|HamA   <span style="color: #BB0000;">NA</span>             Payne…        144</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
 <span><span class="va">hmm_meta_expanded</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1   <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA1_… DUF183… HamA1   <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA1_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> PDLC00… HamA2_… DUF183… HamA2   <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> PDLC00… HamA2_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> PDLC00… HamA2_… DUF183… HamA2   <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> PDLC00… HamA2_… DUF183… HamA    <span style="color: #BB0000;">NA</span>      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_0… DUF1837 domain  HamA1        <span style="color: #BB0000;">NA</span>             Payne…         49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_0… DUF1837 domain  HamA         <span style="color: #BB0000;">NA</span>             Payne…         49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA1_0… DUF1837 domain  HamA1        <span style="color: #BB0000;">NA</span>             Payne…          6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA1_0… DUF1837 domain  HamA         <span style="color: #BB0000;">NA</span>             Payne…          6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> PDLC00… HamA2_0… DUF1837 domain  HamA2        <span style="color: #BB0000;">NA</span>             Payne…          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> PDLC00… HamA2_0… DUF1837 domain  HamA         <span style="color: #BB0000;">NA</span>             Payne…          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> PDLC00… HamA2_0… DUF1837 domain  HamA2        <span style="color: #BB0000;">NA</span>             Payne…        144</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> PDLC00… HamA2_0… DUF1837 domain  HamA         <span style="color: #BB0000;">NA</span>             Payne…        144</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span></code></pre></div>
 <p>The HMM metadata table can be re-collapsed using
 <code><a href="../reference/collapse_hmm_meta.html">collapse_hmm_meta()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hmm_meta_collapsed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/collapse_hmm_meta.html">collapse_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
 <span><span class="va">hmm_meta_collapsed</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"HamA"</span>, <span class="va">protein.name</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_… DUF183… HamA1|… NA      Payne…      49     310 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_… DUF183… HamA1|… NA      Payne…       6     436 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_… DUF183… HamA2|… NA      Payne…       7     283 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_… DUF183… HamA2|… NA      Payne…     144     315 0.000<span style="text-decoration: underline;">01</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC00… HamA1_0… DUF1837 domain  HamA1|HamA   NA             Payne…         49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC00… HamA1_0… DUF1837 domain  HamA1|HamA   NA             Payne…          6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC00… HamA2_0… DUF1837 domain  HamA2|HamA   NA             Payne…          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC00… HamA2_0… DUF1837 domain  HamA2|HamA   NA             Payne…        144</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="expanding-secondary-gene-assignments">Expanding secondary gene assignments<a class="anchor" aria-label="anchor" href="#expanding-secondary-gene-assignments"></a>
@@ -162,16 +159,15 @@ together.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hmm_meta_expanded</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">secondary.name</span> <span class="op">==</span> <span class="st">"Drt_class_II"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… Drt2_0… <span style="color: #BB0000;">NA</span>      Drt2    Drt_cl… Payne…      92     425   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC02… Drt3a_… <span style="color: #BB0000;">NA</span>      Drt3a   Drt_cl… Payne…      53     403   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC02… Drt3a_… <span style="color: #BB0000;">NA</span>      Drt3a   Drt_cl… Payne…      68     417   1<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     0.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC02… Drt3b_… <span style="color: #BB0000;">NA</span>      Drt3b   Drt_cl… Payne…     107     651   1<span style="color: #949494;">e</span><span style="color: #BB0000;">- 5</span>     0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… Drt2_00… <span style="color: #BB0000;">NA</span>              Drt2         Drt_class_II   Payne…         92</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> PDLC02… Drt3a_0… <span style="color: #BB0000;">NA</span>              Drt3a        Drt_class_II   Payne…         53</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> PDLC02… Drt3a_0… <span style="color: #BB0000;">NA</span>              Drt3a        Drt_class_II   Payne…         68</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> PDLC02… Drt3b_0… <span style="color: #BB0000;">NA</span>              Drt3b        Drt_class_II   Payne…        107</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Use <code><a href="../reference/expand_gene_groups.html">expand_gene_groups()</a></code> to expand gene groups for a
 particuar gene category, based on the <code>secondary.name</code>
 assignments in the HMM metadata table.</p>
@@ -236,9 +232,9 @@ read in the database files.</p>
 <p>Before trying to expand anything, lets see if there’s anything
 missing. First, we’ll check that the HMM file names match their
 accessions, as this may affect other stages of validation. To do this,
-use <code>verify_hmm_names()</code>.</p>
+use <code><a href="../reference/verify_hmm_names.html">verify_hmm_names()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hmm_name_verification</span> <span class="op">&lt;-</span> <span class="fu">verify_hmm_names</span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hmm_name_verification</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/verify_hmm_names.html">verify_hmm_names</a></span><span class="op">(</span><span class="va">hmms</span><span class="op">)</span></span>
 <span><span class="va">hmm_name_verification</span></span>
 <span><span class="co">#&gt; $names_match</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 40 × 3</span></span></span>
@@ -254,7 +250,7 @@ use <code>verify_hmm_names()</code>.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> PDLC00200 PDLC00200       TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> PDLC00202 PDLC00202       TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> PDLC00203 PDLC00203       TRUE </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 30 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 30 more rows</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $names_mismatch</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
@@ -278,23 +274,21 @@ investigate.</p>
 <span><span class="va">in_hmm_meta</span></span>
 <span><span class="co">#&gt; $file_names</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxL_0… BrxL    BrxL    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.5</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxL_00… BrxL            BrxL         <span style="color: #BB0000;">NA</span>             Payne…         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $accessions</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 15</span></span></span>
-<span><span class="co">#&gt;   hmm.acc hmm.n…¹ hmm.d…² prote…³ secon…⁴ author numbe…⁵ lengt…⁶ e.val…⁷ hmm.c…⁸</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxP_0… BrxP    BrxP    <span style="color: #BB0000;">NA</span>      Payne…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> 0.000<span style="text-decoration: underline;">01</span>     0.5</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: target.coverage.threshold &lt;dbl&gt;, system &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​hmm.name, ²​hmm.description, ³​protein.name, ⁴​secondary.name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​number.seq, ⁶​length.hmm, ⁷​e.value.threshold, ⁸​hmm.coverage.threshold</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   hmm.acc hmm.name hmm.description protein.name secondary.name author number.seq</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> PDLC02… BrxP_00… BrxP            BrxP         <span style="color: #BB0000;">NA</span>             Payne…         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: length.hmm &lt;dbl&gt;, e.value.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   hmm.coverage.threshold &lt;dbl&gt;, target.coverage.threshold &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   system &lt;chr&gt;, literature.ref &lt;chr&gt;, database.ref &lt;chr&gt;, comments &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Now we can see that the HMM with filename <code>PDLC02505.hmm</code>
 has an entry in the HMM metadata table, so the accession is most likely
 what is incorrect, and should be updated to be <code>PDLC02505</code>.
@@ -346,7 +340,7 @@ all HMMs have an entry and vice-versa. To do this, use
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> HamB2_00002 TRUE      TRUE    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> HamC2_00001 TRUE      TRUE    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HamC2_00002 TRUE      TRUE    </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 30 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 30 more rows</span></span></span></code></pre></div>
 <p>Here, we can see that there are two HMMs that exist, but are not
 mentioned in the HMM metadata table: <code>PDLC04000.hmm</code> and
 <code>PDLC05000.hmm</code>. There are also three HMMs that are mentioned
@@ -503,7 +497,7 @@ the metadata table and vice-versa. Use
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Drt1b        TRUE              TRUE     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Drt2         TRUE              TRUE     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Drt3a        TRUE              TRUE     </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 17 more rows</span></span></span></code></pre></div>
 <p>Here, we can see that there are two genes in the HMM metadata table
 that are not used in any of the system models: <code>HamA2</code> and
 <code>HamB2</code>. This is perhaps unsuprising, as we <a href="#compare-the-system-models-with-the-system-metadata-table">already

@@ -37,6 +37,15 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/a_vs_b.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/build_generic_hmm_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/build_generic_padloc_models.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/build_generic_sys_meta.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/collapse_hmm_meta.html</loc>
   </url>
   <url>
@@ -55,6 +64,9 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/compare_sys_meta_sys_groups.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/divide_database.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/expand_gene_groups.html</loc>
   </url>
   <url>
@@ -62,6 +74,21 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/expand_hmm_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/filter_hmm_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/filter_models.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/filter_sys_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/group_models.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/group_overlap.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/index.html</loc>
@@ -76,7 +103,13 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/multi_read_padloc_model.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/multi_write_padloc_model.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/padloc_model.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/padloc_model_to_chr.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/padlocdev-package.html</loc>
@@ -89,6 +122,9 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/pull_genes.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/pull_intersect.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/read_hmm.html</loc>
@@ -112,6 +148,9 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/report_padloc_model_validity.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/summarise_groups.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/system_cp_files.html</loc>
   </url>
   <url>
@@ -127,9 +166,15 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/valid_padloc_model.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/verify_hmm_names.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/which_uses.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/why_invalid.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/write_padloc_model.html</loc>
   </url>
 </urlset>
