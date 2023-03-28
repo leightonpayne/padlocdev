@@ -13,6 +13,7 @@ Imports:
     cli (>= 3.6.0),
     dplyr (>= 1.1.0),
     fs (>= 1.6.1),
+    glue,
     magrittr (>= 2.0.3),
     purrr (>= 1.0.1),
     readr (>= 2.1.3),

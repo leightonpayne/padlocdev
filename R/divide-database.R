@@ -1,6 +1,11 @@
 # TODO: Write an example.
 # TODO: Write a test.
 # TODO: Write documentation.
+#' @title filter_models
+#' @description filter_models.
+#' @param sys_list ...
+#' @param sys_groups ...
+#' @param group_name ...
 #' @export
 filter_models <- function(sys_list, sys_groups, group_name) {
   relevant_systems <- dplyr::filter(sys_groups, group %in% group_name)
@@ -10,6 +15,11 @@ filter_models <- function(sys_list, sys_groups, group_name) {
   filtered_models
 }
 
+# TODO: Write documentation
+#' @title filter_hmm_meta
+#' @description filter_hmm_meta.
+#' @param sys_list ...
+#' @param hmm_meta ...
 #' @export
 filter_hmm_meta <- function(sys_list, hmm_meta) {
   transposed_models <- purrr::list_transpose(sys_list)
@@ -25,12 +35,22 @@ filter_hmm_meta <- function(sys_list, hmm_meta) {
 # This is pretty basic, and would probably make more sense to use the system
 # sys groups table over a list of system models, but it's set up this way
 # for consistency w/ filter_hmm_meta i.e. (models, meta)
+# TODO: Write documentation
+#' @title filter_sys_meta
+#' @description filter_sys_meta.
+#' @param sys_list ...
+#' @param sys_meta ...
 #' @export
 filter_sys_meta <- function(sys_list, sys_meta) {
   relevant_systems <- names(sys_list)
   relevant_meta <- dplyr::filter(sys_meta, yaml.name %in% relevant_systems)
 }
 
+# TODO: Write documentation
+#' @title group_models
+#' @description group_models.
+#' @param models ...
+#' @param sys_groups ...
 #' @export
 group_models <- function(models, sys_groups) {
   # make sure the list of models and the groups table are in the same order by
@@ -45,6 +65,13 @@ group_models <- function(models, sys_groups) {
   models_grouped
 }
 
+# TODO: Write documentation
+#' @title group_overlap
+#' @description group_overlap
+#' @param sys_expanded ...
+#' @param sys_groups ...
+#' @param hmm_meta_expanded ...
+#' @param sys_meta ...
 #' @export
 group_overlap <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_meta) {
 
@@ -78,6 +105,12 @@ group_overlap <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_meta)
 
 }
 
+#' TODO: Write documentation.
+#' @title pull_intersect
+#' @description pull_intersect.
+#' @param group_overlap ...
+#' @param group_1 ...
+#' @param group_2 ...
 #' @export
 pull_intersect <- function(group_overlap, group_1, group_2) {
   filt <- dplyr::filter(group_overlap, group_1 == group_1 & group_2 == group_2)
@@ -85,6 +118,15 @@ pull_intersect <- function(group_overlap, group_1, group_2) {
   out
 }
 
+# TODO: Write documentation.
+#' @title divide_database
+#' @description divide_database.
+#' @param sys_groups ...
+#' @param hmm_meta_expanded ...
+#' @param sys_meta ...
+#' @param path ...
+#' @param new_path ...
+#' @param sys_expanded ...
 #' @export
 divide_database <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_meta, path, new_path) {
   groups <- unique(sys_groups[["group"]])
@@ -132,6 +174,11 @@ divide_database <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_met
   }
 }
 
+# TODO: Write documentation
+#' @title summarise_groups
+#' @description summarise_groups
+#' @param sys_expanded ...
+#' @param sys_groups ...
 #' @export
 summarise_groups <- function(sys_expanded, sys_groups) {
   # group n_models n_hmms

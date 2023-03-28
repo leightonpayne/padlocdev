@@ -14,6 +14,7 @@
   utils::globalVariables("file_name") # verify_hmm_names()
   utils::globalVariables("accession_field") # verify_hmm_names()
   utils::globalVariables("ind") # which_uses()
+  utils::globalVariables("name") # build_generic_padloc_models()
 
   invisible()
 

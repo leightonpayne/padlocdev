@@ -1,3 +1,3 @@
 ncomb <- function(x, n) {
-  length(combn(x, n))/n
+  length(utils::combn(x, n))/n
 }

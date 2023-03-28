@@ -5,6 +5,9 @@
 # is derived from the file name. This function checks whether the file names
 # match the NAME field of the HMM, as this becomes important when splitting the
 # HMMs into groups.
+#' @title verify_hmm_names
+#' @description verify_hmm_names
+#' @param hmm_list ...
 #' @export
 verify_hmm_names <- function(hmm_list) {
   hmm_list_transposed <- purrr::list_transpose(hmm_list)

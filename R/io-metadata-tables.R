@@ -98,3 +98,53 @@ read_sys_groups <- function(file) {
   )
   out
 }
+
+# TODO: Write a test.
+# TODO: Write an example.
+#' @title Build a generic system metadata table from a list of padloc models
+#' @description Build a generic system metadata table from a list of padloc
+#' models.
+#' @param model_list A [base::list()] of padloc models.
+#' @return A [tibble::tibble()].
+#' @export
+build_generic_sys_meta <- function(model_list) {
+  out <- tibble::tibble(
+    system = names(model_list),
+    type = NA,
+    yaml.name = names(model_list),
+    search = T,
+    comment = NA
+  )
+  out
+}
+
+# TODO: Write a test.
+# TODO: Write an example.
+#' @title Build a generic system metadata table from a list of padloc models
+#' @description Build a generic system metadata table from a list of padloc
+#' models.
+#' @param hmm_protein_key A [base::data.frame()] with two columns, `hmm.name`
+#' containing the names of each physical hmm file, and `protein.name`
+#' containing the corresponding protein name that each hmm is associated with.
+#' @return A [tibble::tibble()].
+#' @export
+build_generic_hmm_meta <- function(hmm_protein_key) {
+  out <- tibble::tibble(
+    hmm.accession = hmm_protein_key$hmm.name,
+    hmm.name = hmm_protein_key$hmm.name,
+    hmm.description = "NA",
+    protein.name = hmm_protein_key$protein.name,
+    secondary.name = "NA",
+    author = "NA",
+    hmm.nseq = "NA",
+    hmm.length = "NA",
+    e.val.threshold = 1e-05,
+    hmm.coverage.threshold = 0.3,
+    target.coverage.threshold = 0.3,
+    system = "NA",
+    literature.ref = "NA",
+    database.ref = "NA",
+    comment = "NA"
+  )
+  out
+}
