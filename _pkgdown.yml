@@ -50,3 +50,18 @@ reference:
   - system_cp_sys
   - system_mv_deprecated
   - which_uses
+  - build_generic_hmm_meta
+  - build_generic_padloc_models
+  - build_generic_sys_meta
+  - divide_database
+  - filter_hmm_meta
+  - filter_models
+  - filter_sys_meta
+  - group_models
+  - group_overlap
+  - multi_write_padloc_model
+  - padloc_model_to_chr
+  - pull_intersect
+  - summarise_groups
+  - verify_hmm_names
+  - write_padloc_model

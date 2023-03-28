@@ -100,7 +100,7 @@ padloc_model_to_chr <- function(model) {
 #' @export
 write_padloc_model <- function(model, file) {
   model_chr <- padloc_model_to_chr(model)
-  readr::write_lines(model, file)
+  readr::write_lines(model_chr, file)
 }
 
 # TODO: Write a test.
