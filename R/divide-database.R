@@ -23,7 +23,7 @@ filter_models <- function(sys_list, sys_groups, group_name) {
 #' @export
 filter_hmm_meta <- function(sys_list, hmm_meta) {
   transposed_models <- purrr::list_transpose(sys_list)
-  gene_categories <- c("core_genes", "optional_genes", "prohibited_genes")
+  gene_categories <- c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")
   models_sublist <- transposed_models[gene_categories]
   raw_genes <- unlist(models_sublist, use.names = FALSE)
   unique_genes <- unique(raw_genes)
@@ -76,7 +76,7 @@ group_models <- function(models, sys_groups) {
 group_overlap <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_meta) {
 
   # subset for gene elements
-  a <- lapply(sys_expanded, function(x) x[c("core_genes", "optional_genes", "prohibited_genes")])
+  a <- lapply(sys_expanded, function(x) x[c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")])
   # put the models into groups
   b <- group_models(a, sys_groups)
   # unlist gene lists
@@ -182,7 +182,7 @@ divide_database <- function(sys_expanded, sys_groups, hmm_meta_expanded, sys_met
 #' @export
 summarise_groups <- function(sys_expanded, sys_groups) {
   # group n_models n_hmms
-  a <- lapply(sys_expanded, function(x) x[c("core_genes", "optional_genes", "prohibited_genes")])
+  a <- lapply(sys_expanded, function(x) x[c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")])
   b <- group_models(a, sys_groups)
 
   c <- purrr::map(.x = b, .f = function(x) length(x))

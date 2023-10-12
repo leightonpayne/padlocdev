@@ -5,15 +5,20 @@
 \title{Padloc model}
 \usage{
 padloc_model(
+  force_strand,
   maximum_separation,
   minimum_core,
   minimum_total,
   core_genes,
-  optional_genes,
+  secondary_genes,
+  neutral_genes,
   prohibited_genes
 )
 }
 \arguments{
+\item{force_strand}{A \code{\link[base:logical]{base::logical()}}, specifying whether all genes should
+be on the same strand.}
+
 \item{maximum_separation}{A \code{\link[base:integer]{base::integer()}}, representing the maximum
 number of unrelated genes that can seperate the genes of a system.}
 
@@ -26,8 +31,11 @@ of total genes that must be identified for a complete system.}
 \item{core_genes}{A \code{\link[base:character]{base::character()}}, listing the names of the core genes
 that contribute to system completeness.}
 
-\item{optional_genes}{A \code{\link[base:character]{base::character()}}, listing the names of the
+\item{secondary_genes}{A \code{\link[base:character]{base::character()}}, listing the names of the
 optional genes that contribute to system completeness.}
+
+\item{neutral_genes}{A \code{\link[base:character]{base::character()}}, listing the names of the neutral
+genes that do not contribute to system completeness.}
 
 \item{prohibited_genes}{A \code{\link[base:character]{base::character()}}, listing the names of the
 prohibited genes that cannot be identified in proximity to the system.}
@@ -40,11 +48,13 @@ A list of all the parameters that make up a padloc model.
 }
 \examples{
 model <- padloc_model(
+  force_strand = FALSE,
   maximum_separation = 3,
   minimum_core = 2,
   minimum_total = 3,
   core_genes = c("GenA", "GenB"),
-  optional_genes = c("GenC", "GenD"),
+  secondary_genes = c("GenC", "GenD"),
+  neutral_genes = "NA",
   prohibited_genes = "NA"
 )
 }

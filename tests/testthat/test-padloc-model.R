@@ -1,12 +1,14 @@
 test_that("Construction of a padloc_model works", {
   # Construct a generic system
   generic_model <- padloc_model(
+    force_strand = FALSE,
     maximum_separation = 3,
     minimum_core = 3,
     minimum_total = 4,
     core_genes = c("GenA", "GenB", "GenC"),
-    optional_genes = c("GenD", "GenE"),
-    prohibited_genes = c("GenF")
+    secondary_genes = c("GenD", "GenE"),
+    neutral_genes = c("GenF"),
+    prohibited_genes = c("GenG")
   )
   expect_true(valid_padloc_model(generic_model))
 })
@@ -14,11 +16,13 @@ test_that("Construction of a padloc_model works", {
 test_that("minimum_core is valid", {
   # Construct a generic system
   broken_model <- padloc_model(
+    force_strand = FALSE,
     maximum_separation = 3,
     minimum_core = 3,
     minimum_total = 3,
     core_genes = c("GenA", "GenB"),
-    optional_genes = c("GenC"),
+    secondary_genes = c("GenC"),
+    neutral_genes = "NA",
     prohibited_genes = "NA"
   )
   expect_error(valid_padloc_model(broken_model))
@@ -27,11 +31,13 @@ test_that("minimum_core is valid", {
 test_that("minimum_total is valid", {
   # Construct a generic system
   broken_model <- padloc_model(
+    force_strand = FALSE,
     maximum_separation = 3,
     minimum_core = 2,
     minimum_total = 4,
     core_genes = c("GenA", "GenB"),
-    optional_genes = c("GenC"),
+    secondary_genes = c("GenC"),
+    neutral_genes = "NA",
     prohibited_genes = "NA"
   )
   expect_error(valid_padloc_model(broken_model))
@@ -50,11 +56,11 @@ test_that("minimum_total is valid", {
 #
 # test_that("Genes can't overlap", {
 #   expect_error(
-#     molecular_system(core_genes = "GenA", optional_genes = "GenA", prohibited_genes = "GenA"),
+#     molecular_system(core_genes = "GenA", secondary_genes = "GenA", prohibited_genes = "GenA"),
 #     paste(
-#       "core_genes should not overlap with optional_genes. Overlapping genes include: GenA.",
+#       "core_genes should not overlap with secondary_genes. Overlapping genes include: GenA.",
 #       "core_genes should not overlap with prohibited_genes. Overlapping genes include: GenA.",
-#       "optional_genes should not overlap with prohibited_genes. Overlapping genes include: GenA.",
+#       "secondary_genes should not overlap with prohibited_genes. Overlapping genes include: GenA.",
 #       sep = "\n"
 #     )
 #   )

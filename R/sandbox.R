@@ -32,6 +32,33 @@ read_hmm_basic <- function(file) {
 }
 
 
+multi_read_hmm_basic <- function(directory) {
+  files <- list.files(directory, full.names = TRUE, pattern = "*.hmm")
+  hmms <- lapply(X = cli::cli_progress_along(files), FUN = function(i) read_hmm_basic(files[i]))
+  hmm_names <- stringr::str_remove(basename(files), ".hmm")
+  names(hmms) <- hmm_names
+  hmms
+}
+
+
+# ---
+# tmp2 <- tmp %>%
+#   purrr::transpose()
+#
+#   do.call(cbind, .$header) %>%
+#   tibble::as_tibble()
+#
+#
+#   purrr::map(
+#     .x = .$header,
+#     .f = function(x) {
+#       do.call(cbind, x) %>% tibble::as_tibble()
+#     },
+#     .progress = TRUE
+#   )
+
+# ---
+
 
 write_hmm_basic <- function(hmm, path) {
   title <- c("HMMER3/f")
@@ -60,7 +87,6 @@ write_hmm_basic <- function(hmm, path) {
   header <- Filter(Negate(is.null), header)
   readr::write_lines(c(header, hmm$model), path)
 }
-
 
 update_hmm_header <- function(hmm, hmm_meta) {
 

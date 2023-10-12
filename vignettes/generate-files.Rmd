@@ -1,0 +1,153 @@
+---
+title: "Generate files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Generate files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(padlocdev)
+```
+
+```{r}
+# Read sys_master.txt
+sys_master <- read_sys_master("D:/payle484/working/sys_master.txt")
+
+# Drop irrelevant info
+filtered <- sys_master %>% 
+  dplyr::select(system, yaml.name, notes, references) %>%
+  dplyr::filter(yaml.name != "adjacent" & yaml.name != "cas_type_arrays")
+
+# Separate references
+separated <- filtered %>% 
+  tidyr::separate_longer_delim(cols = references, delim = ";") %>%
+  tidyr::separate_wider_delim(
+    cols = references, delim = ":", 
+    names = c("authordate", "doi_short"), 
+    too_few = "align_start"
+  )
+
+# Pull out a table of the short DOIs, drop NAs, convert to long DOIs
+# (takes about a minute)
+long_dois <- separated %>%
+  dplyr::distinct(doi_short) %>%
+  dplyr::filter(!is.na(doi_short) & doi_short != "NA") %>%
+  doi_to_long_df()
+
+# Download CrossRef data (takes a couple of minutes)
+crossref_data <- get_crossref_data(long_dois)
+
+# Pull out the useful info, and clean up
+crossref_data_selected<- crossref_data %>%
+  crossref_data_pull_author() %>%
+  crossref_data_pull_date() %>%
+  crossref_data_pull_title() %>%
+  crossref_data_pull_journal() %>%
+  dplyr::select(author, date, title, journal, doi_short)
+
+# Generate nicely formatted reference list
+reference_list <- crossref_data_selected %>%
+  dplyr::arrange(author) %>%
+  dplyr::mutate(
+    joined = paste0(
+      "> <a name=\"", doi_short, "\">",
+      author,", *et al.* (", date, ")</a><br>**",
+      title, "**<br>*", journal, "*<br>https://doi.org/", doi_short
+    )
+  ) %>%
+  dplyr::pull(joined) %>%
+  stringr::str_flatten(collapse = "\n\n")
+
+# Join clean data onto system list and format yaml and reference columns
+system_table <- widered %>%
+  dplyr::left_join(crossref_data_selected, by = dplyr::join_by(doi_short)) %>%
+  dplyr::mutate(
+    yaml.name = paste0(
+      "[", yaml.name, "](https://github.com/padlocbio/padloc-db/blob/master/sys/", yaml.name, ".yaml)"
+    ),
+    references = dplyr::case_when(
+      !is.na(doi_short) ~ paste0(
+        "[", author, " (", date, ")](#", doi_short, ")"
+      ),
+      stringr::str_detect(authordate, "UNPUBLISHED") ~ "Payne (unpublished)"
+    )
+  ) %>%
+  dplyr::summarise(references = paste0(references, collapse = "<br>"), .by = c(system, yaml.name, notes)) %>%
+  # dplyr::select(!c(doi_short, author, created)) %>%
+  dplyr::rename(System = system, `YAML name` = yaml.name, Comments = notes, References = references)
+
+# Convert to markdown table
+system_table_md <- system_table %>%
+  dplyr::mutate(dplyr::across(dplyr::everything(), ~ dplyr::case_when(is.na(.) ~ "", . == "NA" ~ "", .default = .))) %>%
+  knitr::kable() %>%
+  as.character() %>%
+  stringr::str_flatten(collapse = "\n")
+
+# Generate file
+paste0(
+  "# Defence system information\n",
+  "Click on a YAML name to inspect the relevant file. Click on a reference to see the full reference information.\n",
+  system_table_md,
+  "\n## References\n",
+  reference_list
+) %>%
+  stringr::str_flatten() %>%
+  readr::write_file("D:/payle484/working/ref2.md")
+
+
+
+
+
+
+generate_sys_meta <- function(sys_master) {
+
+}
+
+generate_defence_system_model_data <- function(sys_master) {
+  out <- sys_master %>%
+    dplyr::filter(!stringr::str_detect(yaml.name, "adjacent|cas_type_arrays")) %>%
+    dplyr::select(system, yaml.name, notes, example, references, order) %>%
+    dplyr::rename(system_type = system, yaml_name = yaml.name, comment = notes, genome_accession = example, citation_list = references) %>%
+    dplyr::mutate(genome_id = openssl::sha256(genome_accession, "padloc-key")) %>%
+    dplyr::mutate(citation_list = stringr::str_squish(citation_list)) %>%
+    dplyr::mutate(citation_list = stringr::str_replace_all(citation_list, ";", " | ")) %>%
+    dplyr::mutate(citation_list = stringr::str_remove_all(citation_list, "\\w{1,}\\d{4}:")) %>%
+    dplyr::mutate(citation_list = dplyr::if_else(stringr::str_detect(citation_list, "UNPUBLISHED"), "Payne (unpublished)", citation_list)) %>%
+    dplyr::mutate(example_name = NA, evidence = NA) %>%
+    dplyr::select(system_type, yaml_name, comment, genome_accession, genome_id, citation_list, order)
+  out
+}
+
+model_data_defence_system <- generate_defence_system_model_data(sys_master)
+readr::write_csv(model_data_defence_system, "D:/payle484/working/model_data_defence_list_2023-10-10.csv")
+
+generate_citation_model_data <- function(crossref_data) {
+  out <- crossref_data %>%
+    crossref_data_pull_author() %>%
+    crossref_data_clean_author() %>%
+    crossref_data_clean_date() %>%
+    dplyr::mutate(
+      short = doi_short,
+      year = stringr::str_extract(issued, "[0-9]{4}"),
+      link = paste0("https://doi.org/", doi_short),
+      long = paste0(author, " (", year, ")")
+    ) %>%
+    dplyr::select(short, long, link) %>%
+    dplyr::mutate()
+  out
+}
+
+model_data_citation <- generate_citation_model_data(crossref_data)
+readr::write_csv(model_data_citation, "D:/payle484/working/model_data_citations_2023-10-10.csv")
+
+```

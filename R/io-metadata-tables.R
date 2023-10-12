@@ -148,3 +148,31 @@ build_generic_hmm_meta <- function(hmm_protein_key) {
   )
   out
 }
+
+# TODO: Write a test.
+# TODO: Write an example.
+#' @title Read a padloc-db sys_master.txt file.
+#' @param file Path to sys_master.txt.
+#' @return A [tibble::tibble()].
+#' @export
+read_sys_master <- function(file) {
+  cols <- readr::cols(
+    system     = readr::col_character(),
+    yaml.name  = readr::col_character(),
+    search     = readr::col_logical(),
+    notes      = readr::col_character(),
+    references = readr::col_character(),
+    group      = readr::col_character(),
+    fill       = readr::col_character(),
+    stroke     = readr::col_character(),
+    example    = readr::col_character(),
+    order      = readr::col_double()
+  )
+  out <- readr::read_tsv(
+    file,
+    skip = 1,
+    col_names = names(cols$cols),
+    col_types = cols
+  )
+  out
+}

@@ -18,14 +18,18 @@ knitr::opts_chunk$set(
 ```
 
 ```{r debug, include = FALSE}
-path_db <- "~/Developer/current/padloc_update_230119/"
+path_db <- "D:/payle484/Development/padlocdev/inst/extdata/padloc-db/"
+path_db <- "D:/payle484/embedded_sys/final_pdc_padlocdb/"
+path_db <- "D:/payle484/embedded_sys/embedded_candidates_padlocdb/"
+path_db <- "F:/padloc_db/padlocdb_2023-08/"
+path_db <- "F:/padloc_db/padlocdb_2023-08/subdb"
 path_hmm <- fs::path_join(c(path_db, "hmm"))
 path_sys <- fs::path_join(c(path_db, "sys"))
 path_hmm_meta <- fs::path_join(c(path_db, "hmm_meta.txt"))
 path_sys_meta <- fs::path_join(c(path_db, "sys_meta.txt"))
 path_sys_groups <- fs::path_join(c(path_db, "sys_groups.txt"))
 ori_db <- path_db
-new_db <- fs::path_join(c(path_db, "sub_dbs_2"))
+new_db <- fs::path_join(c(path_db, "sub_dbs"))
 ```
 
 ```{r read_data}
@@ -90,8 +94,8 @@ why_invalid(validity_report)
 
 # ------------------------------------------------------------------------------
 # Check how many HMMs are shared between groups.
-group_overlap <- group_overlap(models_expanded, sys_groups, hmm_meta_expanded, sys_meta)
-group_overlap
+group_overlaping <- group_overlap(models_expanded, sys_groups, hmm_meta_expanded, sys_meta)
+group_overlaping
 
 # ------------------------------------------------------------------------------
 # Once everything is in order, divide the database into sub-groups for testing.

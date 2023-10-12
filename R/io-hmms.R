@@ -231,45 +231,46 @@ multi_read_hmm <- function(directory) {
 
 # TODO: Write a function that prints an HMM to a file
 
-# write_hmm <- function(hmm) {
-#   header_print <- paste0(
-#     "HMMER3/f ", hmm$header$`HMMER3/f`, "\n",
-#     "NAME  ", hmm$header$NAME,  "\n",
-#     "ACC   ", hmm$header$ACC,   "\n",
-#     "DESC  ", hmm$header$DESC,  "\n",
-#     "LENG  ", hmm$header$LENG,  "\n",
-#     "ALPH  ", hmm$header$ALPH,  "\n",
-#     "MAXL  ", hmm$header$MAXL,  "\n",
-#     "RF    ", hmm$header$RF,    "\n",
-#     "MM    ", hmm$header$MM,    "\n",
-#     "CONS  ", hmm$header$CONS,  "\n",
-#     "CS    ", hmm$header$CS,    "\n",
-#     "MAP   ", hmm$header$MAP,   "\n",
-#     "DATE  ", hmm$header$DATE,  "\n",
-#     "COM   ", hmm$header$COM,   "\n",
-#     "NSEQ  ", hmm$header$NSEQ,  "\n",
-#     "EFFN  ", hmm$header$EFFN,  "\n",
-#     "CKSUM ", hmm$header$CKSUM, "\n",
-#     "GA    ", hmm$header$GA,    "\n",
-#     "TC    ", hmm$header$TC,    "\n",
-#     "NC    ", hmm$header$NC,    "\n",
-#     "STATS LOCAL MSV      ", str_pad(hmm$header$`STATS LOCAL MSV`,     17, "left", pad = " "), "\n",
-#     "STATS LOCAL VITERBI  ", str_pad(hmm$header$`STATS LOCAL VITERBI`, 17, "left", pad = " "), "\n",
-#     "STATS LOCAL FORWARD  ", str_pad(hmm$header$`STATS LOCAL FORWARD`, 17, "left", pad = " "), "\n"
-#   ) %>%
-#     # Remove empty KEY:VALUE pairs
-#     str_remove_all("\n[A-Z]* +(?=\n)")
-#
-#
-# model_print <- bind_rows(
-#   hmm$model$compo,
-#   bind_rows(
-#     hmm$model$match_emissions,
-#     hmm$model$insert_emissions,
-#     hmm$model$state_transitions
-#   ) %>% arrange(node)
-# )
-# }
+write_hmm <- function(hmm) {
+  header_print <- paste0(
+    "HMMER3/f ", hmm$header$`HMMER3/f`, "\n",
+    "NAME  ", hmm$header$NAME,  "\n",
+    "ACC   ", hmm$header$ACC,   "\n",
+    "DESC  ", hmm$header$DESC,  "\n",
+    "LENG  ", hmm$header$LENG,  "\n",
+    "ALPH  ", hmm$header$ALPH,  "\n",
+    "MAXL  ", hmm$header$MAXL,  "\n",
+    "RF    ", hmm$header$RF,    "\n",
+    "MM    ", hmm$header$MM,    "\n",
+    "CONS  ", hmm$header$CONS,  "\n",
+    "CS    ", hmm$header$CS,    "\n",
+    "MAP   ", hmm$header$MAP,   "\n",
+    "DATE  ", hmm$header$DATE,  "\n",
+    "COM   ", hmm$header$COM,   "\n",
+    "NSEQ  ", hmm$header$NSEQ,  "\n",
+    "EFFN  ", hmm$header$EFFN,  "\n",
+    "CKSUM ", hmm$header$CKSUM, "\n",
+    "GA    ", hmm$header$GA,    "\n",
+    "TC    ", hmm$header$TC,    "\n",
+    "NC    ", hmm$header$NC,    "\n",
+    "STATS LOCAL MSV      ", stringr::str_pad(hmm$header$`STATS LOCAL MSV`,     17, "left", pad = " "), "\n",
+    "STATS LOCAL VITERBI  ", stringr::str_pad(hmm$header$`STATS LOCAL VITERBI`, 17, "left", pad = " "), "\n",
+    "STATS LOCAL FORWARD  ", stringr::str_pad(hmm$header$`STATS LOCAL FORWARD`, 17, "left", pad = " "), "\n"
+  ) %>%
+    # Remove empty KEY:VALUE pairs
+    stringr::str_remove_all("\n[A-Z]* +(?=\n)")
+
+
+  model_print <- dplyr::bind_rows(
+    hmm$model$compo,
+    dplyr::bind_rows(
+      hmm$model$match_emissions,
+      hmm$model$insert_emissions,
+      hmm$model$state_transitions
+    ) %>%
+      dplyr::arrange(node)
+  )
+}
 
 #' Read the header section from a profile HMM into a list.
 #' @param file Path to profile HMM (*.hmm)

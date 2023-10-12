@@ -10,6 +10,10 @@ is_whole <- function(x) {
   if (is.numeric(x)) { all(x%%1 == 0) } else { FALSE }
 }
 
+map_is_logical <- function(x) {
+  purrr::map_vec(x, function(x) rlang::is_logical(x), .ptype = logical(1))
+}
+
 map_is_whole <- function(x) {
   purrr::map_vec(x, function(x) is_whole(x), .ptype = logical(1))
 }

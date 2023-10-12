@@ -10,7 +10,7 @@ expand_gene_groups(model, gene_type, hmm_meta)
 \item{model}{A padloc model.}
 
 \item{gene_type}{The category of genes to expand, i.e. one of: "core_genes",
-"optional_genes", or "prohibited_genes".}
+"secondary_genes", or "prohibited_genes".}
 
 \item{hmm_meta}{A padloc-db HMM metadata table.}
 }
@@ -30,9 +30,9 @@ path <- padlocdev_example("padloc-db/hmm_meta.txt") # Generate path for example 
 hmm_meta <- read_hmm_meta(path)
 hmm_meta
 # Expand genes --------------------------------------------------------------
-# The category "optional_genes" only contains the gene group "Sya_accessory"
-model$optional_genes
+# The category "secondary_genes" only contains the gene group "Sya_accessory"
+model$secondary_genes
 # After expanding, "Sya_accessory" becomes "SyaB" and "SyaC"
-model$optional_genes <- expand_gene_groups(model, "optional_genes", hmm_meta)
-model$optional_genes
+model$secondary_genes <- expand_gene_groups(model, "secondary_genes", hmm_meta)
+model$secondary_genes
 }

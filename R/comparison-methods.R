@@ -76,7 +76,7 @@ a_vs_b <- function(a, b, join_by) {
 #' @export
 pull_genes <- function(sys_list) {
   a <- purrr::list_transpose(sys_list)
-  b <- a[c("core_genes", "optional_genes", "prohibited_genes")]
+  b <- a[c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")]
   c <- unlist(b, use.names = FALSE)
   d <- unique(c)
   e <- d[d != "NA"]
@@ -184,7 +184,7 @@ which_uses <- function(genes, models_expanded) {
   # turn inside out
   a <- purrr::list_transpose(models_expanded, simplify = FALSE)
   # subset for for gene categories
-  b <- a[c("core_genes", "optional_genes", "prohibited_genes")]
+  b <- a[c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")]
   # turn back
   c <- purrr::list_transpose(b, simplify = FALSE)
   # unlist genes so there's one element per system

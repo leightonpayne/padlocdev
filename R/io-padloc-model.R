@@ -9,11 +9,13 @@
 read_padloc_model <- function(file) {
   input <- yaml::read_yaml(file)
   out <- padloc_model(
+    force_strand       = input$force_strand,
     maximum_separation = input$maximum_separation,
     minimum_core       = input$minimum_core,
     minimum_total      = input$minimum_total,
     core_genes         = input$core_genes,
-    optional_genes     = input$optional_genes,
+    secondary_genes    = input$secondary_genes,
+    neutral_genes      = input$neutral_genes,
     prohibited_genes   = input$prohibited_genes
   )
   out
@@ -53,11 +55,13 @@ build_generic_padloc_models <- function(df, loci_col, delim = "__", name_prefix 
     df_w_names,
     model = list(
       list(
+        force_strand = FALSE,
         maximum_separation = 0,
         minimum_core = stringr::str_count({{ loci_col }}, delim) + 1,
         minimum_total = stringr::str_count({{ loci_col }}, delim) + 1,
         core_genes = unlist(stringr::str_split({{ loci_col }}, delim)),
-        optional_genes = NA,
+        secondary_genes = NA,
+        neutral_genes = NA,
         prohibited_genes = NA
       )
     ),
@@ -77,14 +81,16 @@ build_generic_padloc_models <- function(df, loci_col, delim = "__", name_prefix 
 #' @return A length 1 [glue::glue()] character vector.
 #' @export
 padloc_model_to_chr <- function(model) {
+  force_strand <- paste0("force_strand: ", model$force_strand)
   maximum_separation <- paste0("maximum_separation: ", model$maximum_separation)
   minimum_core <- paste0("minimum_core: ", model$minimum_core)
   minimum_total <- paste0("minimum_total: ", model$minimum_total)
   core_genes <- paste0("core_genes:\n", paste0("  - ", model$core_genes, collapse = "\n"))
-  optional_genes <- paste0("optional_genes:\n", paste0("  - ", model$optional_genes, collapse = "\n"))
+  secondary_genes <- paste0("secondary_genes:\n", paste0("  - ", model$secondary_genes, collapse = "\n"))
+  neutral_genes <- paste0("neutral_genes:\n", paste0("  - ", model$neutral_genes, collapse = "\n"))
   prohibited_genes <- paste0("prohibited_genes:\n", paste0("  - ", model$prohibited_genes, collapse = "\n"))
   out <- glue::glue_collapse(
-    c(maximum_separation, minimum_core, minimum_total, core_genes, optional_genes, prohibited_genes),
+    c(force_strand, maximum_separation, minimum_core, minimum_total, core_genes, secondary_genes, neutral_genes, prohibited_genes),
     sep = "\n"
   )
   out

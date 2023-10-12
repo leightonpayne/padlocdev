@@ -1,5 +1,7 @@
 #' @title Padloc model
 #' @description A list of all the parameters that make up a padloc model.
+#' @param force_strand A [base::logical()], specifying whether all genes should
+#' be on the same strand.
 #' @param maximum_separation A [base::integer()], representing the maximum
 #' number of unrelated genes that can seperate the genes of a system.
 #' @param minimum_core A [base::integer()], representing the minimum number
@@ -8,29 +10,35 @@
 #' of total genes that must be identified for a complete system.
 #' @param core_genes A [base::character()], listing the names of the core genes
 #' that contribute to system completeness.
-#' @param optional_genes A [base::character()], listing the names of the
+#' @param secondary_genes A [base::character()], listing the names of the
 #' optional genes that contribute to system completeness.
+#' @param neutral_genes A [base::character()], listing the names of the neutral
+#' genes that do not contribute to system completeness.
 #' @param prohibited_genes A [base::character()], listing the names of the
 #' prohibited genes that cannot be identified in proximity to the system.
 #' @return A [base::list()].
 #' @export
 #' @examples
 #' model <- padloc_model(
+#'   force_strand = FALSE,
 #'   maximum_separation = 3,
 #'   minimum_core = 2,
 #'   minimum_total = 3,
 #'   core_genes = c("GenA", "GenB"),
-#'   optional_genes = c("GenC", "GenD"),
+#'   secondary_genes = c("GenC", "GenD"),
+#'   neutral_genes = "NA",
 #'   prohibited_genes = "NA"
 #' )
-padloc_model <- function(maximum_separation, minimum_core, minimum_total, core_genes, optional_genes, prohibited_genes) {
+padloc_model <- function(force_strand, maximum_separation, minimum_core, minimum_total, core_genes, secondary_genes, neutral_genes, prohibited_genes) {
 
   object <- list(
+    force_strand = force_strand,
     maximum_separation = maximum_separation,
     minimum_core = minimum_core,
     minimum_total = minimum_total,
     core_genes = core_genes,
-    optional_genes = optional_genes,
+    secondary_genes = secondary_genes,
+    neutral_genes = neutral_genes,
     prohibited_genes = prohibited_genes
   )
 
@@ -47,10 +55,26 @@ valid_padloc_model <- function(padloc_model) {
 
   errors <- c()
 
+  structure_parameters <- c("force_strand")
+  structure_values <- padloc_model[structure_parameters]
+
   quorum_parameters <- c("maximum_separation", "minimum_core", "minimum_total")
   quorum_values <- padloc_model[quorum_parameters]
-  gene_parameters <- c("core_genes", "optional_genes", "prohibited_genes")
+
+  gene_parameters <- c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")
   gene_values <- padloc_model[gene_parameters]
+
+  # Check that structure parameters are logical.
+  structure_values_typeof <- map_typeof(structure_values)
+  structure_values_is_logical <- map_is_logical(structure_values)
+  for (i in seq_along(structure_parameters)) {
+    if (structure_values_is_logical[i] == FALSE) {
+      errors <- c(errors, cli::format_message(c(
+        "i" = "{.var {structure_parameters[i]}} must be of type {.emph logical}",
+        "x" = "Instead, got {.emph {structure_values_typeof[i]}}: {.val {structure_values[i]}}."
+      )))
+    }
+  }
 
   # Check that quorum parameters are all whole numbers.
   quorum_values_typeof <- map_typeof(quorum_values)
@@ -94,9 +118,9 @@ valid_padloc_model <- function(padloc_model) {
     )))
   }
 
-  # If NA is specified in optional or prohibited genes, check that there are no
+  # If NA is specified in secondary, neutral or prohibited genes, check that there are no
   # additional genes listed.
-  for (gene_category in c("optional_genes", "prohibited_genes")) {
+  for (gene_category in c("secondary_genes", "neutral_genes", "prohibited_genes")) {
     if ("NA" %in% padloc_model[[gene_category]] && length(padloc_model[[gene_category]]) > 1) {
       errors <- c(errors, cli::format_message(c(
         "i" = "{.var {gene_category}} can not contain the special value {.val NA} if additional genes are specified.",
@@ -114,12 +138,12 @@ valid_padloc_model <- function(padloc_model) {
     )))
   }
 
-  optional_genes_length <- length(subset(padloc_model$optional_genes, padloc_model$optional_genes != "NA"))
+  secondary_genes_length <- length(subset(padloc_model$secondary_genes, padloc_model$secondary_genes != "NA"))
   # Check that minimum_total is valid
-  if (padloc_model$minimum_total > core_genes_length + optional_genes_length) {
+  if (padloc_model$minimum_total > core_genes_length + secondary_genes_length) {
     errors <- c(errors, cli::format_message(c(
-      "i" = "{.var minimum_total} must be <= the combined number of {.var core_genes} and {.var optional_genes}.",
-      "x" = "{.var minimum_total} is {.val {padloc_model$minimum_total}}, but {.var core_genes} + {.var optional_genes} is {.val {core_genes_length + optional_genes_length}}"
+      "i" = "{.var minimum_total} must be <= the combined number of {.var core_genes} and {.var secondary_genes}.",
+      "x" = "{.var minimum_total} is {.val {padloc_model$minimum_total}}, but {.var core_genes} + {.var secondary_genes} is {.val {core_genes_length + secondary_genes_length}}"
     )))
   }
 

@@ -1,10 +1,13 @@
+force_strand: FALSE
 maximum_separation: zero
 minimum_core: two
 minimum_total: two
 core_genes:
   - Drt1a
   - Drt1b
-optional_genes:
+secondary_genes:
+  - NA
+neutral_genes:
   - NA
 prohibited_genes:
   - NA

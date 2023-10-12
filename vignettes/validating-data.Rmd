@@ -57,7 +57,7 @@ First, read in the data.
 model <- padlocdev_example("padloc-db/sys/DRT_class_II.yaml") |> read_padloc_model()
 ```
 
-The model for `DRT_class_II` has one '`gene`' in `optional_genes` i.e. 
+The model for `DRT_class_II` has one '`gene`' in `secondary_genes` i.e. 
 `Drt_class_II` which is actually a group of genes.
 
 ```{r, message = FALSE}
@@ -93,12 +93,12 @@ of all system models in a list, and assign them back onto the models.
 
 ```{r, message = FALSE}
 models <- padlocdev_example("padloc-db/sys") |> multi_read_padloc_model()
-models[["DRT_class_II"]][c("core_genes", "optional_genes", "prohibited_genes")]
+models[["DRT_class_II"]][c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")]
 ```
 
 ```{r, message = FALSE}
 models_expanded <- expand_gene_groups_all(models, hmm_meta_expanded)
-models_expanded[["DRT_class_II"]][c("core_genes", "optional_genes", "prohibited_genes")]
+models_expanded[["DRT_class_II"]][c("core_genes", "secondary_genes", "neutral_genes", "prohibited_genes")]
 ```
 
 ### Working through an example of a broken database
@@ -268,7 +268,7 @@ valid_padloc_model(models_expanded[["brex_type_I"]])
 
 The model for `brex_type_I` is invalid, as the required number of core genes
 is greater than the number of core genes specifed. Additionaly, the gene 
-`BrxA` has been specified in both the `core_genes` and `optional_genes`.
+`BrxA` has been specified in both the `core_genes` and `secondary_genes`.
 
 The wrapper `report_padloc_model_validity()` is provided to test the validity 
 of all system models in a list and return the output as a `list` of 
