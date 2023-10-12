@@ -44,6 +44,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/generate-files.html">Generate files</a>
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
@@ -223,8 +224,9 @@ with the <code>header</code> element.</p>
 element corresponding to a field in the original model file.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "maximum_separation" "minimum_core"       "minimum_total"     </span></span>
-<span><span class="co">#&gt; [4] "core_genes"         "optional_genes"     "prohibited_genes"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "force_strand"       "maximum_separation" "minimum_core"      </span></span>
+<span><span class="co">#&gt; [4] "minimum_total"      "core_genes"         "secondary_genes"   </span></span>
+<span><span class="co">#&gt; [7] "neutral_genes"      "prohibited_genes"</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] "BrxA" "BrxB" "BrxC" "PglX" "PglZ" "BrxL"</span></span></code></pre></div>
@@ -249,6 +251,9 @@ models.</p>
 <span><span class="co">#&gt; [17] "hachiman_other"   "hachiman_type_I"  "hachiman_type_II"</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">models</span><span class="op">[[</span><span class="st">"brex_type_I"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $force_strand</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $maximum_separation</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -261,7 +266,10 @@ models.</p>
 <span><span class="co">#&gt; $core_genes</span></span>
 <span><span class="co">#&gt; [1] "BrxA" "BrxB" "BrxC" "PglX" "PglZ" "BrxL"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; $secondary_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $neutral_genes</span></span>
 <span><span class="co">#&gt; [1] "NA"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $prohibited_genes</span></span>

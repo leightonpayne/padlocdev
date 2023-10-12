@@ -44,6 +44,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/generate-files.html">Generate files</a>
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
@@ -148,7 +149,7 @@ these gene groups need to be expanded.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/sys/DRT_class_II.yaml"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/read_padloc_model.html">read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The model for <code>DRT_class_II</code> has one ‘<code>gene</code>’
-in <code>optional_genes</code> i.e.  <code>Drt_class_II</code> which is
+in <code>secondary_genes</code> i.e.  <code>Drt_class_II</code> which is
 actually a group of genes.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span><span class="op">[[</span><span class="st">"core_genes"</span><span class="op">]</span><span class="op">]</span></span>
@@ -187,22 +188,28 @@ categories of all system models in a list, and assign them back onto the
 models.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padlocdev_example.html">padlocdev_example</a></span><span class="op">(</span><span class="st">"padloc-db/sys"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">models</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"optional_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">models</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"secondary_genes"</span>, <span class="st">"neutral_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $core_genes</span></span>
 <span><span class="co">#&gt; [1] "Drt_class_II"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; $secondary_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $neutral_genes</span></span>
 <span><span class="co">#&gt; [1] "NA"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $prohibited_genes</span></span>
 <span><span class="co">#&gt; [1] "Drt_class_I"   "Drt_class_III"</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">models_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_gene_groups_all.html">expand_gene_groups_all</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"optional_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"DRT_class_II"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"core_genes"</span>, <span class="st">"secondary_genes"</span>, <span class="st">"neutral_genes"</span>, <span class="st">"prohibited_genes"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $core_genes</span></span>
 <span><span class="co">#&gt; [1] "Drt2"  "Drt3a" "Drt3b"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; $secondary_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $neutral_genes</span></span>
 <span><span class="co">#&gt; [1] "NA"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $prohibited_genes</span></span>
@@ -537,6 +544,9 @@ This function provides useful error information for fixing a model if it
 is invalid. It should be after expanding gene groups.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_III"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $force_strand</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $maximum_separation</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -549,7 +559,10 @@ is invalid. It should be after expanding gene groups.</p>
 <span><span class="co">#&gt; $core_genes</span></span>
 <span><span class="co">#&gt; [1] "BrxA"   "BrxC"   "BrxF"   "PglXI"  "BrxHII" "PglZ"  </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; $secondary_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $neutral_genes</span></span>
 <span><span class="co">#&gt; [1] "NA"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $prohibited_genes</span></span>
@@ -559,6 +572,9 @@ is invalid. It should be after expanding gene groups.</p>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">models_expanded</span><span class="op">[[</span><span class="st">"brex_type_I"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $force_strand</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $maximum_separation</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -571,8 +587,11 @@ is invalid. It should be after expanding gene groups.</p>
 <span><span class="co">#&gt; $core_genes</span></span>
 <span><span class="co">#&gt; [1] "BrxA" "BrxB" "BrxC" "PglX" "PglZ" "BrxL"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $optional_genes</span></span>
+<span><span class="co">#&gt; $secondary_genes</span></span>
 <span><span class="co">#&gt; [1] "BrxA"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $neutral_genes</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $prohibited_genes</span></span>
 <span><span class="co">#&gt; [1] "BrxE"</span></span>
@@ -582,12 +601,12 @@ is invalid. It should be after expanding gene groups.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `secondary_genes`.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span></code></pre></div>
 <p>The model for <code>brex_type_I</code> is invalid, as the required
 number of core genes is greater than the number of core genes specifed.
 Additionaly, the gene <code>BrxA</code> has been specified in both the
-<code>core_genes</code> and <code>optional_genes</code>.</p>
+<code>core_genes</code> and <code>secondary_genes</code>.</p>
 <p>The wrapper <code><a href="../reference/report_padloc_model_validity.html">report_padloc_model_validity()</a></code> is provided
 to test the validity of all system models in a list and return the
 output as a <code>list</code> of <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">?purrr::safely</a></code>-style
@@ -618,7 +637,7 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `secondary_genes`.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span></code></pre></div>
 <p>To return just the error messages for all model in the list, use
 <code><a href="../reference/why_invalid.html">why_invalid()</a></code>.</p>
@@ -630,7 +649,7 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">7</span>, but number of `core_genes` is <span style="color: #0000BB;">6</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `secondary_genes`.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"BrxA"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $DRT_type_I</span></span>
@@ -646,8 +665,8 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">"two"</span>, but number of `core_genes` is <span style="color: #0000BB;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
-<span><span class="co">#&gt; `optional_genes`.</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">"two"</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">2</span></span></span>
+<span><span class="co">#&gt; `secondary_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">"two"</span>, but `core_genes` + `secondary_genes` is <span style="color: #0000BB;">2</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $DRT_type_III</span></span>
 <span><span class="co">#&gt; &lt;simpleError: the condition has length &gt; 1&gt;</span></span>
@@ -659,9 +678,9 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_core` must be &lt;= the number of `core_genes`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_core` is <span style="color: #0000BB;">3</span>, but number of `core_genes` is <span style="color: #0000BB;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `minimum_total` must be &lt;= the combined number of `core_genes` and</span></span>
-<span><span class="co">#&gt; `optional_genes`.</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">4</span>, but `core_genes` + `optional_genes` is <span style="color: #0000BB;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `optional_genes`.</span></span>
+<span><span class="co">#&gt; `secondary_genes`.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> `minimum_total` is <span style="color: #0000BB;">4</span>, but `core_genes` + `secondary_genes` is <span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `secondary_genes`.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"GenB"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` should not overlap with `prohibited_genes`.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Overlapping genes include: <span style="color: #0000BB;">"GenA"</span></span></span>
@@ -672,7 +691,7 @@ that describes the reason the model is invalid.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid padloc system model:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `core_genes` can not contain the special value <span style="color: #0000BB;">"NA"</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Got <span style="color: #0000BB;">"GenC"</span>, <span style="color: #0000BB;">"GenD"</span>, and <span style="color: #0000BB;">"NA"</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `optional_genes` can not contain the special value <span style="color: #0000BB;">"NA"</span> if additional genes</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> `secondary_genes` can not contain the special value <span style="color: #0000BB;">"NA"</span> if additional genes</span></span>
 <span><span class="co">#&gt; are specified.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Got <span style="color: #0000BB;">"GenE"</span> and <span style="color: #0000BB;">"NA"</span>.</span></span></code></pre></div>
 <p>Some malformed models may fail for reasons outside of the scope of

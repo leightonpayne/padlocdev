@@ -44,6 +44,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/generate-files.html">Generate files</a>
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
@@ -145,8 +146,8 @@
 <span></span>
 <span><span class="co"># ------------------------------------------------------------------------------</span></span>
 <span><span class="co"># Check how many HMMs are shared between groups.</span></span>
-<span><span class="va">group_overlap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/group_overlap.html">group_overlap</a></span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">sys_groups</span>, <span class="va">hmm_meta_expanded</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
-<span><span class="va">group_overlap</span></span>
+<span><span class="va">group_overlaping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/group_overlap.html">group_overlap</a></span><span class="op">(</span><span class="va">models_expanded</span>, <span class="va">sys_groups</span>, <span class="va">hmm_meta_expanded</span>, <span class="va">sys_meta</span><span class="op">)</span></span>
+<span><span class="va">group_overlaping</span></span>
 <span></span>
 <span><span class="co"># ------------------------------------------------------------------------------</span></span>
 <span><span class="co"># Once everything is in order, divide the database into sub-groups for testing.</span></span>

@@ -44,6 +44,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/generate-files.html">Generate files</a>
     <a class="dropdown-item" href="../articles/preparing-data.html">Preparing padloc-db data for use</a>
     <a class="dropdown-item" href="../articles/reading-data.html">Reading padloc-db data</a>
     <a class="dropdown-item" href="../articles/validating-data.html">Validating padloc-db data</a>
@@ -97,9 +98,9 @@ for batched searches with padloc.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Can't find package file.</span></span>
 <span><span class="va">sys_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sys_groups.html">read_sys_groups</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in standardise_path(file): object 'path' not found</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'path' not found</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sys_groups</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in head(sys_groups): object 'sys_groups' not found</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'sys_groups' not found</span></span></code></pre></div>
 <p>Use <code><a href="../reference/filter_models.html">filter_models()</a></code> to filter a list of padloc models
 for those belonging to a particular group, as defined in the system
 groups table.</p>
@@ -108,9 +109,9 @@ groups table.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Can't find package file.</span></span>
 <span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multi_read_padloc_model.html">multi_read_padloc_model</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in list.files(directory, full.names = TRUE, pattern = "*.yaml"): object 'path' not found</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'path' not found</span></span>
 <span><span class="va">models_group_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_models.html">filter_models</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">sys_groups</span>, <span class="st">"group_1"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in dplyr::filter(sys_groups, group %in% group_name): object 'sys_groups' not found</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'sys_groups' not found</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">models_group_1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'models_group_1' not found</span></span></code></pre></div>
 <p>To pull</p>
@@ -119,9 +120,9 @@ groups table.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Can't find package file.</span></span>
 <span><span class="va">hmm_meta_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_hmm_meta.html">expand_hmm_meta</a></span><span class="op">(</span><span class="va">hmm_meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in tidyr::separate_rows(hmm_meta, dplyr::all_of(multi_assigments), : object 'hmm_meta' not found</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'hmm_meta' not found</span></span>
 <span><span class="va">hmm_meta_group_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_hmm_meta.html">filter_hmm_meta</a></span><span class="op">(</span><span class="va">models_group_1</span>, <span class="va">hmm_meta_expanded</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in obj_check_list(x, ..., arg = arg, call = call): object 'models_group_1' not found</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'models_group_1' not found</span></span></code></pre></div>
 <p>To copy HMMs from a particular system group to a new directory use
 <code><a href="../reference/system_cp_hmm.html">system_cp_hmm()</a></code>. This, and related <code>system_cp_*</code>
 functions, use the <code>?fs</code> package to manipulate system
@@ -139,7 +140,7 @@ accession names, and <code>names_mismatch</code> which lists HMMs with
 different file and accession names.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_1_names_verify</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/verify_hmm_names.html">verify_hmm_names</a></span><span class="op">(</span><span class="va">models_group_1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in obj_check_list(x, ..., arg = arg, call = call): object 'models_group_1' not found</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'models_group_1' not found</span></span>
 <span><span class="va">group_1_names_verify</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'group_1_names_verify' not found</span></span></code></pre></div>
 <p>In this case all names match, so we can continue. Use
@@ -147,7 +148,7 @@ different file and accession names.</p>
 table that are actually relevant to</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/system_cp_hmm.html">system_cp_hmm</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in system_cp_files(hmm_list, ".hmm", path, new_path): argument "new_path" is missing, with no default</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in system_cp_hmm(): argument "new_path" is missing, with no default</span></span></code></pre></div>
 <p>Use the wrapper <code><a href="../reference/divide_database.html">divide_database()</a></code> to create
 sub-databases for all groups in the system groups table.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">

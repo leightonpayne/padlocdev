@@ -10,6 +10,9 @@
     <loc>https://leightonpayne.github.io/padlocdev/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/articles/generate-files.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/articles/index.html</loc>
   </url>
   <url>
@@ -64,7 +67,28 @@
     <loc>https://leightonpayne.github.io/padlocdev/reference/compare_sys_meta_sys_groups.html</loc>
   </url>
   <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/crossref_data_pull_author.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/crossref_data_pull_date.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/crossref_data_pull_journal.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/crossref_data_pull_title.html</loc>
+  </url>
+  <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/divide_database.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/doi_to_long.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/doi_to_long_df.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/doi_to_short.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/expand_gene_groups.html</loc>
@@ -83,6 +107,9 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/filter_sys_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/get_crossref_data.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/group_models.html</loc>
@@ -140,6 +167,9 @@
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/read_sys_groups.html</loc>
+  </url>
+  <url>
+    <loc>https://leightonpayne.github.io/padlocdev/reference/read_sys_master.html</loc>
   </url>
   <url>
     <loc>https://leightonpayne.github.io/padlocdev/reference/read_sys_meta.html</loc>
