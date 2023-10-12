@@ -65,3 +65,12 @@ reference:
   - summarise_groups
   - verify_hmm_names
   - write_padloc_model
+  - crossref_data_pull_author
+  - crossref_data_pull_date
+  - crossref_data_pull_journal
+  - crossref_data_pull_title
+  - doi_to_long
+  - doi_to_long_df
+  - doi_to_short
+  - get_crossref_data
+  - read_sys_master
