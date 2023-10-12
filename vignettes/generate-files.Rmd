@@ -21,7 +21,7 @@ library(padlocdev)
 
 ```{r}
 # Read sys_master.txt
-sys_master <- read_sys_master("")
+sys_master <- read_sys_master("~/Developer/active/padloc_internal/sys_master/sys_master.txt")
 
 # Drop irrelevant info
 filtered <- sys_master %>% 
@@ -48,7 +48,7 @@ long_dois <- separated %>%
 crossref_data <- get_crossref_data(long_dois)
 
 # Pull out the useful info, and clean up
-crossref_data_selected<- crossref_data %>%
+crossref_data_selected <- crossref_data %>%
   crossref_data_pull_author() %>%
   crossref_data_pull_date() %>%
   crossref_data_pull_title() %>%
@@ -69,7 +69,7 @@ reference_list <- crossref_data_selected %>%
   stringr::str_flatten(collapse = "\n\n")
 
 # Join clean data onto system list and format yaml and reference columns
-system_table <- widered %>%
+system_table <- separated %>%
   dplyr::left_join(crossref_data_selected, by = dplyr::join_by(doi_short)) %>%
   dplyr::mutate(
     yaml.name = paste0(
@@ -102,15 +102,11 @@ paste0(
   reference_list
 ) %>%
   stringr::str_flatten() %>%
-  readr::write_file("D:/payle484/working/ref2.md")
-
-
-
-
+  readr::write_file("~/Developer/active/padloc-db/system_info.md")
 
 
 generate_sys_meta <- function(sys_master) {
-
+  
 }
 
 generate_defence_system_model_data <- function(sys_master) {
@@ -129,7 +125,7 @@ generate_defence_system_model_data <- function(sys_master) {
 }
 
 model_data_defence_system <- generate_defence_system_model_data(sys_master)
-readr::write_csv(model_data_defence_system, "D:/payle484/working/model_data_defence_list_2023-10-10.csv")
+readr::write_csv(model_data_defence_system, "~/Developer/active/padloc_internal/webserver_systems_padloc-db_v2.0.0.csv")
 
 generate_citation_model_data <- function(crossref_data) {
   out <- crossref_data %>%
