@@ -21,7 +21,7 @@ library(padlocdev)
 
 ```{r}
 # Read sys_master.txt
-sys_master <- read_sys_master("D:/payle484/working/sys_master.txt")
+sys_master <- read_sys_master("")
 
 # Drop irrelevant info
 filtered <- sys_master %>% 

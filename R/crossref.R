@@ -13,9 +13,12 @@ get_crossref_data <- function(df, col = doi_long) {
 
 crossref_data_clean_author <- function(crossref_data) {
   out <- crossref_data %>%
-    dplyr::mutate(author = stringr::str_replace(author, "Ã©", "é"))
+    dplyr::mutate(author = stringr::str_replace(author, "\u00c3\u00a9", "\u00e9"))
 }
 
+#' Create a clean 'author' column
+#' @param crossref_data A data frame from [get_crossref_data()].
+#' @return A data frame.
 #' @export
 crossref_data_pull_author <- function(crossref_data) {
   out <- dplyr::mutate(
@@ -34,6 +37,9 @@ crossref_data_clean_date <- function(crossref_data) {
     )
 }
 
+#' Create a clean 'date' column
+#' @param crossref_data A data frame from [get_crossref_data()].
+#' @return A data frame.
 #' @export
 crossref_data_pull_date <- function(crossref_data) {
   out <- crossref_data %>%
@@ -48,6 +54,9 @@ crossref_data_clean_journal <- function(crossref_data) {
     dplyr::mutate(journal = stringr::str_replace_all(journal, "&amp;", "&"))
 }
 
+#' Create a clean 'journal' column
+#' @param crossref_data A data frame from [get_crossref_data()].
+#' @return A data frame.
 #' @export
 crossref_data_pull_journal <- function(crossref_data) {
   out <- crossref_data %>%
@@ -67,6 +76,9 @@ crossref_data_clean_title <- function(crossref_data) {
     )
 }
 
+#' Create a clean 'title' column
+#' @param crossref_data A data frame from [get_crossref_data()].
+#' @return A data frame.
 #' @export
 crossref_data_pull_title <- function(crossref_data) {
   out <- crossref_data %>% crossref_data_clean_title()

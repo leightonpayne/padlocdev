@@ -15,6 +15,15 @@
   utils::globalVariables("accession_field") # verify_hmm_names()
   utils::globalVariables("ind") # which_uses()
   utils::globalVariables("name") # build_generic_padloc_models()
+  utils::globalVariables("author") # crossref_data_clean_author()
+  utils::globalVariables("doi_short") # crossref_data_clean_date()
+  utils::globalVariables("journal") # crossref_data_clean_journal()
+  utils::globalVariables("title") # crossref_data_clean_title()
+  utils::globalVariables("issued") # crossref_data_pull_date()
+  utils::globalVariables("container.title") # crossref_data_pull_journal()
+  utils::globalVariables("doi_short") # doi_to_long_df()
+  utils::globalVariables("doi") # get_crossref_data()
+  utils::globalVariables("node") # write_hmm()
 
   invisible()
 
